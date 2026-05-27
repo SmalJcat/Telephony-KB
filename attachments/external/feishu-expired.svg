@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="360" viewBox="0 0 960 360">
+  <rect width="960" height="360" fill="#f8fafc"/>
+  <rect x="24" y="24" width="912" height="312" rx="16" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="480" y="150" text-anchor="middle" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="34" font-weight="700" fill="#334155">飞书临时图片链接已过期</text>
+  <text x="480" y="205" text-anchor="middle" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="22" fill="#64748b">原 asynccode 返回 400，需重新导出原图或登录飞书后补抓</text>
+  <text x="480" y="250" text-anchor="middle" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="18" fill="#94a3b8">原始 URL 已记录在 attachments/external/manifest.json</text>
+</svg>
