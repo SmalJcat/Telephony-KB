@@ -7,9 +7,19 @@ platform: MTK
 layer: Modem NV
 mapping_type: NV parameter mapping index
 generated_on: 2026-05-27
+search_tier: reference_only
 ---
 
 # MTK Modem NV字段映射
+
+<!-- REFERENCE_ONLY_BOUNDARY_START -->
+## 使用边界
+
+- 本页是字段表、参数表或外部片段，只用于查字段、查来源、做关键词回溯。
+- 不作为流程结论、配置生效结论或真实问题第一坏点引用。
+- 需要判断问题时，先回到对应主文档、排障流程或 Case。
+<!-- REFERENCE_ONLY_BOUNDARY_END -->
+
 
 本文档只作为 MTK modem NV 参数映射入口，目标是支持“运营商需求 -> NV/LID/字段”的快速定位；不放 SBP 统计、OTA 文件索引、代码结构说明。
 

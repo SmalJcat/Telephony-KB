@@ -18,9 +18,15 @@ tags:
   - vowifi
   - ecc
   - ims-deferred
+search_tier: case_summary
 ---
 
 # vowifi 无法拨打电话
+
+<!-- IMPORTED_CASE_BOUNDARY_START -->
+> 使用口径：本页已整理出可复用 Case 卡片。排查时优先看“用户现象 / 结论 / 关键证据 / 定位口径”；“原始案例内容”只用于回溯来源，不作为单独结论引用。
+<!-- IMPORTED_CASE_BOUNDARY_END -->
+
 
 ## 阅读入口
 
@@ -63,6 +69,12 @@ vowifi 无法拨打电话
 
 - VoWiFi ECC 的“紧急号码识别、域选择入口”可在 Call/ECC 索引中保留入口。
 - IMS 注册、ePDG、SIP、媒体和 WFC 能力问题应放入 IMS 专项，不混入 LTE 注册文档。
+
+## 原始资料边界
+
+- 原始内容保留用于回溯旧知识库、日志片段和历史结论。
+- 如原始描述与前文 Case 卡片冲突，默认以前文“结论 / 关键证据 / 定位口径”为阅读入口。
+- 复用到新问题时必须重新核对平台、版本、运营商、log 和第一坏点。
 
 ## 原始案例内容
 

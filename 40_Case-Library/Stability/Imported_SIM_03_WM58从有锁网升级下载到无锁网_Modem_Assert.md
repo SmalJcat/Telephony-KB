@@ -18,9 +18,15 @@ tags:
   - nvram
   - sml
   - modem-assert
+search_tier: case_summary
 ---
 
 # WM58从有锁网升级下载到无锁网，Modem Assert
+
+<!-- IMPORTED_CASE_BOUNDARY_START -->
+> 使用口径：本页已整理出可复用 Case 卡片。排查时优先看“用户现象 / 结论 / 关键证据 / 定位口径”；“原始案例内容”只用于回溯来源，不作为单独结论引用。
+<!-- IMPORTED_CASE_BOUNDARY_END -->
+
 
 ## 阅读入口
 
@@ -49,6 +55,12 @@ WM58从有锁网升级下载到无锁网，Modem Assert
 | assert 文件 | `nvram_main.c` 优先归 NV/SML，不归 SIM AP 状态 |
 | `0x0000ef11` | 结合其它 case 看 SML LID、LID size、保护机制 |
 | 修复 | 需要确认 MTK patch、NVRAM 迁移策略和已出机器处理方案 |
+
+## 原始资料边界
+
+- 原始内容保留用于回溯旧知识库、日志片段和历史结论。
+- 如原始描述与前文 Case 卡片冲突，默认以前文“结论 / 关键证据 / 定位口径”为阅读入口。
+- 复用到新问题时必须重新核对平台、版本、运营商、log 和第一坏点。
 
 ## 原始案例内容
 

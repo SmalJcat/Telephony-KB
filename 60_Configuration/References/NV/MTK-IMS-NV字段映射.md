@@ -8,9 +8,19 @@ layer: Modem NV
 mapping_type: NV parameter mapping
 source: MTK modem code /home/wx/Modem/alps-release-s0.mp1.rc-tb-default_modem/modem
 generated_on: 2026-05-27
+search_tier: reference_only
 ---
 
 # MTK IMS NV字段映射
+
+<!-- REFERENCE_ONLY_BOUNDARY_START -->
+## 使用边界
+
+- 本页是字段表、参数表或外部片段，只用于查字段、查来源、做关键词回溯。
+- 不作为流程结论、配置生效结论或真实问题第一坏点引用。
+- 需要判断问题时，先回到对应主文档、排障流程或 Case。
+<!-- REFERENCE_ONLY_BOUNDARY_END -->
+
 
 用于把 IMS、VoLTE、VoWiFi、IMS emergency、codec、SIP/SDP、IPSec、roaming 等运营商需求映射到 MTK modem NV 字段。
 

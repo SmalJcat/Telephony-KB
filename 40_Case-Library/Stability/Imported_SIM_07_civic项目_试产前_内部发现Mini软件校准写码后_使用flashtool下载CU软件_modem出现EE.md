@@ -18,9 +18,15 @@ tags:
   - nvram
   - sml
   - lid-size
+search_tier: case_summary
 ---
 
 # civic项目，试产前，内部发现Mini软件校准写码后，使用flashtool下载CU软件，modem出现EE
+
+<!-- IMPORTED_CASE_BOUNDARY_START -->
+> 使用口径：本页已整理出可复用 Case 卡片。排查时优先看“用户现象 / 结论 / 关键证据 / 定位口径”；“原始案例内容”只用于回溯来源，不作为单独结论引用。
+<!-- IMPORTED_CASE_BOUNDARY_END -->
+
 
 ## 阅读入口
 
@@ -50,6 +56,12 @@ civic项目，试产前，内部发现Mini软件校准写码后，使用flashtoo
 | `para1/para2` 不一致 | LID size mismatch |
 | Mini -> CU 下载 | 必须确认 NV layout / LID verno 是否兼容 |
 | 已出机器 | 需要迁移策略，不能简单整包覆盖 |
+
+## 原始资料边界
+
+- 原始内容保留用于回溯旧知识库、日志片段和历史结论。
+- 如原始描述与前文 Case 卡片冲突，默认以前文“结论 / 关键证据 / 定位口径”为阅读入口。
+- 复用到新问题时必须重新核对平台、版本、运营商、log 和第一坏点。
 
 ## 原始案例内容
 

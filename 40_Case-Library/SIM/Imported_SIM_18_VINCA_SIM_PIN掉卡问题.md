@@ -18,9 +18,15 @@ tags:
   - regulator
   - vsim
   - pin
+search_tier: case_summary
 ---
 
 # VINCA SIM PIN掉卡问题
+
+<!-- IMPORTED_CASE_BOUNDARY_START -->
+> 使用口径：本页已整理出可复用 Case 卡片。排查时优先看“用户现象 / 结论 / 关键证据 / 定位口径”；“原始案例内容”只用于回溯来源，不作为单独结论引用。
+<!-- IMPORTED_CASE_BOUNDARY_END -->
+
 
 ## 阅读入口
 
@@ -50,6 +56,12 @@ VINCA SIM PIN掉卡问题
 | 电源 log | 搜 `vsim1: disabling`、`vsim2: disabling` |
 | 场景 | PIN 解锁、Meta 测试、开机后固定时间掉卡优先查 regulator |
 | 配置 | 检查 DWS / DTS 中 VSIM regulator 节点和 user 持有关系 |
+
+## 原始资料边界
+
+- 原始内容保留用于回溯旧知识库、日志片段和历史结论。
+- 如原始描述与前文 Case 卡片冲突，默认以前文“结论 / 关键证据 / 定位口径”为阅读入口。
+- 复用到新问题时必须重新核对平台、版本、运营商、log 和第一坏点。
 
 ## 原始案例内容
 

@@ -15,7 +15,7 @@ quality: imported_reference
 ## 阅读重点
 
 - 这篇保留 IDLE 下 NAS/AS 功能划分、RPLMN、自动选网顺序、RAT 确定、VPLMN 驻留。
-- 手动选网和 S 准则看 [[PLMN手动选网与小区选择]]。
+- 手动选网和 S 准则保留在本文的选网流程/小区选择相关章节；LTE 扫频入口看 [[LTE小区搜索与扫频]]。
 
 ## 3、IDLE下NAS和AS的功能
 
@@ -355,4 +355,3 @@ NV PLMN>(SIM)RPLMN>HPLMN/EHPLMN>UPLMN>OPLMN>other PLMN。
 - [从协议层面理解找网流程——PLMN选择](http://192.168.3.94:8888/doc/plmn-cBqf3HJyqL) (`cBqf3HJyqL`)
 - [LTE学习--小区搜索之概述及扫频](http://192.168.3.94:8888/doc/lte-91YMbjV3pr) (`91YMbjV3pr`)
 - [LTE学习--小区搜索之PSS&SSS检测](http://192.168.3.94:8888/doc/lte-psssss-Ht8zaJhX0A) (`Ht8zaJhX0A`)
-

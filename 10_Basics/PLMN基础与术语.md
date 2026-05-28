@@ -9,7 +9,7 @@ quality: curated
 
 ## 阅读入口
 
-这篇只解释 PLMN 选择相关基础概念。自动选网、手动选网和小区选择流程分别看 [PLMN自动选网流程](PLMN自动选网流程.md)、[PLMN手动选网与小区选择](PLMN手动选网与小区选择.md) 和 [LTE小区搜索与扫频](LTE小区搜索与扫频.md)。
+这篇只解释 PLMN 选择相关基础概念。自动/手动选网和小区选择流程看 [PLMN自动选网流程](PLMN自动选网流程.md)，LTE 小区搜索和扫频看 [LTE小区搜索与扫频](LTE小区搜索与扫频.md)。
 
 ## 术语速查
 
@@ -43,4 +43,3 @@ quality: curated
 | 某次 reject 的真实 log 和根因 | `40_Case-Library/Registration` |
 | 运营商名称、SPN、PNN/OPL 配置方法 | `60_Configuration/运营商名称配置方法.md` |
 | 平台代码如何解析注册态 | `50_Platform-Code` |
-

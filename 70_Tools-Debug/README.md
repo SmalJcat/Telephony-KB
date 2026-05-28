@@ -27,7 +27,7 @@ quality: curated
 | [Log工具使用补充](Log-Analysis/Log工具使用补充.md) | ELT、Logel、Wireshark 使用方法补充 |
 | [通信工具使用补充](Tools/通信工具使用补充.md) | SpeechAnalyzer、GRSIMWrite、META、MCF 等工具资料 |
 | [调试技巧补充](Debug-Tips/调试技巧补充.md) | 锁小区、信号强度、IKE 解密、实时 modem log 等调试技巧 |
-| [[知识库维护工具]] | Case 横向索引、配置文档模板化、Markdown 健康检查脚本和 HTML 同步导出 |
+| [[知识库维护工具]] | Case 横向索引、配置文档模板化、导入资料治理、Markdown 健康检查脚本和 HTML 同步导出 |
 
 ## 目录说明
 

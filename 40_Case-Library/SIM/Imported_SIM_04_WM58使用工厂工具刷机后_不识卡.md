@@ -18,9 +18,15 @@ tags:
   - modem-assert
   - nvram
   - evidence-gap
+search_tier: case_summary
 ---
 
 # WM58使用工厂工具刷机后，不识卡
+
+<!-- IMPORTED_CASE_BOUNDARY_START -->
+> 使用口径：本页已整理出可复用 Case 卡片。排查时优先看“用户现象 / 结论 / 关键证据 / 定位口径”；“原始案例内容”只用于回溯来源，不作为单独结论引用。
+<!-- IMPORTED_CASE_BOUNDARY_END -->
+
 
 ## 阅读入口
 
@@ -60,6 +66,12 @@ WM58使用工厂工具刷机后，不识卡
 - 看到 `nvram_main.c` assert 时，不要直接写“不识卡根因在 SIM”。
 - 如果 modem boot 前就 assert，SIM 不识别多半是结果，要先闭合 NV/产物链路。
 - 没有刷机选项和 NV 回读时，只能保留为产物/NVRAM 证据缺口。
+
+## 原始资料边界
+
+- 原始内容保留用于回溯旧知识库、日志片段和历史结论。
+- 如原始描述与前文 Case 卡片冲突，默认以前文“结论 / 关键证据 / 定位口径”为阅读入口。
+- 复用到新问题时必须重新核对平台、版本、运营商、log 和第一坏点。
 
 ## 原始案例内容
 

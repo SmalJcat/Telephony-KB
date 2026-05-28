@@ -19,9 +19,15 @@ tags:
   - vilte
   - rtp
   - ap-media
+search_tier: case_summary
 ---
 
 # DUT视频通话卡死
+
+<!-- IMPORTED_CASE_BOUNDARY_START -->
+> 使用口径：本页已整理出可复用 Case 卡片。排查时优先看“用户现象 / 结论 / 关键证据 / 定位口径”；“原始案例内容”只用于回溯来源，不作为单独结论引用。
+<!-- IMPORTED_CASE_BOUNDARY_END -->
+
 
 ## 阅读入口
 

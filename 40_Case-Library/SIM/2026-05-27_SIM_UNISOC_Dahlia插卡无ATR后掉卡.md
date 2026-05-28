@@ -7,7 +7,7 @@ feature: SIM Detection
 platform: UNISOC
 layer: SIM/Modem/HW
 symptom: "Dahlia singlesim 设备正常插卡无反应；SIM 卡背面贴纸增厚后可正常识别"
-cause: "卡座/卡托/SIM 压合接触不足；贴纸增厚后接触恢复，ATR/ICCID 可正常读取"
+cause: "螺丝松动导致结构压合不充分，SIM 接触不良；按紧/锁紧螺丝后恢复"
 operator: unknown
 project: T450A / Dahlia_singlesim
 chipset: sc9863A / 4G_MODEM_22B_W24.47.2
@@ -33,11 +33,11 @@ tags: "SIM, No ATR, hotplug, EIC, contact, card socket, Dahlia, singlesim, UNISO
 | 项目/版本 | T450A，Dahlia_singlesim，Android 15 |
 | 基带 | `4G_MODEM_22B_W24.47.2/sc9863A_modem` |
 | SIM 配置 | `ro.boot.sim_count=1`，`persist.radio.multisim.config=ssss` |
-| 当前状态 | `summarized`，贴纸增厚后恢复，闭环到卡座/卡托/SIM 压合接触不足 |
+| 当前状态 | `summarized`，闭环为螺丝松动导致结构压合不充分，按紧/锁紧螺丝后恢复 |
 
 ## 状态说明
 
-本 case 已用对比 log 和用户实验闭环到物理接触/压合问题。仍可继续细分是卡座弹片、卡托限位、SIM 厚度公差还是整机结构压合问题。
+本 case 已用对比 log、贴纸增厚实验和硬件复核闭环到结构压合问题。最终结论是螺丝松动导致结构压合不充分，SIM 卡接触不良；按紧/锁紧螺丝后恢复。
 
 ## 用户现象
 
@@ -47,7 +47,7 @@ tags: "SIM, No ATR, hotplug, EIC, contact, card socket, Dahlia, singlesim, UNISO
 
 这不是纯 AP Framework 或订阅刷新无反应。故障 log 中 AP/RIL 已经收到一次插卡事件，并短暂上报 `CARDSTATE_PRESENT`，但 ATR 和 ICCID 为空，`UiccCardApplication` 仍停在 `APPTYPE_UNKNOWN/APPSTATE_DETECTED`，随后约 1 秒内回落为 `CARDSTATE_ABSENT`/`CARDSTATE_ERROR`。
 
-贴纸增厚后的 OK log 中，AP/RIL 成功读到 ATR `3B9F95801FC78031E073FE211B57378660D6020000E6` 和 ICCID，`APPTYPE_USIM` 建立，状态进入 `PIN_REQUIRED`/`NETWORK_LOCKED`。这说明软件链路、slot mapping、RIL/FW 订阅更新链路可以工作，根因收敛为卡座/卡托/SIM 之间的压合接触不足。
+贴纸增厚后的 OK log 中，AP/RIL 成功读到 ATR `3B9F95801FC78031E073FE211B57378660D6020000E6` 和 ICCID，`APPTYPE_USIM` 建立，状态进入 `PIN_REQUIRED`/`NETWORK_LOCKED`。这说明软件链路、slot mapping、RIL/FW 订阅更新链路可以工作，根因收敛为物理压合接触不足。硬件复核进一步确认是螺丝松动导致结构压合不充分，处理方式为按紧/锁紧螺丝。
 
 `PIN_REQUIRED`/`NETWORK_LOCKED` 是卡自身锁定/个性化状态，不是识卡失败。
 
@@ -136,7 +136,8 @@ AT+SPATR?
 | 故障 log 中 `CARDSTATE_ERROR` 后回到 `ABSENT` | 物理检测或电气链路不稳定 |
 | 故障 modem log 中 `+SPATR:` 为空 | Modem 侧未拿到有效 ATR |
 | OK log 中同卡贴纸后 ATR/ICCID 正常 | 证明 RIL、AP subscription、slot mapping 主链路可工作 |
-| 贴纸增厚这一单变量实验有效 | 强指向卡座/卡托/SIM 压合接触不足 |
+| 贴纸增厚这一单变量实验有效 | 强指向结构压合接触不足 |
+| 按紧/锁紧螺丝后恢复 | 最终闭环为螺丝松动导致结构压合不充分 |
 
 ## 异常分析
 
@@ -149,44 +150,47 @@ AT+SPATR?
 - 约 1 秒后状态回落到 `CARDSTATE_ABSENT`，中间出现 `CARDSTATE_ERROR`。
 - Modem log 中存在 EIC 回调、SIM power on confirm 和空 `+SPATR:`。
 - 用户在 SIM 卡背面贴纸增厚后，设备可以正常识别 SIM。
+- 硬件复核结论为螺丝松动、结构压合不充分。
+- 按紧/锁紧螺丝后问题恢复。
 - OK log 中 ATR `3B9F95801FC78031E073FE211B57378660D6020000E6` 被成功解析，ICCID 被读取，subscription 找到 `subId=4`。
 
 ### 推断
 
-- 根因方向是 SIM 物理接触/压合链路，不是 AP 订阅链路。
+- 根因是结构压合不足导致 SIM 物理接触不良，不是 AP 订阅链路。
 - `SIM_OPEN_CHANNEL` 失败不应作为第一坏点，它发生在 ATR/应用识别未完成之后。
 - OK log 已证明同一软件链路能读 ATR/ICCID，`sim_hot_plug_cfg`、slot mapping、RIL/FW 不再是优先怀疑点。
 
-### 待确认
+### 硬件闭环
 
-- 具体失效件是卡座弹片高度、卡托限位、SIM 厚度公差、SIM 变形，还是整机结构压合不足。
-- 量产处理动作是调整卡座/卡托结构、提升触点弹力、增加压合余量，还是限定 SIM 厚度/供应商。
+- 最终失效点：螺丝松动，结构压合不充分。
+- 解决方案：按紧/锁紧螺丝，恢复 SIM 卡压合接触。
+- 量产关注：螺丝锁附扭矩、点胶/防松设计、整机压合余量和产线锁附检查。
 
 ## 平台差异检查
 
 - 本 case 是 UNISOC Dahlia singlesim，不能直接套用双卡 card2 掉卡结论。
 - 历史 Dahlia 451H card2 掉卡案例提示：Dahlia 系列遇到识卡后掉卡时，应优先把 AP SIM state、modem SIM event 和示波器波形对齐，尤其关注 SIM power、IO、RST、CLK。
-- 本 case 已经由贴纸增厚实验闭环到卡座/卡托/SIM 压合接触不足。若后续硬件拆解确认具体器件或尺寸公差，需要补充到最终处理动作。
+- 本 case 已经由贴纸增厚实验和硬件复核闭环到螺丝松动导致结构压合不充分。Dahlia 系列后续遇到类似“短暂 present、无 ATR、贴纸或按压后恢复”的问题，应优先检查整机锁附和压合结构。
 
 ## 可能原因排序
 
 | 优先级 | 方向 | 理由 | 下一步 |
 |---|---|---|---|
-| P0 | 卡座/卡托/SIM 压合接触不足 | 贴纸增厚后 ATR/ICCID 立即恢复 | 检查卡座弹片高度、卡托限位、SIM 厚度和触点压痕 |
-| P1 | VSIM/RST/CLK/IO 接触边界异常 | 未贴纸时上电后无 ATR，贴纸后有 ATR | 对比未贴纸/贴纸后波形，确认是否为接触断续 |
-| P2 | SIM_DET/EIC 抖动 | 故障 log 中 present 后回落到 absent/error | 若结构确认无问题，再抓 SIM_DET 波形和 EIC 去抖 |
+| P0 | 螺丝松动导致结构压合不充分 | 贴纸增厚和按紧螺丝后 ATR/ICCID 恢复 | 按紧/锁紧螺丝，确认锁附扭矩和防松措施 |
+| P1 | 卡座/卡托/SIM 压合接触不足 | 未贴纸时上电后无 ATR，贴纸后有 ATR | 检查卡座弹片高度、卡托限位、SIM 厚度和触点压痕 |
+| P2 | VSIM/RST/CLK/IO 接触边界异常 | 故障 log 中 present 后回落到 absent/error | 若结构确认无问题，再对比未贴纸/贴纸后波形 |
 | P3 | AP Framework subscription 链路 | OK log 已经能建 subscription | 暂不作为根因方向 |
 
 ## 处理方案
 
-1. 不要把贴纸作为量产修复，只作为定位验证手段。
-2. 硬件侧检查卡座弹片高度、触点压痕、卡托限位、SIM 厚度公差和整机结构压合余量。
-3. 用未贴纸/贴纸后两组状态同步对比 VSIM/RST/CLK/IO 和 SIM_DET 波形。
-4. 量产修复建议优先从结构压合和卡座触点可靠性入手；软件侧当前无修复点。
-5. 若硬件给出具体器件或尺寸结论，再补充到本 case 的最终处理动作。
+1. 按紧/锁紧螺丝，恢复整机结构压合。
+2. 产线侧确认螺丝锁附扭矩、漏锁/松动检查和防松措施。
+3. 复测 SIM 插拔，确认 ATR/ICCID 稳定读取，不再出现短暂 `CARDSTATE_PRESENT` 后掉卡。
+4. 不要把贴纸作为量产修复，只作为定位验证手段。
+5. 软件侧当前无修复点。
 
 ## 复盘
 
 看到“插卡无反应”时不要直接跳到 AP 订阅链路。只要 log 中出现过短暂 `CARDSTATE_PRESENT`，就应继续确认 ATR、ICCID、EIC、上电和波形；无 ATR 的第一坏点通常在卡接触/电气/热插拔链路。
 
-本 case 的关键闭环是单变量实验：SIM 背面贴纸增厚后，OK log 中 ATR/ICCID 和 subscription 都恢复，说明根因在物理接触压合，而不是软件流程。
+本 case 的关键闭环是单变量实验和硬件复核：SIM 背面贴纸增厚后，OK log 中 ATR/ICCID 和 subscription 都恢复；进一步检查发现螺丝松动，按紧/锁紧螺丝后恢复。根因是结构压合不充分导致 SIM 接触不良，而不是软件流程。

@@ -22,18 +22,9 @@ quality: curated
 | [[PLMN基础与术语]] | HPLMN、RPLMN、EPLMN、FPLMN、VPLMN、RAT、suitable cell 等基础概念 |
 | [[3GPP协议阅读方法]] | 3GPP 官网、协议编号、协议栈和目录阅读方法 |
 | [[PLMN自动选网流程]] | RPLMN、自动选网顺序、RAT 确定、VPLMN 驻留 |
-| [[PLMN手动选网与小区选择]] | 手动选网、小区选择、S 准则 |
 | [[LTE小区搜索与扫频]] | LTE小区搜索概述、扫频场景、扫频流程 |
-| [[LTE-PSS-SSS检测]] | 物理小区ID、PSS/SSS时频域位置和检测方法 |
-| [[FDN与通信基础概念]] | FDN 等基础概念补充 |
+| [[通信基础概念]] | FDN 等基础概念补充 |
 | [[SIM-USIM-EF文件速查]] | IMSI、ICCID、SPN、PNN/OPL、PLMNwACT、SMSP、ECC、FDN 等 SIM/USIM EF 文件速查 |
-
-## 兼容入口
-
-| 文档 | 说明 |
-|---|---|
-| [[PLMN选择流程]] | 旧入口页，保留来源记录和跳转 |
-| [[PLMN选择与LTE小区搜索]] | 旧入口页，保留来源记录和跳转 |
 
 ## 放置规则
 

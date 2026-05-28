@@ -18,9 +18,15 @@ tags:
   - modem-image
   - nvram
   - imei
+search_tier: case_summary
 ---
 
 # Civic Plus VK7L版本升级Vk1J版本后，IMEI显示unknown
+
+<!-- IMPORTED_CASE_BOUNDARY_START -->
+> 使用口径：本页已整理出可复用 Case 卡片。排查时优先看“用户现象 / 结论 / 关键证据 / 定位口径”；“原始案例内容”只用于回溯来源，不作为单独结论引用。
+<!-- IMPORTED_CASE_BOUNDARY_END -->
+
 
 ## 阅读入口
 
@@ -51,6 +57,12 @@ Civic Plus VK7L版本升级Vk1J版本后，IMEI显示unknown
 | `md1img` 时间戳不一致 | 说明下载产物不是当前编译 modem |
 | `custom_modem` 配置 | 需要检查项目继承和 modem 选择 |
 | IMEI unknown | 表象来自 modem/NV 异常，不按 SIM 读卡处理 |
+
+## 原始资料边界
+
+- 原始内容保留用于回溯旧知识库、日志片段和历史结论。
+- 如原始描述与前文 Case 卡片冲突，默认以前文“结论 / 关键证据 / 定位口径”为阅读入口。
+- 复用到新问题时必须重新核对平台、版本、运营商、log 和第一坏点。
 
 ## 原始案例内容
 

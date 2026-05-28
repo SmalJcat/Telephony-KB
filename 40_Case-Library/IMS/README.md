@@ -2,7 +2,8 @@
 doc_type: index
 domain: Meta
 status: active
-quality: imported_reference
+quality: curated
+search_tier: main_entry
 ---
 
 # IMS Cases

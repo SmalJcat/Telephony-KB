@@ -18,9 +18,19 @@ tags:
   - imported
   - external_summary
   - needs_split
+search_tier: reference_only
 ---
 
 # BEEONE / ALPS 案例汇总（外部可检索片段）
+
+<!-- REFERENCE_ONLY_BOUNDARY_START -->
+## 使用边界
+
+- 本页是字段表、参数表或外部片段，只用于查字段、查来源、做关键词回溯。
+- 不作为流程结论、配置生效结论或真实问题第一坏点引用。
+- 需要判断问题时，先回到对应主文档、排障流程或 Case。
+<!-- REFERENCE_ONLY_BOUNDARY_END -->
+
 
 ## 阅读入口
 

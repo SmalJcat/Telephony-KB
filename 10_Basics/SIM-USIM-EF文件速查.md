@@ -80,4 +80,4 @@ CQWeb 历史问题 `SPCSS01630213` 确认过需求口径：终端支持 `EF_PLMN
 - [[../20_Service-Flows/SIM/SIM业务流程]]
 - [[../60_Configuration/SMS配置方法]]
 - [[../60_Configuration/运营商名称配置方法]]
-- [[FDN与通信基础概念]]
+- [[通信基础概念]]

@@ -82,6 +82,7 @@ $mdFiles = @(Get-ChildItem -LiteralPath $rootPath -Recurse -File -Filter '*.md')
 # curated pages, imported references and generated indexes visually consistent.
 $requiredDocFields = @('doc_type', 'domain', 'status', 'quality')
 $allowedQualities = @('curated', 'imported_reference', 'generated', 'template')
+$allowedSearchTiers = @('main_entry', 'case_summary', 'supplemental', 'reference_only', 'archived_entry')
 foreach ($file in $mdFiles) {
   $relative = $file.FullName.Substring($rootPath.Length + 1)
   $lines = @(Get-Content -LiteralPath $file.FullName -Encoding UTF8)
@@ -99,9 +100,13 @@ foreach ($file in $mdFiles) {
   if ($quality -and $allowedQualities -notcontains $quality) {
     $failures.Add("invalid document quality `${quality}`: $relative")
   }
+  $searchTier = Get-FrontmatterValue -Frontmatter $frontmatter -Field 'search_tier'
+  if ($searchTier -and $allowedSearchTiers -notcontains $searchTier) {
+    $failures.Add("invalid search_tier `${searchTier}`: $relative")
+  }
 }
 
-if (-not ($failures | Where-Object { $_ -like 'document missing*' -or $_ -like 'invalid document quality*' })) {
+if (-not ($failures | Where-Object { $_ -like 'document missing*' -or $_ -like 'invalid document quality*' -or $_ -like 'invalid search_tier*' })) {
   $passes.Add("document frontmatter quality checked: $($mdFiles.Count)")
 }
 

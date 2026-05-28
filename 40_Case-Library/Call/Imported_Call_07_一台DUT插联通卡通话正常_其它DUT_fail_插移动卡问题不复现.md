@@ -18,9 +18,15 @@ tags:
   - csfb
   - rf-calibration
   - call-fail
+search_tier: case_summary
 ---
 
 # 一台DUT插联通卡通话正常，其它DUT fail；插移动卡问题不复现
+
+<!-- IMPORTED_CASE_BOUNDARY_START -->
+> 使用口径：本页已整理出可复用 Case 卡片。排查时优先看“用户现象 / 结论 / 关键证据 / 定位口径”；“原始案例内容”只用于回溯来源，不作为单独结论引用。
+<!-- IMPORTED_CASE_BOUNDARY_END -->
+
 
 ## 阅读入口
 
@@ -55,6 +61,12 @@ tags:
 
 - 适用于“通话失败表象下，首坏点实际在 RF 校准/3G 承接”的问题。
 - 若 Fail DUT RF 校准完整，再继续查 3G 频点、RRC 建链、CS 注册和网络侧 release cause。
+
+## 原始资料边界
+
+- 原始内容保留用于回溯旧知识库、日志片段和历史结论。
+- 如原始描述与前文 Case 卡片冲突，默认以前文“结论 / 关键证据 / 定位口径”为阅读入口。
+- 复用到新问题时必须重新核对平台、版本、运营商、log 和第一坏点。
 
 ## 原始案例内容
 

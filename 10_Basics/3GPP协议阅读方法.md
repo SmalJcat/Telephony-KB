@@ -3,19 +3,30 @@ doc_type: concept
 domain: Basics
 status: active
 quality: imported_reference
+search_tier: supplemental
 ---
+
+# 3GPP协议阅读方法
+
+<!-- SUPPLEMENTAL_BOUNDARY_START -->
+## 使用边界
+
+- 本页是补充资料或短专题，适合查局部步骤、旧来源和零散技巧。
+- 若需要直接定位问题，优先回到对应主流程、配置方法、排障流程或 Case。
+- 后续新增结论应沉淀到主文档，本页只保留来源和辅助说明。
+<!-- SUPPLEMENTAL_BOUNDARY_END -->
+
 
 ## 阅读入口
 
 - 本文是迁入/补充资料，先按本节入口定位，再看正文和来源记录。
 - 可复用结论应沉淀到主流程/配置/排障/case；本文只保留溯源材料和操作细节。
 
-﻿# 3GPP协议阅读方法
 
 ## 阅读重点
 
 - 这篇保留 3GPP 官网、协议编号、协议栈和目录阅读方法。
-- PLMN 选网策略看 [[PLMN自动选网流程]]、[[PLMN手动选网与小区选择]]。
+- PLMN 选网策略看 [[PLMN自动选网流程]]；LTE 小区搜索和扫频看 [[LTE小区搜索与扫频]]。
 
 ## 从协议层面理解找网流程——PLMN选择
 
@@ -171,4 +182,3 @@ TS 23.401：协议栈结构划分和作用，UE到EPS中的整体流程，核心
 - [从协议层面理解找网流程——PLMN选择](http://192.168.3.94:8888/doc/plmn-cBqf3HJyqL) (`cBqf3HJyqL`)
 - [LTE学习--小区搜索之概述及扫频](http://192.168.3.94:8888/doc/lte-91YMbjV3pr) (`91YMbjV3pr`)
 - [LTE学习--小区搜索之PSS&SSS检测](http://192.168.3.94:8888/doc/lte-psssss-Ht8zaJhX0A) (`Ht8zaJhX0A`)
-

@@ -18,9 +18,15 @@ tags:
   - rf-parameter
   - ota
   - modem-assert
+search_tier: case_summary
 ---
 
 # WM58 OTA跨版本升级，出现Modem Assert
+
+<!-- IMPORTED_CASE_BOUNDARY_START -->
+> 使用口径：本页已整理出可复用 Case 卡片。排查时优先看“用户现象 / 结论 / 关键证据 / 定位口径”；“原始案例内容”只用于回溯来源，不作为单独结论引用。
+<!-- IMPORTED_CASE_BOUNDARY_END -->
+
 
 ## 阅读入口
 
@@ -48,6 +54,12 @@ WM58 OTA跨版本升级，出现Modem Assert
 | OTA 前后 RF 参数宏 | 必须确认是否随项目/硬件版本正确切换 |
 | modem assert 伴随 RF 相关变更 | 优先查 RF parameter、band、校准 |
 | 只在跨版本升级出现 | 查升级包是否带入错误配置或遗漏迁移 |
+
+## 原始资料边界
+
+- 原始内容保留用于回溯旧知识库、日志片段和历史结论。
+- 如原始描述与前文 Case 卡片冲突，默认以前文“结论 / 关键证据 / 定位口径”为阅读入口。
+- 复用到新问题时必须重新核对平台、版本、运营商、log 和第一坏点。
 
 ## 原始案例内容
 

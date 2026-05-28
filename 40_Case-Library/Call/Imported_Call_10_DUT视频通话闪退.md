@@ -19,9 +19,15 @@ tags:
   - vilte
   - qci2
   - video-resolution
+search_tier: case_summary
 ---
 
 # DUT视频通话闪退
+
+<!-- IMPORTED_CASE_BOUNDARY_START -->
+> 使用口径：本页已整理出可复用 Case 卡片。排查时优先看“用户现象 / 结论 / 关键证据 / 定位口径”；“原始案例内容”只用于回溯来源，不作为单独结论引用。
+<!-- IMPORTED_CASE_BOUNDARY_END -->
+
 
 ## 阅读入口
 
@@ -115,4 +121,4 @@ SIP   889458   1603103   16:18:08:002   \[NW->MS\]\[P1\]\[S1\]SIP/2.0 200 OK
 ## 原始资料边界
 
 - 当前资料足以作为 ViLTE QCI2 / resolution 补证模板，但不足以闭合到单一代码根因。
-- 后续 IMS 视频通话专项应与 [视频通话流程](../../20_Service-Flows/IMS/视频通话流程.md) 互链。
+- 后续 IMS 视频通话专项应与 [视频通话拨号流程](../../20_Service-Flows/IMS/视频通话拨号流程.md)、[视频通话来电流程](../../20_Service-Flows/IMS/视频通话来电流程.md) 和 [视频通话界面与Log](../../20_Service-Flows/IMS/视频通话界面与Log.md) 互链。

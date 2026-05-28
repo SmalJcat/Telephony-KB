@@ -18,9 +18,15 @@ tags:
   - nvram
   - modem-assert
   - evidence-gap
+search_tier: case_summary
 ---
 
 # Model3 生产，出现音频无声及卡logo问题
+
+<!-- IMPORTED_CASE_BOUNDARY_START -->
+> 使用口径：本页已整理出可复用 Case 卡片。排查时优先看“用户现象 / 结论 / 关键证据 / 定位口径”；“原始案例内容”只用于回溯来源，不作为单独结论引用。
+<!-- IMPORTED_CASE_BOUNDARY_END -->
+
 
 ## 阅读入口
 
@@ -58,6 +64,12 @@ Model3 生产，出现音频无声及卡logo问题
 - 音频无声和卡 logo 异常可能是 modem assert 后果，不能在缺 AP 证据时单独归因音频或 SIM。
 - `EF31` 只是一条线索，必须查 LID 含义、size 和版本差异。
 - 没有 CR/patch 时，截图方案不能作为可复用根因。
+
+## 原始资料边界
+
+- 原始内容保留用于回溯旧知识库、日志片段和历史结论。
+- 如原始描述与前文 Case 卡片冲突，默认以前文“结论 / 关键证据 / 定位口径”为阅读入口。
+- 复用到新问题时必须重新核对平台、版本、运营商、log 和第一坏点。
 
 ## 原始案例内容
 

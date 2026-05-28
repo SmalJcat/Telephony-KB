@@ -48,6 +48,7 @@ SEARCH_METADATA_FIELDS = [
     "first_bad_point",
     "confidence",
     "tags",
+    "search_tier",
 ]
 
 
@@ -1246,25 +1247,43 @@ const fieldLabels = {
   confidence: "置信度"
 };
 
+const baseDocScore = (doc) => {
+  const quality = normalizeLower(doc.quality);
+  const docType = normalizeLower(doc.doc_type);
+  const status = normalizeLower(doc.status);
+  const tier = normalizeLower(doc.search_tier);
+  let score = 10;
+  if (quality === "curated") score += 12;
+  if (quality === "imported_reference") score -= 2;
+  if (docType === "case") score += 7;
+  if (normalize(doc.first_bad_point)) score += 4;
+  if (tier === "main_entry") score += 8;
+  if (tier === "case_summary") score += 6;
+  if (tier === "supplemental") score -= 4;
+  if (tier === "reference_only" || docType === "reference") score -= 18;
+  if (tier === "archived_entry" || status === "archived") score -= 28;
+  return score;
+};
+
 const scoreDoc = (doc, tokens) => {
-  if (!tokens.length) return 1;
+  const base = baseDocScore(doc);
+  if (!tokens.length) return base;
   const title = normalizeLower(doc.title);
   const source = normalizeLower(doc.source);
   const metadata = normalizeLower([
     doc.domain, doc.doc_type, doc.quality, doc.status, doc.platform, doc.rat,
-    doc.layer, doc.feature, doc.symptom, doc.cause, doc.first_bad_point, doc.tags
+    doc.layer, doc.feature, doc.symptom, doc.cause, doc.first_bad_point, doc.tags, doc.search_tier
   ].map(textValue).join(" "));
   const text = normalizeLower(doc.search_text || doc.text || "");
-  let score = 0;
+  const rawText = normalizeLower(doc.raw_text || "");
+  let score = base;
   for (const token of tokens) {
     if (title.includes(token)) score += 42;
     if (source.includes(token)) score += 18;
     if (metadata.includes(token)) score += 26;
     if (text.includes(token)) score += 4;
+    if (rawText.includes(token)) score += 1;
   }
-  if (normalizeLower(doc.quality) === "curated") score += 6;
-  if (normalizeLower(doc.doc_type) === "case") score += 4;
-  if (normalize(doc.first_bad_point)) score += 3;
   return score;
 };
 
@@ -1273,7 +1292,7 @@ const matchesTokens = (doc, tokens) => {
   const haystack = normalizeLower(doc.search_text || [
     doc.title, doc.source, doc.group_label, doc.domain, doc.doc_type, doc.quality,
     doc.status, doc.platform, doc.rat, doc.layer, doc.feature, doc.symptom,
-    doc.cause, doc.first_bad_point, doc.text
+    doc.cause, doc.first_bad_point, doc.search_tier, doc.text, doc.raw_text
   ].map(textValue).join(" "));
   return tokens.every((token) => haystack.includes(token));
 };
@@ -1437,6 +1456,7 @@ const initSearchApp = async () => {
         renderBadge("业务域", doc.domain),
         renderBadge("类型", doc.doc_type),
         renderBadge("质量", doc.quality),
+        renderBadge("搜索层级", doc.search_tier),
         renderBadge("平台", doc.platform),
         renderBadge("制式", doc.rat),
         renderBadge("层级", doc.layer),
@@ -1709,6 +1729,14 @@ def plain_text_from_markdown(text: str) -> str:
     return text.strip()
 
 
+def split_search_body(body_markdown: str, metadata: dict[str, Any]) -> tuple[str, str]:
+    doc_type = str(metadata.get("doc_type", "")).strip().lower()
+    raw_match = re.search(r"(?m)^##\s+(原始案例内容|原始资料内容|来源记录)\s*$", body_markdown)
+    if doc_type == "case" and raw_match:
+        return body_markdown[: raw_match.start()], body_markdown[raw_match.start() :]
+    return body_markdown, ""
+
+
 def build_search_entry(
     page: Page,
     body_markdown: str,
@@ -1717,6 +1745,9 @@ def build_search_entry(
 ) -> dict[str, Any]:
     normalized_meta = normalize_metadata(metadata)
     headings = [html.unescape(title) for _, title, _ in toc]
+    priority_markdown, raw_markdown = split_search_body(body_markdown, normalized_meta)
+    priority_text = plain_text_from_markdown(priority_markdown)
+    raw_text = plain_text_from_markdown(raw_markdown)
     body_text = plain_text_from_markdown(body_markdown)
     metadata_text = " ".join(
         f"{field} {normalized_meta.get(field, '')}"
@@ -1733,7 +1764,7 @@ def build_search_entry(
             page_subtitle(page),
             metadata_text,
             " ".join(headings),
-            body_text,
+            priority_text,
         ]
         if item
     )
@@ -1745,8 +1776,9 @@ def build_search_entry(
         "group_label": TOP_LEVEL_LABELS.get(page.group, page.group),
         "section": page_subtitle(page),
         "headings": headings[:80],
-        "excerpt": body_text[:320],
-        "text": body_text[:12000],
+        "excerpt": (priority_text or body_text)[:320],
+        "text": (priority_text or body_text)[:12000],
+        "raw_text": raw_text[:8000],
         "search_text": search_text[:24000].lower(),
         "metadata": normalized_meta,
     }

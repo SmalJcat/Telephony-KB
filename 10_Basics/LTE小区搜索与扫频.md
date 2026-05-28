@@ -3,6 +3,7 @@ doc_type: concept
 domain: Basics
 status: active
 quality: imported_reference
+search_tier: supplemental
 ---
 
 ## 阅读入口
@@ -10,12 +11,19 @@ quality: imported_reference
 - 本文是迁入/补充资料，先按本节入口定位，再看正文和来源记录。
 - 可复用结论应沉淀到主流程/配置/排障/case；本文只保留溯源材料和操作细节。
 
-﻿# LTE小区搜索与扫频
+# LTE小区搜索与扫频
 
+<!-- SUPPLEMENTAL_BOUNDARY_START -->
+## 使用边界
+
+- 本页是补充资料或短专题，适合查局部步骤、旧来源和零散技巧。
+- 若需要直接定位问题，优先回到对应主流程、配置方法、排障流程或 Case。
+- 后续新增结论应沉淀到主文档，本页只保留来源和辅助说明。
+<!-- SUPPLEMENTAL_BOUNDARY_END -->
 ## 阅读重点
 
 - 这篇只讲 UE 找 LTE 小区时的扫频、候选频点、信号处理和结果上报。
-- PLMN / RAT 基础看 [[PLMN基础与术语]]，自动/手动选网分别看 [[PLMN自动选网流程]] 和 [[PLMN手动选网与小区选择]]，PSS/SSS 同步检测看 [[LTE-PSS-SSS检测]]。
+- PLMN / RAT 基础看 [[PLMN基础与术语]]，自动/手动选网看 [[PLMN自动选网流程]]；PSS/SSS 同步检测作为 LTE 小区搜索的一部分在本文回溯。
 
 ## [LTE学习]--小区搜索之概述及扫频
 
@@ -108,4 +116,3 @@ UE 的扫频工作是一个较为复杂的过程，大致流程如下：
 - [从协议层面理解找网流程——PLMN选择](http://192.168.3.94:8888/doc/plmn-cBqf3HJyqL) (`cBqf3HJyqL`)
 - [LTE学习--小区搜索之概述及扫频](http://192.168.3.94:8888/doc/lte-91YMbjV3pr) (`91YMbjV3pr`)
 - [LTE学习--小区搜索之PSS&SSS检测](http://192.168.3.94:8888/doc/lte-psssss-Ht8zaJhX0A) (`Ht8zaJhX0A`)
-

@@ -2,7 +2,8 @@
 doc_type: index
 domain: Meta
 status: active
-quality: imported_reference
+quality: curated
+search_tier: main_entry
 ---
 
 # 30_Troubleshooting
@@ -28,7 +29,6 @@ quality: imported_reference
 | [[SIM与运营商名排障流程]] | SIM 不识别、EF 读取和运营商名称显示异常分诊 |
 | [[Modem稳定性排障流程]] | modem assert、blocked、radio unavailable、NV/产物相关稳定性分诊 |
 | [[无线信号与搜网失败排查]] | RF/RACH/弱场/频段能力导致的无服务、空三角、搜网失败、数据慢分诊 |
-| [[专项问题分析流程补充]] | 旧 Outline/CQ 迁入专项分析流程索引，不作为第一定位入口 |
 
 ## 放置规则
 

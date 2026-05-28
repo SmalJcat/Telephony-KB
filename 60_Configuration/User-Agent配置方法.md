@@ -5,9 +5,19 @@ status: active
 quality: imported_reference
 feature: User-Agent
 layer: AP/IMS/MMS/Media/NV
+search_tier: supplemental
 ---
 
 # User-Agent配置方法
+
+<!-- SUPPLEMENTAL_BOUNDARY_START -->
+## 使用边界
+
+- 本页是补充资料或短专题，适合查局部步骤、旧来源和零散技巧。
+- 若需要直接定位问题，优先回到对应主流程、配置方法、排障流程或 Case。
+- 后续新增结论应沉淀到主文档，本页只保留来源和辅助说明。
+<!-- SUPPLEMENTAL_BOUNDARY_END -->
+
 
 ## 阅读入口
 

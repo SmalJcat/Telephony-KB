@@ -13,7 +13,7 @@ status: active
 - 本文是迁入/补充资料，先按本节入口定位，再看正文和来源记录。
 - 可复用结论应沉淀到主流程/配置/排障/case；本文只保留溯源材料和操作细节。
 
-IMS 相关小流程统一放在这里：IMS 注册、VoLTE、VoWiFi、VoNR、SMS over IP、USSD。大篇代码/导入资料仍保留在 [[IMS-Call流程补充]]。
+IMS 相关小流程统一放在这里：IMS 注册、VoLTE、VoWiFi、VoNR、SMS over IP、USSD。旧大篇导入资料已经拆到 VoLTE 和视频通话专题页，默认阅读从本页进入。
 
 ## IMS注册流程
 

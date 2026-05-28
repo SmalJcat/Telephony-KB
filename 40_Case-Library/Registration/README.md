@@ -2,14 +2,15 @@
 doc_type: index
 domain: Meta
 status: active
-quality: imported_reference
+quality: curated
+search_tier: main_entry
 ---
 
 # Registration Cases
 
 ## 阅读入口
 
-- 本文是迁入/补充资料，先按本节入口定位，再看正文和来源记录。
+- 本页是当前目录入口，优先按表格进入已整理主题；来源记录只用于回溯。
 - 可复用结论应沉淀到主流程/配置/排障/case；本文只保留溯源材料和操作细节。
 
 网络注册相关 case 放这里，包括 2G/3G/LTE/NR 注册失败、搜网失败、reject、TAU、PLMN选择、漫游限制等。

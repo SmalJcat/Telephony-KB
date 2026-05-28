@@ -1,16 +1,17 @@
 ---
-quality: imported_reference
+quality: curated
 doc_type: index
 domain: Platform
 layer: AP/RIL/IMS/Modem/Build
 status: active
+search_tier: main_entry
 ---
 
 # 50_Platform-Code
 
 ## 阅读入口
 
-- 本文是迁入/补充资料，先按本节入口定位，再看正文和来源记录。
+- 本页是当前目录入口，优先按表格进入已整理主题；来源记录只用于回溯。
 - 可复用结论应沉淀到主流程/配置/排障/case；本文只保留溯源材料和操作细节。
 
 ## 定位入口
