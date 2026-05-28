@@ -44,14 +44,22 @@ WM58使用工厂工具刷机后，不识卡
 - assert 参数：`para1 = 0x00000020`。
 - 证据缺口：原始“根本原因 / 解决方案”未保留文本。
 
-## 补证要求
+## 下次复现补证清单
 
-| 证据 | 目的 |
+| 必抓证据 | 具体内容 | 能证明什么 |
 |---|---|
-| 工厂工具版本和刷机选项 | 判断是否擦写/覆盖 NVRAM、modem 分区或校准区 |
-| modem image / DB / NVRAM 版本 | 判断产物是否匹配 |
-| assert 完整 dump | 确认 `nvram_main.c` assert 对应的 NVRAM item / error code |
-| 刷机前后 NVRAM 回读 | 判断是否有 NV 损坏、缺项或格式不兼容 |
+| 工厂工具信息 | 工具版本、download 选项、是否 format、是否保留校准/NVRAM | 判断是否擦写或覆盖关键分区 |
+| 产物清单 | AP image、modem image、MDDB/DB、NVRAM template、custnv/fixnv 版本 | 判断 AP/modem/NV 是否跨版本错配 |
+| 完整 modem dump | assert 文件、行号、para0/1/2、call stack、current LID | 定位 `nvram_main.c` 对应的 NV item 或错误码 |
+| 刷机前后 NV 回读 | IMEI、SML、RF 校准、SIM/NV 相关 LID | 判断是否缺项、损坏或格式不兼容 |
+| SIM 基础链路 | 插卡中断、VSIM、ATR、UICC app state | 区分 modem assert 后果和真实 SIM 硬件问题 |
+| 可复现步骤 | 原版本、刷入版本、首次开机、插卡时机、是否写码 | 判断是否由升级/降级/写码顺序触发 |
+
+判定口径：
+
+- 看到 `nvram_main.c` assert 时，不要直接写“不识卡根因在 SIM”。
+- 如果 modem boot 前就 assert，SIM 不识别多半是结果，要先闭合 NV/产物链路。
+- 没有刷机选项和 NV 回读时，只能保留为产物/NVRAM 证据缺口。
 
 ## 原始案例内容
 
@@ -71,6 +79,6 @@ WM58使用工厂工具刷机后，不识卡
 
 ## 复用边界
 
-- 本 case 来自旧 Outline 迁入资料，状态为 partial。
-- 复用时需要重新核对平台、项目、运营商、版本、log 时间窗和第一坏点。
-- 如果后续补齐完整证据链，再把 status 改为 summarized 或 closed。
+- 本 case 来自旧 Outline 迁入资料，当前状态为 `summarized_with_log_gap`。
+- 复用时需要重新核对平台、项目、刷机工具、产物版本、NV 回读和 modem dump。
+- 如果后续补齐完整证据链，再把 status 改为 `summarized` 或 `closed`。

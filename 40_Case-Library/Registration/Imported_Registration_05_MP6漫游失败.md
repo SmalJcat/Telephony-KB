@@ -3,13 +3,13 @@ doc_type: case
 quality: imported_reference
 domain: Registration
 rat: 3G
-feature: 'Roaming / APN / PDP'
+feature: Roaming / APN / PDP
 platform: MTK
-layer: 'APN/Modem/Network'
-symptom: 'MP6漫游失败'
-cause: '设备已注册到 20205 3G 漫游网络，但 23430 APN 配置只匹配虚拟运营商，非对应 MVNO SIM 无法匹配 APN，导致不发起 PDP 请求'
-source_log: 'Old Outline knowledge base; split from 注网问题案例补充.md'
-first_bad_point: 'AT +EGREG 已显示 roaming 注册成功，但打开漫游后仍无 PDP 请求，首坏点转为 APN 匹配'
+layer: APN/Modem/Network
+symptom: MP6漫游失败
+cause: 设备已注册到 20205 3G 漫游网络，但 23430 APN 配置只匹配虚拟运营商，非对应 MVNO SIM 无法匹配 APN，导致不发起 PDP 请求
+source_log: Old Outline knowledge base; split from 注网问题案例补充.md
+first_bad_point: AT +EGREG 已显示 roaming 注册成功，但打开漫游后仍无 PDP 请求，首坏点转为 APN 匹配
 confidence: medium
 status: summarized
 tags:

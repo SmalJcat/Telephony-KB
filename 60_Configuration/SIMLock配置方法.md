@@ -13,6 +13,63 @@ layer: AP/Modem/Build/NV
 
 这篇回答 SIMLock / 锁网怎么配置、怎么确认生效、第一坏点怎么切。真实问题样例看 [SIMLock锁网不生效：产物错误](../40_Case-Library/Registration/2025-W21_Registration_SIMLock锁网不生效_产物错误.md) 和 [SimLock锁卡状态MCCMNC为空](../40_Case-Library/SIM/2024-04-12_SIM_UNISOC_SimLock锁卡状态MCCMNC为空.md)。
 
+
+<!-- CONFIG_TEMPLATE_BLOCK_START -->
+## 模板化定位
+
+### 配置来源
+
+| 来源 | 本文落点 | 运行时验证 |
+|---|---|---|
+| modem SIMLock 配置 | 白名单、锁类型、剩余次数、锁卡策略 | modem log、锁卡状态、AT/NV 读取 |
+| AP UI / Telephony | 锁卡弹框、SubInfo、MCC/MNC 显示 | radio log、Settings/Telephony log |
+| 编译产物 | modem image、operator NV、市场版本 | PAC/out 对比、产物时间戳 |
+
+### 匹配与生效链路
+
+```text
+锁网白名单 / modem profile
+-> 编译或下载进入 modem 产物
+-> 插卡后 modem 判锁
+-> AP 同步锁卡状态和 UI
+-> 注册允许或拒绝
+```
+
+### 平台差异
+
+| 平台 | 重点看点 | 验证口径 |
+|---|---|---|
+| Android common | AOSP 公共 XML、Provider、framework 读取点 | 先证明 common 默认值和运行时 dump 是否一致 |
+| UNISOC | carrier overlay、CarrierService、Operator NV、modem profile | 同时看 AP log、产物配置、NV/readback 和 modem trace |
+| MTK | vendor/mediatek 私有配置、SBP/DSBP/CXP、NVRAM | 结合 debuglogger、ELT/MD log、AP dump 验证最终值 |
+| Qualcomm | CarrierConfig overlay、MCFG/QCRIL、modem profile | 结合 dumpsys、QXDM/QCAT、MCFG 产物确认 |
+
+### 验证命令与 log
+
+| 目标 | 证据入口 | 预期结论 |
+|---|---|---|
+| 源配置存在 | modem SIMLock 配置 / 白名单 / 解锁策略 / AP UI | 能定位到需求字段、默认值和项目覆盖值 |
+| 运行时 dump 生效 | SIMLock service log、锁网状态、卡槽状态 | 设备当前值与预期配置一致 |
+| AP/vendor 已采用 | Telephony/RILJ/vendor service log | 能看到读取、选择、下发或业务判断动作 |
+| modem/协议侧采用 | modem lock result、PLMN allow/deny、NV readback | 协议字段、modem 状态或 reject cause 能与配置结果闭环 |
+
+### 关联入口
+
+| 入口 | 用途 |
+|---|---|
+| [配置目录 README](README.md) | 回到配置分类和放置规则 |
+| [Case横向索引](../40_Case-Library/Case横向索引.md) | 查历史同类问题和第一坏点 |
+| [平台代码入口](../50_Platform-Code/README.md) | 查厂商代码读取位置 |
+| [常用命令](../70_Tools-Debug/Commands/常用命令.md) | 查 dumpsys、logcat 和 adb 命令 |
+
+### 常见失败模式
+
+| 现象 | 优先检查 | 第一坏点判断 |
+|---|---|---|
+| 非白名单卡仍可驻网 | modem 产物是否含锁网配置 | 第一坏点通常在产物链路，不是 AP UI |
+| AP 显示 MCC/MNC 为空 | 锁卡状态下是否允许读卡 | 不等于 SIM 读卡失败 |
+| 升级后锁网失效 | modem image / NV 是否被替换 | 先查版本和产物一致性 |
+<!-- CONFIG_TEMPLATE_BLOCK_END -->
 ## 一句话
 
 锁网问题既可能是 SIM/网络策略，也可能是 modem 产物或编译流水线问题。现象是“不弹锁网界面、非白名单卡可驻网”时，不能只查 AP UI。

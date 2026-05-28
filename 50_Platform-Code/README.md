@@ -26,6 +26,7 @@ status: active
 | 文档 | 用途 |
 |---|---|
 | [Telephony系统架构](Cross-Platform/Telephony系统架构.md) | Android Telephony、RIL / IMS / Modem 边界、平台差异和迁入架构补充 |
+| [Telephony函数级入口速查](Cross-Platform/Telephony函数级入口速查.md) | 按现象定位 Android / UNISOC / MTK 函数、handler、log 证据 |
 | [平台代码与产物速查](Cross-Platform/平台代码与产物速查.md) | LTE 注册代码入口、MTK / UNISOC 实现、modem image、patch、流水线产物 |
 | [[Android/Android国内卡模拟运营商]] | Android侧模拟运营商 MCC/MNC/CarrierConfig/APN 的实现思路 |
 | [[UNISOC/Telephony代码架构速查]] | UNISOC 标准 RIL、扩展 Radio HAL、RadioInteractor、CarrierConfig 代码入口 |
@@ -35,10 +36,11 @@ status: active
 ## 建议阅读顺序
 
 1. 先看 [[Cross-Platform/Telephony系统架构|Telephony系统架构]]，确认 AP、RIL、vendor RIL、modem、IMS 的边界。
-2. 再看 [[Cross-Platform/平台代码与产物速查|平台代码与产物速查]]，按 MTK / UNISOC / Qualcomm 找具体代码入口。
-3. 如果已经确定平台，直接进入 [[UNISOC/Telephony代码架构速查]] 或 [[MTK/Telephony代码架构速查]]。
-4. 如果问题是 AP 状态不同步，优先对齐 RIL response、`NetworkRegistrationInfo`、`ServiceStateTracker`。
-5. 如果问题是产物或 patch，优先对齐 patch list、modem image、编译流水线参数和刷入版本。
+2. 再看 [[Cross-Platform/Telephony函数级入口速查|Telephony函数级入口速查]]，按现象定位函数、handler 和 log 证据。
+3. 再看 [[Cross-Platform/平台代码与产物速查|平台代码与产物速查]]，按 MTK / UNISOC / Qualcomm 找具体代码入口和产物链路。
+4. 如果已经确定平台，直接进入 [[UNISOC/Telephony代码架构速查]] 或 [[MTK/Telephony代码架构速查]]。
+5. 如果问题是 AP 状态不同步，优先对齐 RIL response、`NetworkRegistrationInfo`、`ServiceStateTracker`。
+6. 如果问题是产物或 patch，优先对齐 patch list、modem image、编译流水线参数和刷入版本。
 
 ## 放置规则
 

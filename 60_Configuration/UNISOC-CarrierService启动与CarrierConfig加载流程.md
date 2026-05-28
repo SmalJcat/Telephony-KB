@@ -16,6 +16,65 @@ layer: AP/Framework/CarrierService/CarrierConfig
 - `CarrierConfigLoader` 是 CarrierConfig 加载主链路：SIM 进入终态后，`UiccController` 调 `CarrierConfigManager.updateConfigForPhoneId()`，最终 bind 到 `DefaultCarrierConfigService` 并触发 `onLoadConfig()`。
 - `CarrierServiceBindHelper` 不是默认 CarrierConfig XML 加载主链路，它只给有 SIM carrier privilege、并声明 `android.service.carrier.LONG_LIVED_BINDING=true` 的 carrier app 做长连接绑定。
 
+
+<!-- CONFIG_TEMPLATE_BLOCK_START -->
+## 模板化定位
+
+### 配置来源
+
+| 来源 | 本文落点 | 运行时验证 |
+|---|---|---|
+| Framework 加载器 | `CarrierConfigLoader` 启动、刷新、绑定 | `dumpsys carrier_config`、Telephony log |
+| 默认 CarrierService | `DefaultCarrierConfigService.onLoadConfig` | 默认 XML 命中情况 |
+| UNISOC overlay / carrier 包 | `vendor/sprd/carriers/*/overlays` | 产物和 overlay 是否打入 |
+| 外部读取方 | Telephony/Data/IMS/UI 模块 | 对应业务 log 和最终行为 |
+
+### 生效链路
+
+```text
+SIM state / carrier id / package event
+-> CarrierConfigLoader.updateConfigForPhoneId
+-> bindToConfigPackage
+-> CarrierService.onLoadConfig
+-> PersistableBundle
+-> 业务模块读取
+```
+
+### 平台差异
+
+| 平台 | 重点看点 | 验证口径 |
+|---|---|---|
+| Android common | AOSP 公共 XML、Provider、framework 读取点 | 先证明 common 默认值和运行时 dump 是否一致 |
+| UNISOC | carrier overlay、CarrierService、Operator NV、modem profile | 同时看 AP log、产物配置、NV/readback 和 modem trace |
+| MTK | vendor/mediatek 私有配置、SBP/DSBP/CXP、NVRAM | 结合 debuglogger、ELT/MD log、AP dump 验证最终值 |
+| Qualcomm | CarrierConfig overlay、MCFG/QCRIL、modem profile | 结合 dumpsys、QXDM/QCAT、MCFG 产物确认 |
+
+### 验证命令与 log
+
+| 目标 | 证据入口 | 预期结论 |
+|---|---|---|
+| 源配置存在 | CarrierConfigLoader / DefaultCarrierConfigService / carrier app | 能定位到需求字段、默认值和项目覆盖值 |
+| 运行时 dump 生效 | dumpsys carrier_config、bind service log、phoneId/subId | 设备当前值与预期配置一致 |
+| AP/vendor 已采用 | Telephony/RILJ/vendor service log | 能看到读取、选择、下发或业务判断动作 |
+| modem/协议侧采用 | 读取方业务 log，确认配置是否被业务模块采用 | 协议字段、modem 状态或 reject cause 能与配置结果闭环 |
+
+### 关联入口
+
+| 入口 | 用途 |
+|---|---|
+| [配置目录 README](README.md) | 回到配置分类和放置规则 |
+| [Case横向索引](../40_Case-Library/Case横向索引.md) | 查历史同类问题和第一坏点 |
+| [平台代码入口](../50_Platform-Code/README.md) | 查厂商代码读取位置 |
+| [常用命令](../70_Tools-Debug/Commands/常用命令.md) | 查 dumpsys、logcat 和 adb 命令 |
+
+### 常见失败模式
+
+| 现象 | 优先检查 | 第一坏点判断 |
+|---|---|---|
+| 配置未刷新 | SIM 状态、phoneId/subId、package callback | 触发链路问题 |
+| 配置包未绑定 | 权限、包名、默认服务、用户解锁状态 | CarrierService bind/fetch 问题 |
+| 配置已加载但业务不变 | 业务模块是否读取该 key | 消费方或私有配置优先级问题 |
+<!-- CONFIG_TEMPLATE_BLOCK_END -->
 ## 代码入口
 
 | 模块 | 路径 | 作用 |

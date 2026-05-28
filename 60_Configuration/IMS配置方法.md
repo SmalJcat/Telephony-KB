@@ -15,6 +15,64 @@ quality: curated
 - VoWiFi 注册失败如果卡在 IKE/ePDG，不要继续追 SIP；先看 IKE proposal、完整性算法、ePDG 地址和网络环境。
 - SIP 403 要看响应文本。`IMEI check failed` 这类字段优先按运营商侧 IMEI 备案/白名单处理。
 
+
+<!-- CONFIG_TEMPLATE_BLOCK_START -->
+## 模板化定位
+
+### 配置来源
+
+| 来源 | 本文落点 | 运行时验证 |
+|---|---|---|
+| CarrierConfig / IMS profile | VoLTE/VoWiFi/VoNR/SMS over IMS 开关 | `dumpsys carrier_config`、IMS service log |
+| MTK SBP / DSBP / CXP | 运营商支持状态、IMC 条件 | `AT+EIMSCFG`、IMC / SBP log |
+| modem / IMS APN | P-CSCF、IMS PDN、IKE/ePDG、SIP | modem IMS/SIP/IWLAN trace |
+| AP IMS service | 注册状态、MMTel capability、feature update | `dumpsys ims`、radio/IMS log |
+
+### 匹配与生效链路
+
+```text
+运营商 / SIM / CarrierConfig / IMS profile
+-> AP IMS service 和 modem IMC 判定能力
+-> 建 IMS PDN 或 IWLAN/ePDG
+-> SIP REGISTER
+-> MMTel / SMS / VoWiFi / ViLTE capability
+```
+
+### 平台差异
+
+| 平台 | 重点看点 | 验证口径 |
+|---|---|---|
+| Android common | AOSP 公共 XML、Provider、framework 读取点 | 先证明 common 默认值和运行时 dump 是否一致 |
+| UNISOC | carrier overlay、CarrierService、Operator NV、modem profile | 同时看 AP log、产物配置、NV/readback 和 modem trace |
+| MTK | vendor/mediatek 私有配置、SBP/DSBP/CXP、NVRAM | 结合 debuglogger、ELT/MD log、AP dump 验证最终值 |
+| Qualcomm | CarrierConfig overlay、MCFG/QCRIL、modem profile | 结合 dumpsys、QXDM/QCAT、MCFG 产物确认 |
+
+### 验证命令与 log
+
+| 目标 | 证据入口 | 预期结论 |
+|---|---|---|
+| 源配置存在 | CarrierConfig / SBP/DSBP/CXP / IMS profile / UA | 能定位到需求字段、默认值和项目覆盖值 |
+| 运行时 dump 生效 | dumpsys ims、ImsService log、AT+EIMSCFG | 设备当前值与预期配置一致 |
+| AP/vendor 已采用 | Telephony/RILJ/vendor service log | 能看到读取、选择、下发或业务判断动作 |
+| modem/协议侧采用 | SIP、IKE、IMS bearer、IMS modem trace | 协议字段、modem 状态或 reject cause 能与配置结果闭环 |
+
+### 关联入口
+
+| 入口 | 用途 |
+|---|---|
+| [配置目录 README](README.md) | 回到配置分类和放置规则 |
+| [Case横向索引](../40_Case-Library/Case横向索引.md) | 查历史同类问题和第一坏点 |
+| [平台代码入口](../50_Platform-Code/README.md) | 查厂商代码读取位置 |
+| [常用命令](../70_Tools-Debug/Commands/常用命令.md) | 查 dumpsys、logcat 和 adb 命令 |
+
+### 常见失败模式
+
+| 现象 | 优先检查 | 第一坏点判断 |
+|---|---|---|
+| LTE 正常但不发 IMS PDN | SBP/DSBP/CXP、allow_ims、MCCMNC whitelist | IMS 配置门控早于 SIP |
+| SIP 403 | IMEI/签约/P-CSCF/realm/profile | 网络拒绝和本地配置要用 SIP response 区分 |
+| VoWiFi 不注册 | IKE/ePDG、Wi-Fi 网络、IMS profile | 没有 IKE 证据时不直接判 SIP |
+<!-- CONFIG_TEMPLATE_BLOCK_END -->
 ## IMS注册配置分层
 
 | 层级 | 检查项 | 典型证据 |

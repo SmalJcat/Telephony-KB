@@ -17,6 +17,64 @@ quality: imported_reference
 
 > 图片已保存为本地附件；非图片附件仍保留原 Outline 链接作为资料索引。
 
+
+<!-- CONFIG_TEMPLATE_BLOCK_START -->
+## 模板化定位
+
+### 配置来源
+
+| 来源 | 本文落点 | 运行时验证 |
+|---|---|---|
+| SIM / 网络 | EF_ECC、网络下发 emergency number | radio log、EmergencyNumberTracker dump |
+| 本地号码库 | AOSP / 厂商 ECC database、`eccdata` | emergency number list、拨号前号码分类 |
+| CarrierConfig / 客制化 | category、URN、routing、fallback、card condition | `dumpsys carrier_config`、Dialer/Telecom log |
+| modem / 域选 | CS / IMS emergency、CSFB/EPSFB、无卡拨号路径 | NAS/RRC/CC/SIP trace |
+
+### 匹配与生效链路
+
+```text
+SIM / network / local ECC source
+-> EmergencyNumberTracker 合并号码池
+-> Dialer / Telecom 判断紧急号码
+-> domain selection 选择 CS / IMS / fallback
+-> RIL / modem 发起紧急呼叫
+```
+
+### 平台差异
+
+| 平台 | 重点看点 | 验证口径 |
+|---|---|---|
+| Android common | AOSP 公共 XML、Provider、framework 读取点 | 先证明 common 默认值和运行时 dump 是否一致 |
+| UNISOC | carrier overlay、CarrierService、Operator NV、modem profile | 同时看 AP log、产物配置、NV/readback 和 modem trace |
+| MTK | vendor/mediatek 私有配置、SBP/DSBP/CXP、NVRAM | 结合 debuglogger、ELT/MD log、AP dump 验证最终值 |
+| Qualcomm | CarrierConfig overlay、MCFG/QCRIL、modem profile | 结合 dumpsys、QXDM/QCAT、MCFG 产物确认 |
+
+### 验证命令与 log
+
+| 目标 | 证据入口 | 预期结论 |
+|---|---|---|
+| 源配置存在 | EF_ECC / ECC database / CarrierConfig / vendor EccList | 能定位到需求字段、默认值和项目覆盖值 |
+| 运行时 dump 生效 | EmergencyNumberTracker、Telecom/Dialer log | 设备当前值与预期配置一致 |
+| AP/vendor 已采用 | Telephony/RILJ/vendor service log | 能看到读取、选择、下发或业务判断动作 |
+| modem/协议侧采用 | emergency call routing、CS/IMS emergency trace | 协议字段、modem 状态或 reject cause 能与配置结果闭环 |
+
+### 关联入口
+
+| 入口 | 用途 |
+|---|---|
+| [配置目录 README](README.md) | 回到配置分类和放置规则 |
+| [Case横向索引](../40_Case-Library/Case横向索引.md) | 查历史同类问题和第一坏点 |
+| [平台代码入口](../50_Platform-Code/README.md) | 查厂商代码读取位置 |
+| [常用命令](../70_Tools-Debug/Commands/常用命令.md) | 查 dumpsys、logcat 和 adb 命令 |
+
+### 常见失败模式
+
+| 现象 | 优先检查 | 第一坏点判断 |
+|---|---|---|
+| 号码被误识别成 ECC | 本地号码库、MCC/MNC、category/fallback | 第一坏点在号码池或匹配条件 |
+| 无卡紧急呼叫失败 | card flag、slot selection、eSIM/physical SIM 过滤 | AP 选卡失败和 modem 拒绝要分开 |
+| ECC 后不回 LTE | 是否走 CSFB、是否因 `ecc_cs_prefer` 直接选网进 3G | 不是所有 3G 停留都属于 CSFB fast return |
+<!-- CONFIG_TEMPLATE_BLOCK_END -->
 ## 紧急号码配置
 
 **[MTK EccList 如何配置](http://192.168.3.94:8888/doc/mtk-ecclist-ZiFAwCnGmD)**

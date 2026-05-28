@@ -21,6 +21,64 @@ CarrierConfig / CarrierSettings 配置和架构资料。
 
 相关流程：[[UNISOC-CarrierService启动与CarrierConfig加载流程]]
 
+
+<!-- CONFIG_TEMPLATE_BLOCK_START -->
+## 模板化定位
+
+### 配置来源
+
+| 来源 | 本文落点 | 运行时验证 |
+|---|---|---|
+| AOSP 默认配置 | `packages/apps/CarrierConfig` 默认 XML | `dumpsys carrier_config` 默认值 |
+| 厂商 / 项目 overlay | `vendor/*/overlays/packages/apps/CarrierConfig` | 产物中 XML、overlay 是否打入 |
+| CarrierService | `CarrierConfigLoader` 绑定默认包或 carrier app | `CarrierConfigLoader` log、bind/fetch 结果 |
+| 临时 override | `overrideConfig()`、测试命令 | `dumpsys carrier_config` 是否出现 override 值 |
+
+### 匹配与生效链路
+
+```text
+SIM / carrier id / MCCMNC / GID / SPN
+-> CarrierConfigLoader.updateConfigForPhoneId
+-> bindToConfigPackage / CarrierService.onLoadConfig
+-> PersistableBundle 合并
+-> Telephony / Data / IMS / UI 模块读取
+```
+
+### 平台差异
+
+| 平台 | 重点看点 | 验证口径 |
+|---|---|---|
+| Android common | AOSP 公共 XML、Provider、framework 读取点 | 先证明 common 默认值和运行时 dump 是否一致 |
+| UNISOC | carrier overlay、CarrierService、Operator NV、modem profile | 同时看 AP log、产物配置、NV/readback 和 modem trace |
+| MTK | vendor/mediatek 私有配置、SBP/DSBP/CXP、NVRAM | 结合 debuglogger、ELT/MD log、AP dump 验证最终值 |
+| Qualcomm | CarrierConfig overlay、MCFG/QCRIL、modem profile | 结合 dumpsys、QXDM/QCAT、MCFG 产物确认 |
+
+### 验证命令与 log
+
+| 目标 | 证据入口 | 预期结论 |
+|---|---|---|
+| 源配置存在 | CarrierConfig XML / overlay / CarrierService | 能定位到需求字段、默认值和项目覆盖值 |
+| 运行时 dump 生效 | dumpsys carrier_config、CarrierConfigLoader log | 设备当前值与预期配置一致 |
+| AP/vendor 已采用 | Telephony/RILJ/vendor service log | 能看到读取、选择、下发或业务判断动作 |
+| modem/协议侧采用 | 读取方业务 log，必要时结合 IMS/Data/Call trace | 协议字段、modem 状态或 reject cause 能与配置结果闭环 |
+
+### 关联入口
+
+| 入口 | 用途 |
+|---|---|
+| [配置目录 README](README.md) | 回到配置分类和放置规则 |
+| [Case横向索引](../40_Case-Library/Case横向索引.md) | 查历史同类问题和第一坏点 |
+| [平台代码入口](../50_Platform-Code/README.md) | 查厂商代码读取位置 |
+| [常用命令](../70_Tools-Debug/Commands/常用命令.md) | 查 dumpsys、logcat 和 adb 命令 |
+
+### 常见失败模式
+
+| 现象 | 优先检查 | 第一坏点判断 |
+|---|---|---|
+| XML 已改但 dump 不变 | overlay 是否进产物、carrier id 是否命中、是否被 override 覆盖 | 源配置未进入运行时 bundle |
+| dump 正确但业务不变 | 消费方是否读取该 key，是否还有厂商私有开关 | 第一坏点在读取链路或私有配置优先级 |
+| 换卡后仍旧值 | SIM 状态触发、缓存、subId/phoneId 映射 | 配置刷新或卡槽映射问题 |
+<!-- CONFIG_TEMPLATE_BLOCK_END -->
 ## **1、简介**
 
 CarrierConfig（运营商配置）有一些项目会叫CarrierSettings，首次出现是在Android 6.0 版本中，此机制的出现就是为运营商配置定制的功能。让我们可以弃用静态配置叠加层，通过使用配置文件和指定接口向相应平台动态提供运营商配置。可配置的模块很多，如，漫游/非漫游网络、可视语音信箱、短信/彩信网络设置、VoLTE/即时通讯配置等。

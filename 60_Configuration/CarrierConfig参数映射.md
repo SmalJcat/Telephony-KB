@@ -15,6 +15,61 @@ source: 运营商配置参考.xlsx; CarrierConfigManager.java
 - 字段级大表已按 Group 拆到 References/CarrierConfig；查具体 key 时先用索引定位分组，再回目标平台 CarrierConfigManager.java 复核默认值和消费者。
 
 
+
+<!-- CONFIG_TEMPLATE_BLOCK_START -->
+## 模板化定位
+
+### 配置来源
+
+| 来源 | 本文落点 | 运行时验证 |
+|---|---|---|
+| AOSP CarrierConfig key | 按 APN / IMS / Call / MMS / Network 等分组索引 | `dumpsys carrier_config` |
+| 字段级参考表 | `References/CarrierConfig` | 主文档只做入口，不重复大表 |
+| 业务文档 | APN、IMS、ECC、SMS、网络图标等配置方法 | 关联业务现象和验证动作 |
+
+### 使用链路
+
+```text
+业务现象
+-> 本文定位 CarrierConfig key 分组
+-> References/CarrierConfig 查字段
+-> 对应配置方法文档验证生效链路
+```
+
+### 平台差异
+
+| 平台 | 重点看点 | 验证口径 |
+|---|---|---|
+| Android common | AOSP 公共 XML、Provider、framework 读取点 | 先证明 common 默认值和运行时 dump 是否一致 |
+| UNISOC | carrier overlay、CarrierService、Operator NV、modem profile | 同时看 AP log、产物配置、NV/readback 和 modem trace |
+| MTK | vendor/mediatek 私有配置、SBP/DSBP/CXP、NVRAM | 结合 debuglogger、ELT/MD log、AP dump 验证最终值 |
+| Qualcomm | CarrierConfig overlay、MCFG/QCRIL、modem profile | 结合 dumpsys、QXDM/QCAT、MCFG 产物确认 |
+
+### 验证命令与 log
+
+| 目标 | 证据入口 | 预期结论 |
+|---|---|---|
+| 源配置存在 | CarrierConfig XML / overlay / CarrierService | 能定位到需求字段、默认值和项目覆盖值 |
+| 运行时 dump 生效 | dumpsys carrier_config、CarrierConfigLoader log | 设备当前值与预期配置一致 |
+| AP/vendor 已采用 | Telephony/RILJ/vendor service log | 能看到读取、选择、下发或业务判断动作 |
+| modem/协议侧采用 | 读取方业务 log，必要时结合 IMS/Data/Call trace | 协议字段、modem 状态或 reject cause 能与配置结果闭环 |
+
+### 关联入口
+
+| 入口 | 用途 |
+|---|---|
+| [配置目录 README](README.md) | 回到配置分类和放置规则 |
+| [Case横向索引](../40_Case-Library/Case横向索引.md) | 查历史同类问题和第一坏点 |
+| [平台代码入口](../50_Platform-Code/README.md) | 查厂商代码读取位置 |
+| [常用命令](../70_Tools-Debug/Commands/常用命令.md) | 查 dumpsys、logcat 和 adb 命令 |
+
+### 常见失败模式
+
+| 现象 | 优先检查 | 第一坏点判断 |
+|---|---|---|
+| key 存在但无效 | 读取模块是否消费该 key、平台是否覆盖 | dump 正确不等于业务已采用 |
+| key 找不到 | Android 版本、厂商私有 key、命名变化 | 先确认基线和平台差异 |
+<!-- CONFIG_TEMPLATE_BLOCK_END -->
 ## 学习摘要
 
 | 项目 | 结论 |

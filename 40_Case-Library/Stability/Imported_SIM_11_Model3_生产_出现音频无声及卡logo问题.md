@@ -42,14 +42,22 @@ Model3 生产，出现音频无声及卡logo问题
 - Current status：`nvram_main.c line=2520`
 - 关键参数：`para0=0x0000ef31, para1=0x00000644, para2=0x000028f0`
 
-## 补证要求
+## 下次复现补证清单
 
-| 证据 | 用途 |
+| 必抓证据 | 具体内容 | 能证明什么 |
 |---|---|
-| 原始方案截图对应 CR/patch | 还原真实 root cause |
-| EF31 LID 含义和 size 对比 | 判断是否仍是 NV layout 问题 |
-| 音频无声与卡 logo 的 AP log | 区分 modem assert 后果和独立 AP 问题 |
-| 修复前后 full dump | 证明 assert 消失 |
+| modem full dump | `nvram_main.c line=2520`、`para0=0x0000ef31`、call stack、current LID | 确认当前失败是否仍是 EF31/NVRAM 链路 |
+| EF31 LID 资料 | LID 名称、size、verno、默认值、项目差异 | 判断是否 NV layout / 版本兼容问题 |
+| 原始方案对应 CR/patch | 截图中的修改点、提交号、改动说明 | 还原真实 root cause 和修复动作 |
+| AP 音频/log 状态 | AudioFlinger、AudioPolicy、HAL、卡 logo/运营商名显示相关 log | 区分 modem assert 后果和独立 AP 问题 |
+| 产物/NV 回读 | AP/modem image、DB、NVRAM template、fixnv/custnv、写码流程 | 判断是否产物错配或 NV 损坏 |
+| 修复前后对比 | modem boot、音频、卡 logo、IMEI/SIM、full dump 是否消失 | 证明修复闭环 |
+
+判定口径：
+
+- 音频无声和卡 logo 异常可能是 modem assert 后果，不能在缺 AP 证据时单独归因音频或 SIM。
+- `EF31` 只是一条线索，必须查 LID 含义、size 和版本差异。
+- 没有 CR/patch 时，截图方案不能作为可复用根因。
 
 ## 原始案例内容
 
@@ -80,6 +88,6 @@ Model3 生产，出现音频无声及卡logo问题
 
 ## 复用边界
 
-- 本 case 来自旧 Outline 迁入资料，状态为 partial。
-- 复用时需要重新核对平台、项目、运营商、版本、log 时间窗和第一坏点。
-- 如果后续补齐完整证据链，再把 status 改为 summarized 或 closed。
+- 本 case 来自旧 Outline 迁入资料，当前状态为 `summarized_with_log_gap`。
+- 复用时需要重新核对产物版本、EF31 LID、AP 音频/运营商名 log、CR/patch 和 modem full dump。
+- 如果后续补齐完整证据链，再把 status 改为 `summarized` 或 `closed`。

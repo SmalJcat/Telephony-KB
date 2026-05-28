@@ -123,6 +123,9 @@ $caseFiles = Get-ChildItem -LiteralPath $caseRoot -Recurse -File -Filter '*.md' 
 foreach ($file in $caseFiles) {
   $lines = @(Get-Content -LiteralPath $file.FullName -Encoding UTF8)
   $fm = Get-Frontmatter $lines
+  if ($fm['doc_type'] -ne 'case') {
+    continue
+  }
   $relativeFromOutput = (Get-RelativePathCompat -BaseDir (Split-Path -Parent $outputPath) -TargetPath $file.FullName) -replace '\\', '/'
   $title = Get-Title -Lines $lines -Fallback ([System.IO.Path]::GetFileNameWithoutExtension($file.Name))
   $record = [ordered]@{

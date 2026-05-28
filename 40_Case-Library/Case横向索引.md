@@ -14,36 +14,30 @@ generated: true
 
 | 维度 | 值 | 数量 |
 |---|---|---:|
-| Domain | Call | 18 |
+| Domain | Call | 17 |
 | Domain | Data | 12 |
-| Domain | IMS | 9 |
-| Domain | Registration | 24 |
+| Domain | IMS | 8 |
+| Domain | Registration | 23 |
 | Domain | Signal | 3 |
-| Domain | SIM | 23 |
-| Domain | SMS | 5 |
-| Domain | Stability | 21 |
+| Domain | SIM | 24 |
+| Domain | SMS | 4 |
+| Domain | Stability | 20 |
 | Platform | Android | 1 |
-| Platform | Common | 1 |
-| Platform | Mixed | 30 |
-| Platform | MTK | 19 |
-| Platform | MTK/Mixed | 1 |
+| Platform | Mixed | 29 |
+| Platform | MTK | 17 |
 | Platform | MTK/UNISOC | 1 |
-| Platform | UNISOC | 62 |
-| 第一坏点分类 | Call / SS / ECC | 19 |
+| Platform | UNISOC | 63 |
+| 第一坏点分类 | Call / SS / ECC | 18 |
 | 第一坏点分类 | Data / APN / ESM | 16 |
-| 第一坏点分类 | EMM / PLMN / Registration | 19 |
-| 第一坏点分类 | IMS / SIP | 9 |
+| 第一坏点分类 | EMM / PLMN / Registration | 18 |
+| 第一坏点分类 | IMS / SIP | 8 |
 | 第一坏点分类 | RRC / RF / Cell | 3 |
-| 第一坏点分类 | SIM / EF / Card | 23 |
-| 第一坏点分类 | SMS / CB / FDN | 5 |
-| 第一坏点分类 | Stability / NV / Modem | 21 |
-| Status | active | 1 |
+| 第一坏点分类 | SIM / EF / Card | 24 |
+| 第一坏点分类 | SMS / CB / FDN | 4 |
+| 第一坏点分类 | Stability / NV / Modem | 20 |
 | Status | closed | 4 |
-| Status | evidence_requirement | 1 |
-| Status | imported | 1 |
-| Status | reference | 3 |
-| Status | summarized | 94 |
-| Status | summarized_with_log_gap | 11 |
+| Status | summarized | 95 |
+| Status | summarized_with_log_gap | 12 |
 
 ## 全量索引
 
@@ -52,7 +46,6 @@ generated: true
 | [5G to 2G (GPRS) Fallback Delay After Video Call](Call/Imported_Call_08_5G_to_2G_GPRS_Fallback_Delay_After_Video_Call.md) | Call | Mixed | Call / SS / ECC | 'RRC/Modem/Network' | high | summarized | 'Old Outline knowledge base; split from 通话问题案例补充.md' | 'RRC release 指向 utra-FDD 10738 后测量结果为 0；可测 10763 小区 PLMN 不匹配' |
 | [CS通话杂音](Call/Imported_Call_09_CS通话杂音.md) | Call | Mixed | Call / SS / ECC | 'RF/Modem' | high | summarized | 'Old Outline knowledge base; split from 通话问题案例补充.md' | 'CSFB 后 3G serving cell 质量差：ECNO=-21、RSCP=-63' |
 | [vowifi 无法拨打电话](Call/Imported_Call_04_vowifi_无法拨打电话.md) | Call | Mixed | Call / SS / ECC | 'IMS/IWLAN/ECC' | low | summarized_with_log_gap | 'Old Outline knowledge base; split from 通话问题案例补充.md' | '证据缺口在 VoWiFi ECC 域选与 IMS emergency 建呼链路，当前 markdown 只有 PPT 附件' |
-| [补充业务问题案例](Call/补充业务问题案例.md) | Call | Mixed | Call / SS / ECC | SS/USSD/XCAP/CSFB | medium | reference | Old Outline knowledge base | see linked curated cases |
 | [一台DUT插联通卡通话正常，其它DUT fail；插移动卡问题不复现](Call/Imported_Call_07_一台DUT插联通卡通话正常_其它DUT_fail_插移动卡问题不复现.md) | Call | Mixed | Call / SS / ECC | 'RF/Modem' | high | summarized | 'Old Outline knowledge base; split from 通话问题案例补充.md' | 'Fail DUT log 提示 no RF calibration data，随后 MT CSFB 到 3G 扫频但未完成 3G 驻留' |
 | [LA Réunion重定向](Call/Imported_Call_03_LA_Réunion重定向.md) | Call | MTK | Call / SS / ECC | 'Config/Modem/AP' | high | summarized | 'Old Outline knowledge base; split from 通话问题案例补充.md' | 'eccdata / EccList 中 RE 的 15、17、18 本地配置与运营商期望不一致' |
 | [SRVCC Claro切换掉话](Call/2025-W22_Call_SRVCC_Claro切换掉话.md) | Call | MTK | Call / SS / ECC | IMS/Modem/Network | medium | summarized_with_log_gap | internal weekly technical case | 证据缺口在 SRVCC 切换阶段：需要先确认能力协商是否匹配，再看 mobility / CS 承接 / release cause |
@@ -83,17 +76,15 @@ generated: true
 | [DUT视频通话闪退](Call/Imported_Call_10_DUT视频通话闪退.md) | IMS | Mixed | IMS / SIP | 'IMS/ESM/AP/Modem' | medium | summarized_with_log_gap | 'Old Outline knowledge base; split from 通话问题案例补充.md' | 'ViLTE 建呼中缺少 QCI2 dedicated bearer，AP 侧 `RIL_IMS_REQUEST_SET_VIDEO_RESOLUTION` 返回 RADIO_NOT_AVAILABLE' |
 | [HMD VoLTE 注册 403：网络 IMEI 校验失败](IMS/Imported_IMS_01_HMD场测反馈_VoLTE_注册_403.md) | IMS | Mixed | IMS / SIP | IMS/Modem/Network | high | summarized | Old Outline knowledge base; split from IMS问题案例补充.md | SIP/IMS 注册阶段网络返回 403 Forbidden: IMEI check failed |
 | [Spark VoWiFi 注册失败：IKE 完整性算法配置错误](IMS/Imported_IMS_03_6032+_Spark反馈WFC注册有问题.md) | IMS | Mixed | IMS / SIP | Modem/IKE/IMS | high | summarized | Old Outline knowledge base; split from IMS问题案例补充.md | IKE_SessCheckAlgorithms unsupported integ algo:18，导致 IKE_ATTACH_FAILED |
-| [BEEONE / ALPS 案例汇总（外部可检索片段）](IMS/2026-05-27_BEEONE_External-Cases_Summary.md) | IMS | MTK | IMS / SIP | IMS / Operator Config / eService | low | imported | 'eService issue_manager / external searchable snippets; collected 2026-05-27' | '配置片段未拆成独立 case' |
 | [Iran 43211 IMS 不注册：MTK SBP / MNCMCC whitelist 未命中](IMS/Imported_IMS_02_Iran_无法注册IMS问题.md) | IMS | MTK | IMS / SIP | AP/CCCI/Modem/IMC/SBP | high | summarized | Old Outline knowledge base; split from IMS问题案例补充.md | IMC_REG condition check failed: IMC_REG_CHECK_MNCMCC_FAILED before IMS PDN connectivity request |
 | [SMS over IP / SMS over IMS 配置缺失](IMS/2025-07-29_IMS_SMS-over-IP配置缺失.md) | IMS | MTK | IMS / SIP | IMS/SDM/Modem/Network | medium | summarized | internal technical case and imported SMS Outline notes | 未同时满足 IMS 注册可用、SMS over IP allowed、SGs 不优先、IMS profile sms_support/sms_network_types 打开 |
 | [DUT视频通话卡死](Call/Imported_Call_11_DUT视频通话卡死.md) | IMS | UNISOC | IMS / SIP | 'IMS/RTP/AP/Modem' | medium | summarized_with_log_gap | 'Old Outline knowledge base; split from 通话问题案例补充.md' | 'modem/TCPIP 可见 audio/video 数据交互正常，缺少 AP media/render/UI 卡死证据' |
 | [RTT 通话](Call/Imported_Call_05_RTT_通话.md) | IMS | UNISOC | IMS / SIP | 'Dialer/IMS/IWLAN/Modem' | medium | summarized | 'Old Outline knowledge base; split from 通话问题案例补充.md' | 'AP Dialer RTT 能力/入口限制，而不是 VoWiFi 注册或 modem RTT 承载失败' |
 | [CM52在宁波实验室测试，待机功耗高](Registration/Imported_Registration_09_CM52在宁波实验室测试_待机功耗高.md) | Registration | MTK | Call / SS / ECC | 'Modem/NWSEL/Power' | high | summarized | 'Old Outline knowledge base; split from 注网问题案例补充.md' | '无支持 ECC 小区时 modem 持续搜网，合入降低紧急搜网频率 patch 后功耗下降' |
 | [2026-05-14 MTK LTE开机注册成功](Registration/2026-05-14_Registration_MTK_LTE开机注册成功.md) | Registration | MTK | Data / APN / ESM | AP/Modem/Network | high | closed | 'F:\Log\流程Log\MTKLte注册流程\debuglogger' | none |
-| [MP6漫游失败](Registration/Imported_Registration_05_MP6漫游失败.md) | Registration | MTK | Data / APN / ESM | 'APN/Modem/Network' | medium | summarized | 'Old Outline knowledge base; split from 注网问题案例补充.md' | 'AT +EGREG 已显示 roaming 注册成功，但打开漫游后仍无 PDP 请求，首坏点转为 APN 匹配' |
+| [MP6漫游失败](Registration/Imported_Registration_05_MP6漫游失败.md) | Registration | MTK | Data / APN / ESM | APN/Modem/Network | medium | summarized | Old Outline knowledge base; split from 注网问题案例补充.md | AT +EGREG 已显示 roaming 注册成功，但打开漫游后仍无 PDP 请求，首坏点转为 APN 匹配 |
 | [Case: UNISOC LTE开机注册成功样例](Registration/2026-05-14_Registration_UNISOC_LTE开机注册成功.md) | Registration | UNISOC | Data / APN / ESM | AP/Modem/Network | high | closed | 'F:\Log\流程Log\展锐Lte注册流程\ylog\poweron\modem\md_20260514-091138_armlog', 'F:\Log\流程Log\展锐Lte注册流程\ylog\ap\001-0514_091134--0514_091333_poweron' | none |
 | [Verizon 未认证 IMEI 后 Attach / PDN 拒绝](Registration/2025-10-15_Registration_UNISOC_Verizon未认证IMEI后Attach_PDN拒绝.md) | Registration | UNISOC | Data / APN / ESM | Modem/NAS/ESM | medium | summarized | CQWeb SPCSS01550358 / SPCSS01607196 | ATTACH_REQUEST 后收到 ATTACH_REJECT，同时 PDN_CONNECTIVITY_REJECT 携带 REQ_SERV_OPT_NOT_SUBSCRIBED |
-| [Case: LTE注册失败第一坏点样例集](Registration/2026-05-14_Registration_LTE第一坏点样例集.md) | Registration | Common | EMM / PLMN / Registration | RRC/NAS/Network | medium | reference | 'F:\Codex\Knowledge\lte\5roo572r6zeu6aky5qgi5l6l' | mixed samples |
 | [BB印度实网反馈，无法注册网络](Registration/Imported_Registration_02_BB印度实网反馈_无法注册网络.md) | Registration | Mixed | EMM / PLMN / Registration | 'Network/Modem' | high | summarized | 'Old Outline knowledge base; split from 注网问题案例补充.md' | 'NAS Attach Reject，EMM cause 指向 Illegal ME / unauthorized ME' |
 | [CM52没有切到吞吐量更高的小区](Registration/Imported_Registration_08_CM52没有切到吞吐量更高的小区.md) | Registration | Mixed | EMM / PLMN / Registration | 'Mixed' | low | summarized_with_log_gap | 'Old Outline knowledge base; split from 注网问题案例补充.md' | '证据缺口：缺少 NR 小区测量、重选/切换策略、SIB 优先级和吞吐量对比 log' |
 | [DAHLIA 450A软件刷在450H手机上，能搜到网络，但是注册不上网络](Registration/Imported_Registration_01_DAHLIA_450A软件刷在450H手机上_能搜到网络_但是注册不上网络.md) | Registration | Mixed | EMM / PLMN / Registration | 'RF/NV/Modem' | high | summarized | 'Old Outline knowledge base; split from 注网问题案例补充.md' | 'ATTACH_REQUEST / RRCCONNECTIONREQUEST 已发出，首坏点回到 RF 参数/硬件版本错配' |
@@ -125,6 +116,7 @@ generated: true
 | [WM58使用工厂工具刷机后，不识卡](SIM/Imported_SIM_04_WM58使用工厂工具刷机后_不识卡.md) | SIM | Mixed | SIM / EF / Card | 'Modem/NVRAM/Flash tool' | low | summarized_with_log_gap | 'Old Outline knowledge base; split from SIM问题案例补充.md' | 'ccci1/fsm 上报 mcu/service/nvram/src/nvram_main.c assert，para1 = 0x20' |
 | [SIM不识卡：No ATR或无插卡中断](SIM/2025-05-19_SIM_不识卡_NO_ATR或无中断.md) | SIM | MTK | SIM / EF / Card | SIM/Modem/HW | medium | summarized | internal case summary | 插卡时 SIM driver 未收到 ATR，或插卡后完全没有 SIM driver 流程 |
 | [WM58卡托检查代码修改问题，导致Modem Assert](SIM/Imported_SIM_12_WM58卡托检查代码修改问题_导致Modem_Assert.md) | SIM | MTK | SIM / EF / Card | 'AP/SystemUI/AT/Modem SIM' | high | summarized | 'Old Outline knowledge base; split from SIM问题案例补充.md' | 'mcu/protocol/layer4/sim/src/sim_handler.c assert，触发点为 AP 下发 AT+ESIMTRAY' |
+| [Dahlia singlesim 插卡无 ATR 后掉卡](SIM/2026-05-27_SIM_UNISOC_Dahlia插卡无ATR后掉卡.md) | SIM | UNISOC | SIM / EF / Card | SIM/Modem/HW | high | summarized | F:\\Log\\NOSIM\\ylog; F:\\Log\\NOSIM\\OK\\ylog | 10:05:47 插卡后 CARDSTATE_PRESENT 但 ATR/ICCID 为空，AT+SPATR? 返回空，约 1 秒后回落到 ABSENT/ERROR |
 | [eSIM 空卡与 AP euicc 配置：卡2不识别](SIM/2024-08-14_SIM_UNISOC_eSIM空卡与euicc配置.md) | SIM | UNISOC | SIM / EF / Card | SIM/Modem/RIL/Framework | medium | summarized | CQWeb SPCSS01386630 | USIMDRV[1] 收到 ATR，但 EF/应用读取为空；AP GET_SIM_STATUS 显示 APPTYPE_UNKNOWN、ICCID/EID 为空 |
 | [Idea漫游显示Airtel与漫游图标配置](SIM/2025-08-22_SIM_UNISOC_Idea漫游显示Airtel与漫游图标配置.md) | SIM | UNISOC | SIM / EF / Card | AP/Framework/CarrierConfig | high | summarized | CQWeb SPCSS01545940 | updateSpnDisplay 中 simNumeric=405799、operatorNumeric=40492，rawPlmn 从 XML 命中 Airtel，showPlmn=true、showSpn=false |
 | [MVNO EF_PNN 读取与 pnn_len 为 0](SIM/2023-03-08_SIM_UNISOC_MVNO_EFPNN读取与pnn_len为0.md) | SIM | UNISOC | SIM / EF / Card | Modem/MMI phone / SIM records | high | summarized | CQWeb SPCSS01132047 | GetPNNIndexByOPL / SetPNNWithLac 与 GetNetworkNameString 中 pnn_len 不一致 |
@@ -138,7 +130,6 @@ generated: true
 | [单双卡单软多硬：NV 卡槽配置不匹配导致不识卡](SIM/2024-02-05_SIM_UNISOC_单双卡单软多硬NV卡槽配置不匹配.md) | SIM | UNISOC | SIM / EF / Card | Modem/NV/SIM | high | summarized | CQWeb SPCSS01287405 | ro.boot.product.hardware.sku=singlesim，但 NV 卡槽配置仍按旧接反项目处理 |
 | [手动搜网列表运营商名与 MNC 位数不匹配](SIM/2022-06-20_SIM_UNISOC_手动搜网列表运营商名MNC位数不匹配.md) | SIM | UNISOC | SIM / EF / Card | Framework/Telephony/RIL | high | summarized | CQWeb SPCSS01007822 | processNetworkName 拼出的 PLMN key 未命中 numeric_operator.xml |
 | [手动搜网名称：未注册 5G 时误用 EFOPL5G](SIM/2024-05-17_SIM_UNISOC_手动搜网名称PNN_OPL5G误用.md) | SIM | UNISOC | SIM / EF / Card | Framework/Telephony/RIL/SIMRecords | high | summarized | CQWeb SPCSS01345931 | UniOperatorNameHandler 取 PNN record 时未按当前注册 RAT 区分 EFOPL/EFOPL5G |
-| [SMS问题案例补充](SMS/SMS问题案例补充.md) | SMS | MTK | SMS / CB / FDN | IMS/SDM/Modem | medium | reference | Old Outline knowledge base | see linked curated case |
 | [CB 信道配置受 full/Mainline 版本限制](SMS/2023-01-24_SMS_UNISOC_CB_Full版本信道配置受Mainline限制.md) | SMS | UNISOC | SMS / CB / FDN | CellBroadcastReceiver / Mainline / AP config | high | summarized | CQWeb SPCSS01099451 | 把旧平台源码修改方案套到 full/Mainline CellBroadcastReceiver，并用 00101 白卡测试目标地区信道 |
 | [FDN 发送短信：SMSC 和收件人都要在 FDN 列表](SMS/2024-03-11_SMS_UNISOC_FDN发送短信需同时放行SMSC和收件人.md) | SMS | UNISOC | SMS / CB / FDN | Framework/Telephony/SIM FDN | high | summarized | CQWeb SPCSS01310994 | SMS FDN check 中 SMSC 未加入 FDN list |
 | [短码短信未到 RILJ `SEND_SMS`](SMS/2025-03-22_SMS_UNISOC_短码发送未到RILJ_SEND_SMS.md) | SMS | UNISOC | SMS / CB / FDN | Framework/Telephony/SMSDispatcher | medium | summarized | CQWeb SPCSS01484963 | SMSDispatcher premium short code 分支处理对象类型错误，导致发送流程在 AP 侧中断 |
@@ -154,12 +145,11 @@ generated: true
 | [G100 通话过程中，出现Modem Assert](Stability/Imported_Stability_G100_通话过程中ModemAssert_PWM32K时钟源.md) | Stability | MTK | Stability / NV / Modem | 'BSP/PWM/Modem' | high | summarized | 'Old Outline knowledge base; split from SIM问题案例补充.md' | 'ccci modem assert 指向 lte_scheduler.c，同时二分定位到灯环 PWM 32K clock source' |
 | [MTK Patch导致ModemEE](Stability/2025-06-27_Stability_MTK_Patch导致ModemEE.md) | Stability | MTK | Stability / NV / Modem | Modem/IMS | medium | summarized | internal weekly technical case | VDM 在 IMS call retry 期间访问 call_id，错误取值 255 后触发 crash |
 | [WM58从有锁网升级下载到无锁网，Modem Assert](Stability/Imported_SIM_03_WM58从有锁网升级下载到无锁网_Modem_Assert.md) | Stability | MTK | Stability / NV / Modem | 'Config/Modem/AP' | medium | summarized | 'Old Outline knowledge base; split from SIM问题案例补充.md' | 'nvram_main.c line 2192，para0=0x0000ef11 指向 SML/NVRAM 数据保护' |
-| [NVRAM与产物链路问题索引](Stability/NVRAM与产物链路问题索引.md) | Stability | MTK/Mixed | Stability / NV / Modem | Modem/NVRAM/BSP/Product | high | active | Old Outline SIM import consolidation | AP 侧 SIM/IMEI/META 表象之前，先出现 modem/NVRAM/产物链路不一致 |
 | [A/B OTA 在 nvmerge 前中断的 fixnv 风险](Stability/2023-09-18_Stability_UNISOC_AB_OTA_nvmerge前中断fixnv风险.md) | Stability | UNISOC | Stability / NV / Modem | update_engine / postinstall / NV partition | high | summarized | CQWeb SPCSS01234705 | update_engine 写入 l_fixnv1/l_fixnv2 后，在 Running /postinstall/bin/nvmerge 之前被打断 |
 | [CA 能力上报异常导致 Modem Assert](Stability/2025-06-25_Stability_UNISOC_CA能力上报异常导致ModemAssert.md) | Stability | UNISOC | Stability / NV / Modem | Modem/LTE PHY/UE capability | high | summarized | CQWeb SPCSS01521496 | LTE_DL_SCH0_TASK PHY CP assert in afc_aaal.c after unsupported CA configuration |
 | [fastboot 刷 fixnv 导致 IMEI/校准参数丢失](Stability/2022-03-04_Stability_UNISOC_fastboot刷fixnv导致IMEI校准丢失.md) | Stability | UNISOC | Stability / NV / Modem | Bootloader fastboot / NV partition / Field flashing | high | summarized | CQWeb SPCSS00766912 / SPCSS00967511 | fastboot flash fixnv 分区前未备份并合并原机 IMEI/校准 NV |
 | [fixnv 双备损坏导致 modem 起不来](Stability/2024-07-31_Stability_UNISOC_fixnv双备损坏Modem不起.md) | Stability | UNISOC | Stability / NV / Modem | AP MODEM_CTRL / NV / Modem boot | high | summarized | CQWeb SPCSS01379846 | MODEM_CTRL: NV_READ calc_checksum fail，both org and bak partition are damaged |
-| [fixnv 损坏怀疑：必须回读主备分区](Stability/2022-04-05_Stability_UNISOC_fixnv损坏IMEI校准丢失_回读证据包.md) | Stability | UNISOC | Stability / NV / Modem | NV / Download tool / Field return | medium | evidence_requirement | CQWeb SPCSS00977064 | IMEI 回到展锐原始值、工模校准参数丢失，但缺少 fixnv 分区回读证据 |
+| [fixnv 损坏怀疑：必须回读主备分区](Stability/2022-04-05_Stability_UNISOC_fixnv损坏IMEI校准丢失_回读证据包.md) | Stability | UNISOC | Stability / NV / Modem | NV / Download tool / Field return | medium | summarized_with_log_gap | CQWeb SPCSS00977064 | IMEI 回到展锐原始值、工模校准参数丢失，但缺少 fixnv 分区回读证据 |
 | [RDNV 保存后双卡 Modem 崩溃与 CustNV 差异](Stability/2021-01-12_Stability_UNISOC_RDNV保存后双卡Modem崩溃_CustNV差异.md) | Stability | UNISOC | Stability / NV / Modem | Modem NV / NVTool | high | summarized | CQWeb SPCSS00783213 | sharkl3_pubcp_customer_nvitem.bin 与原始/基线 NV 工程差异过大 |
 | [RFIC 读取失败导致 modem 起不来](Stability/2024-01-25_Stability_UNISOC_RFIC读取失败Modem不起.md) | Stability | UNISOC | Stability / NV / Modem | MODEM_CTRL / RF driver / hardware | high | summarized | CQWeb SPCSS01290608 | Modem assert in drv_rf_iram.c when Get RFIC type, g_rfic_type=-1 |
 | [UNISOC Modem Blocked现场](Stability/2025-08-01_Stability_UNISOC_ModemBlocked.md) | Stability | UNISOC | Stability / NV / Modem | Modem/HW/AP | low | summarized | internal project summary | 拔卡瞬间 modem 挂住，无后续 modem log 输出 |

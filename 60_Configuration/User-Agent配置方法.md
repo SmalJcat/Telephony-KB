@@ -13,6 +13,61 @@ layer: AP/IMS/MMS/Media/NV
 
 这篇记录 IMS / SIP、MMS、Video Streaming User-Agent 客制化入口。修改前必须同时确认配置来源、运行时 log 中最终 UA，以及是否影响多个运营商共用格式。
 
+
+<!-- CONFIG_TEMPLATE_BLOCK_START -->
+## 模板化定位
+
+### 配置来源
+
+| 来源 | 本文落点 | 运行时验证 |
+|---|---|---|
+| IMS / SIP UA | IMS profile、CarrierConfig、vendor IMS 配置 | SIP REGISTER/INVITE header |
+| MMS UA | MMS CarrierConfig、MmsService 配置 | HTTP UA、MMS send log |
+| Video Streaming UA | 浏览器/媒体/运营商 profile | HTTP header、业务抓包 |
+
+### 匹配与生效链路
+
+```text
+运营商 UA 需求
+-> 对应业务配置源
+-> AP/IMS/MMS 模块读取
+-> HTTP 或 SIP header 出现在网络侧
+```
+
+### 平台差异
+
+| 平台 | 重点看点 | 验证口径 |
+|---|---|---|
+| Android common | AOSP 公共 XML、Provider、framework 读取点 | 先证明 common 默认值和运行时 dump 是否一致 |
+| UNISOC | carrier overlay、CarrierService、Operator NV、modem profile | 同时看 AP log、产物配置、NV/readback 和 modem trace |
+| MTK | vendor/mediatek 私有配置、SBP/DSBP/CXP、NVRAM | 结合 debuglogger、ELT/MD log、AP dump 验证最终值 |
+| Qualcomm | CarrierConfig overlay、MCFG/QCRIL、modem profile | 结合 dumpsys、QXDM/QCAT、MCFG 产物确认 |
+
+### 验证命令与 log
+
+| 目标 | 证据入口 | 预期结论 |
+|---|---|---|
+| 源配置存在 | IMS/MMS/HTTP User-Agent 配置和运营商要求 | 能定位到需求字段、默认值和项目覆盖值 |
+| 运行时 dump 生效 | SIP REGISTER、MMS HTTP、streaming request log | 设备当前值与预期配置一致 |
+| AP/vendor 已采用 | Telephony/RILJ/vendor service log | 能看到读取、选择、下发或业务判断动作 |
+| modem/协议侧采用 | SIP/HTTP 报文中的最终 UA 字段 | 协议字段、modem 状态或 reject cause 能与配置结果闭环 |
+
+### 关联入口
+
+| 入口 | 用途 |
+|---|---|
+| [配置目录 README](README.md) | 回到配置分类和放置规则 |
+| [Case横向索引](../40_Case-Library/Case横向索引.md) | 查历史同类问题和第一坏点 |
+| [平台代码入口](../50_Platform-Code/README.md) | 查厂商代码读取位置 |
+| [常用命令](../70_Tools-Debug/Commands/常用命令.md) | 查 dumpsys、logcat 和 adb 命令 |
+
+### 常见失败模式
+
+| 现象 | 优先检查 | 第一坏点判断 |
+|---|---|---|
+| dump 正确但 header 不变 | 业务模块是否读取该字段 | 配置未被消费 |
+| 只有某业务 UA 错 | 区分 IMS / MMS / streaming 三套来源 | 不跨业务套用同一配置 |
+<!-- CONFIG_TEMPLATE_BLOCK_END -->
 ## IMS / SIP UA
 
 UNISOC 参考入口：

@@ -2,7 +2,7 @@
 doc_type: index
 domain: Meta
 status: active
-quality: imported_reference
+quality: curated
 ---
 
 # 60_Configuration
@@ -15,11 +15,38 @@ quality: imported_reference
 
 这里集中放“配置从哪里来、如何匹配、在哪一层生效、失败时怎么验证”。业务流程只链接配置影响点，不重复配置细节。
 
+## 统一写法
+
+新增或精修配置文档时，按 [配置方法模板](../99_Templates/配置方法模板.md) 组织：
+
+1. 先写速查结论，不先贴长表。
+2. 再写配置来源、匹配与生效链路。
+3. 平台差异单独成表，避免散在正文里。
+4. 验证必须同时包含源配置、运行时 dump、AP/vendor 下发、modem/协议采用。
+5. 常见失败和关联案例放在文档后半段，主流程只链接，不重复展开。
+
+## 模板化覆盖范围
+
+当前 `60_Configuration` 的主配置文档已经统一补充“模板化定位”区块，用于快速回答四个问题：配置来自哪里、如何匹配生效、怎么验证、失败时先查哪一层。
+
+| 类型 | 已覆盖文档 | 维护要求 |
+|---|---|---|
+| 主配置方法 | APN、CarrierConfig、ECC、NV、运营商名称、IMS、SMS、SIMLock、补充业务、小区广播、User-Agent、网络制式图标、卫星通信 | 入口先给结论和证据链，细节表放后半段 |
+| 平台/加载链路 | UNISOC CarrierService 启动与 CarrierConfig 加载流程 | 说明启动入口、运行时 dump、读取方和常见断点 |
+| 参数映射/资料索引 | CarrierConfig 参数映射、Modem NV 参数映射、配置与客户定制、运营商应答资料索引 | 只做入口和读法，不在主文档重复承载全量字段 |
+
+如需重新生成这些区块，运行：
+
+```powershell
+PowerShell -ExecutionPolicy Bypass -File F:\Codex\Knowledge\Telephony-KB\70_Tools-Debug\normalize-config-docs.ps1
+```
+
 ## 入口
 
 | 文档 | 用途 |
 |---|---|
 | [[配置与客户定制]] | 配置类总览和旧链接兼容入口 |
+| [配置方法模板](../99_Templates/配置方法模板.md) | 新增 APN / ECC / CarrierConfig / NV / 运营商名等配置文档时的统一骨架 |
 | [[NV参数配置]] | NV 参数配置、NVTool、展锐 NV 参数、版本、生效、回退和验证清单 |
 | [[Modem NV参数映射]] | Modem/Operator NV 字段映射总入口；字段级大表已拆到 `References/NV` |
 | [[APN配置方法]] | APN 配置字段、MTK/UNISOC 路径和迁入资料 |

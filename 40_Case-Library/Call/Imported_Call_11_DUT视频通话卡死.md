@@ -53,15 +53,22 @@ modem 侧证据显示 IMS 注册、SIP INVITE、183/180/200/ACK 以及音视频 
 | 只有本机卡死 | 补设备性能、内存、GPU/codec log 和对比机 |
 | 双向 RTP 有收发 | 重点确认 AP 是否解码/渲染，而不是只看 modem |
 
-## 补证要求
+## 下次复现补证清单
 
-| 证据 | 用途 |
+| 必抓证据 | 具体内容 | 能证明什么 |
 |---|---|
-| logcat media / camera / ims service | 判断 AP 视频链路 |
-| systrace/perfetto | 判断 UI thread / render thread 卡顿 |
-| tombstone / ANR | 判断是否应用或 native 崩溃 |
-| RTP 抓包或 modem TCPIP | 证明网络媒体流持续 |
-| 对比机视频 codec / resolution | 区分能力协商和 AP 渲染差异 |
+| AP logcat | `media.codec`、`CameraService`、`SurfaceFlinger`、Dialer、IMS service、卡死时间点 | AP 视频解码/渲染/UI 是否异常 |
+| Perfetto / systrace | UI thread、RenderThread、binder、camera、codec、GPU 时间线 | 判断是否 UI 卡顿、渲染阻塞或 codec 阻塞 |
+| tombstone / ANR | native crash、Java ANR、watchdog | 判断卡死是否已经变成崩溃/无响应 |
+| modem SIP/RTP/TCPIP | SIP 建呼、RTP/RTCP audio/video 持续收发、端口 tuple | 证明网络和 modem 媒体流是否仍正常 |
+| 画面/音频现象记录 | 本地画面、远端画面、双向音频、卡死时刻截图/录像 | 区分本地预览、远端视频、编码或解码问题 |
+| 对比机同场景 | codec、resolution、SDP、RTP、UI 行为 | 判断是 DUT AP 渲染差异还是网络媒体条件变化 |
+
+判定口径：
+
+- RTP 持续收发且 SIP 未释放时，优先查 AP media/render，不再按网络建呼失败处理。
+- 只有远端画面卡死、本地预览正常时，重点查下行 RTP 解码/渲染。
+- 双向视频都停但音频正常时，重点查 video codec、Surface 或 QCI2/视频 RTP。
 
 ## 原始案例内容
 

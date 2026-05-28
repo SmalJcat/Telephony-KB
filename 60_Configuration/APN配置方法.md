@@ -17,6 +17,65 @@ APN 配置字段、路径、平台差异和历史资料索引。
 
 > 图片已保存为本地附件；非图片附件仍保留原 Outline 链接作为资料索引。
 
+
+<!-- CONFIG_TEMPLATE_BLOCK_START -->
+## 模板化定位
+
+### 配置来源
+
+| 来源 | 本文落点 | 运行时验证 |
+|---|---|---|
+| AOSP / 产品 APN 库 | `apns-conf.xml`、项目 overlay、运营商 APN 表 | `content://telephony/carriers`、APN UI、bugreport APN dump |
+| CarrierConfig / APN 可见性 | APN type 隐藏、编辑限制、MMS/IMS/XCAP 相关开关 | `dumpsys carrier_config`、APN 列表是否显示目标 type |
+| AP DataProfile | `DataProfileManager` 选择 IA APN 和业务 APN | RILJ `SET_INITIAL_ATTACH_APN`、`setupDataCall` |
+| modem / 网络侧 | PDN Connectivity Request、ESM reject、default bearer | modem ESM/SM trace、APN/protocol/auth 字段 |
+
+### 匹配与生效链路
+
+```text
+APN XML / database
+-> TelephonyProvider 入库
+-> DataProfileManager 按 APN type / carrier / roaming 选择
+-> setInitialAttachApn 或 setupDataCall 下发
+-> modem 发起 PDN / PDP
+-> 网络接受或返回 ESM cause
+```
+
+### 平台差异
+
+| 平台 | 重点看点 | 验证口径 |
+|---|---|---|
+| Android common | AOSP 公共 XML、Provider、framework 读取点 | 先证明 common 默认值和运行时 dump 是否一致 |
+| UNISOC | carrier overlay、CarrierService、Operator NV、modem profile | 同时看 AP log、产物配置、NV/readback 和 modem trace |
+| MTK | vendor/mediatek 私有配置、SBP/DSBP/CXP、NVRAM | 结合 debuglogger、ELT/MD log、AP dump 验证最终值 |
+| Qualcomm | CarrierConfig overlay、MCFG/QCRIL、modem profile | 结合 dumpsys、QXDM/QCAT、MCFG 产物确认 |
+
+### 验证命令与 log
+
+| 目标 | 证据入口 | 预期结论 |
+|---|---|---|
+| 源配置存在 | apns-conf.xml / APN database / APN overlay | 能定位到需求字段、默认值和项目覆盖值 |
+| 运行时 dump 生效 | content://telephony/carriers、APN UI、RILJ setupDataCall | 设备当前值与预期配置一致 |
+| AP/vendor 已采用 | Telephony/RILJ/vendor service log | 能看到读取、选择、下发或业务判断动作 |
+| modem/协议侧采用 | PDN Connectivity、ESM cause、DataCall profile | 协议字段、modem 状态或 reject cause 能与配置结果闭环 |
+
+### 关联入口
+
+| 入口 | 用途 |
+|---|---|
+| [配置目录 README](README.md) | 回到配置分类和放置规则 |
+| [Case横向索引](../40_Case-Library/Case横向索引.md) | 查历史同类问题和第一坏点 |
+| [平台代码入口](../50_Platform-Code/README.md) | 查厂商代码读取位置 |
+| [常用命令](../70_Tools-Debug/Commands/常用命令.md) | 查 dumpsys、logcat 和 adb 命令 |
+
+### 常见失败模式
+
+| 现象 | 优先检查 | 第一坏点判断 |
+|---|---|---|
+| APN 看得见但连不上 | IA APN / data APN 是否同一个、protocol/auth 是否正确 | AP 已下发且 ESM reject 时，第一坏点通常在 APN/订阅/网络侧 |
+| APN 配了但 UI 不显示 | APN type、CarrierConfig hide list、MVNO 匹配 | 入库失败或被 AP 策略过滤，不是 modem 问题 |
+| IMS/MMS/XCAP 失败 | 是否使用了正确专用 APN | 默认 Internet APN 成功不代表专用 APN 成功 |
+<!-- CONFIG_TEMPLATE_BLOCK_END -->
 ## **1、简介**
 
 APN(Access Point Name)：即"接入点名称"，用来标识GPRS的业务种类，是通过手机上网时必须配置的一个参数，其决定了手机通过哪种接入方式来访问网络。

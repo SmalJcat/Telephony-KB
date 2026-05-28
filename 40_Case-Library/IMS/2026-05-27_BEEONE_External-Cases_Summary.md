@@ -1,5 +1,5 @@
 ---
-doc_type: case
+doc_type: reference
 quality: imported_reference
 domain: IMS
 rat: LTE/IWLAN
@@ -11,7 +11,7 @@ cause: 'external searchable snippets; root cause varies by item'
 source_log: 'eService issue_manager / external searchable snippets; collected 2026-05-27'
 first_bad_point: '配置片段未拆成独立 case'
 confidence: low
-status: imported
+status: reference
 external_source: https://eservice.mediatek.com/eservice-portal/issue_manager
 collected: 2026-05-27
 tags:

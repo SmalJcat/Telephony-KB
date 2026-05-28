@@ -42,15 +42,22 @@ CM52没有切到吞吐量更高的小区
 - 现象：`n78 20MHz Cell 905` 与 `n78 60MHz Cell 192` 同时可用时，设备间歇性优先驻留 20 MHz 小区。
 - 缺口：原始“问题分析 / 根本原因 / 解决方案”为空。
 
-## 补证要求
+## 下次复现补证清单
 
-| 证据 | 目的 |
+| 必抓证据 | 具体内容 | 能证明什么 |
 |---|---|
-| NR serving / neighbor measurement | 判断两个小区的 RSRP / RSRQ / SINR 是否真的同等可用 |
-| SIB / priority / barred 信息 | 判断网络是否通过优先级或限制引导驻留 |
-| 吞吐测试时间线 | 对齐驻留小区变化和吞吐下降时间点 |
-| CA/ENDC 能力和 band combo | 判断是否受终端能力或组合限制影响 |
-| 对比机 log | 判断是否是网络策略，还是 DUT 平台行为差异 |
+| NR serving/neighbor measurement | n78 20 MHz 与 n78 60 MHz 的 PCI/NRARFCN/SSB、RSRP/RSRQ/SINR | 60 MHz 小区是否真的比当前小区更适合 |
+| SIB / cell restriction | cell barred、intra/inter frequency priority、thresh、qRxLevMin、qQualMin | 网络是否限制或引导 UE 不选目标小区 |
+| RRC measurement / reselection log | 测量报告、重选/切换事件、失败 cause | UE 是否测到目标小区以及为何未切换 |
+| 吞吐时间线 | iperf/Speedtest 开始结束、小区变化、吞吐下降点 | 吞吐低是否与驻留 20 MHz 小区同步 |
+| ENDC/CA/band combo | UE capability、当前 CA/DC 组合、调度带宽 | 是否受终端能力、组合或网络调度限制 |
+| 对比机同场景 | 同卡、同点位、同方向、同测试 server | 区分网络负载/策略和 DUT 行为差异 |
+
+判定口径：
+
+- 没有 NR 测量和 SIB 信息时，不能直接判“应切到 60 MHz”。
+- 吞吐低不等于小区选择错，还要排除网络负载、server、CA/DC 组合和调度。
+- 如果网络没有下发目标小区可选条件，问题归网络配置或覆盖，不归 UE 重选策略。
 
 ## 原始案例内容
 

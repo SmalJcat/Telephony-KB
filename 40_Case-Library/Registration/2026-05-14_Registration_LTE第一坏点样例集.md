@@ -1,6 +1,6 @@
 ---
 quality: curated
-doc_type: case
+doc_type: reference
 domain: Registration
 rat: LTE / 2G / 3G
 feature: first fault isolation

@@ -55,15 +55,22 @@ DUT视频通话闪退
 | REF 分辨率更低且可通 | 可能是视频能力协商或 profile 差异 |
 | 闪退 | 需要 AP crash/tombstone/logcat 才能判断 UI/应用崩溃根因 |
 
-## 补证要求
+## 下次复现补证清单
 
-| 证据 | 用途 |
+| 必抓证据 | 具体内容 | 能证明什么 |
 |---|---|
-| AP crash / tombstone / logcat | 判断“闪退”是否为应用崩溃 |
-| SIP INVITE / 183 / 200 SDP | 判断视频 codec、分辨率、带宽协商 |
-| ESM dedicated bearer | 判断 QCI2 是否由网络下发、终端是否接受 |
-| IMS capability dump | 判断 ViLTE / video resolution 是否被 AP 正确打开 |
-| 同卡 REF 全链路 | 对齐 bearer、SDP、resolution 和 UI 行为 |
+| AP logcat / tombstone / ANR | Dialer/IMS service/media/camera/SurfaceFlinger 崩溃栈，闪退准确时间点 | “闪退”是应用崩溃、native 崩溃还是 call session 被释放 |
+| modem SIP/SDP log | INVITE、183、UPDATE、200 OK 中 video codec、profile-level-id、分辨率、带宽 | 视频能力协商是否超出 DUT 支持 |
+| ESM/QoS log | IMS default QCI5、audio QCI1、video QCI2 dedicated bearer 建立/拒绝 | QCI2 是网络未下发、终端未接受还是 AP 未触发 |
+| AP IMS capability dump | ViLTE 开关、video resolution、RIL_IMS_REQUEST_SET_VIDEO_RESOLUTION 返回值 | AP 与 modem 视频能力是否同步 |
+| 对比机同卡日志 | REF 的 SDP、QCI2、分辨率、UI 行为 | 区分网络策略和 DUT 能力/profile 差异 |
+| 设备性能证据 | CPU/GPU/memory、thermal、camera/codec log | 排除视频启动瞬间 AP 资源或 codec 问题 |
+
+判定口径：
+
+- 没有 tombstone/ANR 时，不要把“闪退”写成 AP 崩溃根因。
+- 有 SIP 200 OK 但无 QCI2，只能说明视频承载缺失，仍需区分网络未下发和终端未接受。
+- `RADIO_NOT_AVAILABLE` 需要同时看 radio/modem 是否重启、IMS service 是否断开、video request 是否发错时机。
 
 ## 原始案例内容
 

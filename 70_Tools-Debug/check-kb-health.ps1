@@ -229,9 +229,16 @@ $allowedCaseStatuses = @(
   'evidence_requirement'
 )
 $caseRoot = Join-Path $rootPath '40_Case-Library'
-$caseFiles = @()
+$caseFiles = New-Object System.Collections.Generic.List[object]
 if (Test-Path -LiteralPath $caseRoot) {
-  $caseFiles = @(Get-ChildItem -LiteralPath $caseRoot -Recurse -File -Filter '*.md' | Where-Object { $_.Name -ne 'README.md' -and $_.Name -ne 'Case横向索引.md' })
+  $candidateCaseFiles = @(Get-ChildItem -LiteralPath $caseRoot -Recurse -File -Filter '*.md' | Where-Object { $_.Name -ne 'README.md' -and $_.Name -ne 'Case横向索引.md' })
+  foreach ($candidate in $candidateCaseFiles) {
+    $candidateLines = @(Get-Content -LiteralPath $candidate.FullName -Encoding UTF8)
+    $candidateFrontmatter = Get-FrontmatterLines $candidateLines
+    if ((Get-FrontmatterValue -Frontmatter $candidateFrontmatter -Field 'doc_type') -eq 'case') {
+      $caseFiles.Add($candidate)
+    }
+  }
 }
 
 foreach ($caseFile in $caseFiles) {
@@ -304,7 +311,15 @@ $registrationDir = Join-Path $caseRoot 'Registration'
 $registrationReadme = Join-Path $registrationDir 'README.md'
 if (Test-Path -LiteralPath $registrationReadme) {
   $readmeText = [System.IO.File]::ReadAllText($registrationReadme, [System.Text.Encoding]::UTF8)
-  $registrationCases = @(Get-ChildItem -LiteralPath $registrationDir -File -Filter '*.md' | Where-Object { $_.Name -ne 'README.md' })
+  $registrationCases = New-Object System.Collections.Generic.List[object]
+  $registrationCandidates = @(Get-ChildItem -LiteralPath $registrationDir -File -Filter '*.md' | Where-Object { $_.Name -ne 'README.md' })
+  foreach ($candidate in $registrationCandidates) {
+    $candidateLines = @(Get-Content -LiteralPath $candidate.FullName -Encoding UTF8)
+    $candidateFrontmatter = Get-FrontmatterLines $candidateLines
+    if ((Get-FrontmatterValue -Frontmatter $candidateFrontmatter -Field 'doc_type') -eq 'case') {
+      $registrationCases.Add($candidate)
+    }
+  }
   foreach ($caseFile in $registrationCases) {
     $base = [System.IO.Path]::GetFileNameWithoutExtension($caseFile.Name)
     if (-not $readmeText.Contains($base)) {

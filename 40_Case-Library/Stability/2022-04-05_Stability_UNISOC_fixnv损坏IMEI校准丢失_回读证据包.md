@@ -13,7 +13,7 @@ chipset: "SC7731E"
 source_log: "CQWeb SPCSS00977064"
 first_bad_point: "IMEI 回到展锐原始值、工模校准参数丢失，但缺少 fixnv 分区回读证据"
 confidence: medium
-status: evidence_requirement
+status: summarized_with_log_gap
 tags:
   - cqweb
   - stability
@@ -42,6 +42,19 @@ l_fixnv1_b  0x100000  d:\fixnv1_b.bin
 l_fixnv2_a  0x100000  d:\fixnv2_a.bin
 l_fixnv2_b  0x100000  d:\fixnv2_b.bin
 ```
+
+## 下次复现补证清单
+
+| 证据 | 目的 |
+|---|---|
+| 异常机完整 bugreport、radio log、工模截图 | 确认 IMEI 默认值、校准项丢失和 AP 侧可见现象 |
+| `l_fixnv1_a/b`、`l_fixnv2_a/b` 主备分区回读 | 判断主备 fixnv 是否为空、错版本、校验失败或被覆盖 |
+| 同批正常机 fixnv 主备分区回读 | 区分个体损坏、批量刷机流程问题和版本结构差异 |
+| ResearchDownload / FactoryDownload 操作记录 | 确认是否执行过 format、erase、重分区、强制写入 fixnv |
+| 升级前后 PAC、分区表和 NV merge 相关产物 | 判断是否存在刷机脚本或 OTA 流程覆盖个体化参数 |
+| 掉电、返修、重刷、写号时间线 | 还原 fixnv 损坏发生在产线、升级、售后还是用户现场 |
+
+判定口径：只有 bugreport 或 IMEI 截图时，最多判为“NV/产物链路可疑”；拿到主备 fixnv 回读并能与正常机或升级前备份对比后，才能升级为 `summarized` 或 `closed`。
 
 ## 排查要点
 

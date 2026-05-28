@@ -42,16 +42,22 @@ vowifi 无法拨打电话
 - 拆分序号：4
 - 附件：`attachments/outline/files/e3b69f59-0e2a-4fde-8454-de3e745d1048_Vanilla VoWiFi ECC问题复盘总结.pptx`
 
-## 补证要求
+## 下次复现补证清单
 
-| 证据 | 用途 |
+| 必抓证据 | 具体内容 | 能证明什么 |
 |---|---|
-| WFC / VoWiFi 开关和 CarrierConfig | 判断 AP 是否允许 VoWiFi 通话 |
-| IWLAN / ePDG 注册日志 | 判断 N3GPP 接入是否建立 |
-| IMS emergency capability / registration | 判断是否允许 emergency over IMS/Wi-Fi |
-| SIP INVITE / SIP response | 判断建呼失败原因 |
-| domain selection / retry log | 判断失败后是否回退到 LTE/CS/其它 slot |
-| Wi-Fi 网络和 DNS/IPsec 证据 | 区分 Wi-Fi/ePDG 基础链路失败和通话业务失败 |
+| AP main/radio log + bugreport | WFC 开关、飞行模式、拨号入口、EmergencyNumberTracker、domain selection、失败弹框时间 | AP 是否允许 emergency over Wi-Fi，以及实际选择了哪个 phoneId/domain |
+| CarrierConfig dump | WFC、IMS emergency、ECC、roaming、carrier privilege 相关 key | 是否被配置门控拦截 |
+| modem IMS/IWLAN log | IKE/ePDG、IMS over IWLAN REGISTER、P-CSCF、IMS emergency capability | 问题卡在 ePDG、IMS 注册还是 emergency 建呼 |
+| SIP log | emergency INVITE、Request-URI/URN、P-Access-Network-Info、SIP response | emergency call 是否真正发到 IMS core，以及网络拒绝原因 |
+| retry / fallback log | CS retry、LTE/CS domain retry、slot/subId 切换、radio power state | 失败后是否按策略回退到蜂窝或 CS |
+| Wi-Fi 环境证据 | SSID、DNS、UDP 500/4500、tcpdump/ISAKMP、公司/公共 Wi-Fi | 区分 Wi-Fi/ePDG 基础链路失败和 emergency 业务失败 |
+
+判定口径：
+
+- 飞行模式下提示“需关闭飞行模式”时，先查 AP domain selection 是否认为 Wi-Fi emergency 不可用。
+- IKE/ePDG 未建立时，不要继续归因 SIP 或 ECC 号码配置。
+- IMS over IWLAN 已注册但 INVITE 被拒时，再看 URN、号码映射、签约和网络策略。
 
 ## 归属规则
 

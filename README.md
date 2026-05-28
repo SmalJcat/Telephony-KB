@@ -33,6 +33,9 @@ F:\Codex\Knowledge\Telephony-KB
 | 常用速查 | [速查](00_Index/速查.md) |
 | 内容归属规则 | [内容归属规则](00_Index/内容归属规则.md) |
 | Case 横向索引 | [Case横向索引](40_Case-Library/Case横向索引.md) |
+| 证据缺口补证总览 | [证据缺口补证总览](30_Troubleshooting/证据缺口补证总览.md) |
+| Telephony函数级入口速查 | [Telephony函数级入口速查](50_Platform-Code/Cross-Platform/Telephony函数级入口速查.md) |
+| 配置方法模板 | [配置方法模板](99_Templates/配置方法模板.md) |
 | Case 精修清单 | [案例精修清单](00_Index/案例精修清单.md) |
 | 写作和维护规则 | [使用说明](00_Index/使用说明.md) |
 | Case 模板 | [Case模板](99_Templates/Case模板.md) |

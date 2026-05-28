@@ -11,7 +11,7 @@ layer: AP/RIL/VendorRIL/Modem
 
 ## 阅读入口
 
-这篇只做 UNISOC 平台代码定位入口。跨平台主线看 [平台代码与产物速查](../Cross-Platform/平台代码与产物速查.md)，CarrierConfig 加载细节看 [UNISOC CarrierService启动与CarrierConfig加载流程](../../60_Configuration/UNISOC-CarrierService启动与CarrierConfig加载流程.md)。
+这篇只做 UNISOC 平台代码定位入口。函数级入口先看 [Telephony函数级入口速查](../Cross-Platform/Telephony函数级入口速查.md)，跨平台主线看 [平台代码与产物速查](../Cross-Platform/平台代码与产物速查.md)，CarrierConfig 加载细节看 [UNISOC CarrierService启动与CarrierConfig加载流程](../../60_Configuration/UNISOC-CarrierService启动与CarrierConfig加载流程.md)。
 
 ## 常用代码入口
 
@@ -44,10 +44,20 @@ ServiceStateTracker
 | `ExtRadioDataProxy` | data attach/detach、active PDP、数据侧扩展 |
 | `ExtRadioModemProxy` | modem 状态、版本、部分 NV/工程能力 |
 
+## 函数级入口
+
+| 场景 | 入口 |
+|---|---|
+| 标准 CS/PS 注册态 | `RadioImpl::getVoiceRegistrationState()` / `getDataRegistrationState()`，response 看 `radio::getVoiceRegistrationStateResponse()` / `getDataRegistrationStateResponse()` |
+| Initial Attach APN | `RadioImpl::setInitialAttachApn()`，response 看 `radio::setInitialAttachApnResponse()` |
+| LTE 开关 / 网络模式扩展 | `RadioInteractorCore.enableLTE()`、`ExtRadioNetworkProxy.enableLTE()`、`setPreferredNetworkTypeExt()` |
+| data attach / reattach | `RadioInteractorCore.attachData()`、`reAttach()`、`ExtRadioDataProxy.attachData()` |
+| 注册拒绝 / RACH 失败旁路 | `ExtRadioNetworkIndication.reasonsForRegRejectedInd()`、`rachFailInd()` |
+| 扩展注册态通知 | `ExtRadioNetworkIndication.networkRegStateInd()` |
+
 ## 定位原则
 
 - 标准注册态先看 AOSP RIL 主链，不要一开始就跳到 `RadioInteractor`。
 - RACH fail、注册拒绝旁路、快速回网等平台扩展事件，再看 `ExtRadio*`。
 - AP 显示无服务但 modem 已成功时，重点查 RIL response 字段、CellIdentity、PLMN、reject reason 映射。
 - modem trace 不完整时，先补抓 EMM/ESM/LRRC/L2/PLM 相关 trace，再下结论。
-

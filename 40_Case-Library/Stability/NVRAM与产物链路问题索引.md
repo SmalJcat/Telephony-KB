@@ -1,5 +1,5 @@
 ---
-doc_type: guide
+doc_type: index
 domain: Stability
 rat: Mixed
 feature: NVRAM / modem image / RF parameter

@@ -59,3 +59,21 @@ MSG_ID_RR_PLM_PLMN_SEL_FAILURE_IND
 - 复测时同时保存 ARM log、DSP log、AP log，记录开始/结束时间点和移动路线。
 - 对弱场移动问题，先确认覆盖和小区测量质量，再讨论平台回网策略。
 - 若复现点无法补 log，只能沉淀为“证据不足样例”，不能作为代码修改依据。
+
+## 下次复现补证清单
+
+| 必抓证据 | 具体内容 | 能证明什么 |
+|---|---|---|
+| AP radio/main log | `ServiceState`、RILJ 注册态、网络模式、飞行/移动时间点 | AP 是否及时收到 modem 回网状态 |
+| modem ARM log | LRRC/NAS/NWSEL、PLMN search、cell selection、TAU/attach、RAT change | 回 LTE 的触发点和失败点 |
+| DSP/L1 log | 目标频点测量、同步、S criteria、RACH、L1 failure | 弱场/射频测量是否足以支持回 LTE |
+| 时间对齐信息 | 开始移动、进入无服务、到强场、仍不回 LTE、恢复动作 | AP/ARM/DSP 三侧时间线能否对齐 |
+| serving/neighbor cell | EARFCN/PCI/TAC/RSRP/RSRQ/SINR、2G/3G/LTE 小区列表 | 判断是覆盖差、候选小区不可用还是策略未触发 |
+| 对比机同路线 | 同卡或同运营商、同地点、同时间窗口 | 区分环境覆盖和 DUT 行为差异 |
+| 操作变量 | 是否锁网/锁频、是否手动选网、是否开关飞行恢复、SIM 卡槽 | 排除测试操作改变状态机 |
+
+判定口径：
+
+- DSP/L1 缺失时，不能把“不回 4G”定成 NAS/平台策略根因。
+- 目标 LTE RSRP/SINR 本身很差时，优先写覆盖证据，不直接写终端 bug。
+- DUT 和对比机都处在差覆盖时，只能比较搜索/测量/驻留决策差异，不能只比较最终图标。

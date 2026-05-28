@@ -44,14 +44,22 @@ tags:
 - 卡片后面贴纸片仍不识卡。
 - 建议动作：拆机检查明显故障，测量检卡时的 `vsim/rst/io` 波形。
 
-## 补证要求
+## 下次复现补证清单
 
-| 证据 | 目的 |
+| 必抓证据 | 具体内容 | 能证明什么 |
 |---|---|
-| 插卡中断 / detect | 判断是否进入 SIM 上电流程 |
-| VSIM/RST/CLK/IO 波形 | 判断卡座、电源和复位时序 |
-| No ATR log | 判断是完全无响应还是 ATR 不完整 |
-| 卡/机交叉 | 区分卡片问题、卡座问题和主板硬件问题 |
+| AP UICC/radio log | SIM state、slot state、card absent/present、ATR timeout | AP 是否收到插卡和 modem 上报 |
+| modem SIM log | SIM detect、power on、reset、ATR wait/timeout、voltage class | SIM 协议栈卡在哪一步 |
+| 硬件波形 | VSIM、RST、CLK、IO，从插卡到 ATR timeout 的完整波形 | 判断供电、复位、时钟、IO 是否异常 |
+| 交叉验证 | 同卡换机、同机换卡、压卡/垫高、拆机后复测 | 区分卡片、卡座、焊接和主板问题 |
+| 外观/显微检查 | 卡座焊点、弹片、ESD 器件、SIM 走线 | 确认虚焊、脱焊或结构接触问题 |
+| 修复后复测 | 补焊/更换卡座前后同一套 log 和波形 | 证明硬件修复与 No ATR 消失有因果关系 |
+
+判定口径：
+
+- No ATR 只能说明卡未返回有效 ATR，不能单独区分卡片坏、卡座接触、供电或 IO 问题。
+- 贴纸垫高后仍失败时，应继续看波形和焊点，不要只凭接触改善动作下结论。
+- 没有波形时，硬件结论只能写“疑似”，不能写成确定虚焊。
 
 ## 原始案例内容
 

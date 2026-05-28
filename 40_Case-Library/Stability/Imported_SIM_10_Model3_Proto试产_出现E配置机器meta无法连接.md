@@ -42,14 +42,22 @@ Model3 Proto试产，出现E配置机器meta无法连接
 - 参数：`para0/para1/para2 = 0`
 - 分析方向：SML data 为空。
 
-## 补证要求
+## 下次复现补证清单
 
-| 证据 | 用途 |
+| 必抓证据 | 具体内容 | 能证明什么 |
 |---|---|
-| SML 数据生成/写入日志 | 确认是否产线未写入 |
-| META 连接失败前 modem log | 确认是否每次卡在同一 assert |
-| SML 侧代码/配置 diff | 确认空数据来源 |
-| 修复版本复测 | 验证 META 连接恢复 |
+| META 连接日志 | META tool 版本、连接阶段、失败码、AP/modem 侧握手日志 | 判断失败发生在工具、端口、modem boot 还是 NV 读取 |
+| modem full dump | `custom_nvram_extra.c line=11520`、call stack、para、current operation | 确认是否每次卡在 SML data 读取 |
+| SML 数据来源 | 产线写入记录、默认 SML 文件、NVTool/Meta 写码日志 | 判断 SML data 为空是未写入、读不到还是格式错 |
+| 代码/配置 diff | SML 读取函数、LID 定义、编译宏、项目差异 | 确认空数据来源 |
+| 产物和 NV 回读 | AP/modem image、DB、NVRAM template、SML LID 回读 | 判断产物错配或 NV layout 问题 |
+| 修复前后复测 | META 连接、modem boot、SML 读取、IMEI/SIM 状态 | 证明修复闭环 |
+
+判定口径：
+
+- META 连不上只是现象，若 modem 已 assert，优先按 stability/NVRAM 处理。
+- `para0/1/2 = 0` 不足以定位 root cause，必须结合 call stack 和 SML 数据来源。
+- 没有产线写入记录时，不要直接判断“产线未写”。
 
 ## 原始案例内容
 
@@ -68,6 +76,6 @@ Model3 Proto试产，出现E配置机器meta无法连接
 
 ## 复用边界
 
-- 本 case 来自旧 Outline 迁入资料，状态为 partial。
-- 复用时需要重新核对平台、项目、运营商、版本、log 时间窗和第一坏点。
-- 如果后续补齐完整证据链，再把 status 改为 summarized 或 closed。
+- 本 case 来自旧 Outline 迁入资料，当前状态为 `summarized_with_log_gap`。
+- 复用时需要重新核对 META 工具、产物版本、SML 数据来源、NV 回读和 modem dump。
+- 如果后续补齐完整证据链，再把 status 改为 `summarized` 或 `closed`。
