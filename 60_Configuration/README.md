@@ -46,6 +46,7 @@ PowerShell -ExecutionPolicy Bypass -File F:\Codex\Knowledge\Telephony-KB\70_Tool
 | 文档 | 用途 |
 |---|---|
 | [[配置与客户定制]] | 配置类总览和旧链接兼容入口 |
+| [[运营商需求表配置作业流]] | 从运营商需求表输出 CarrierConfig / Modem NV 配置建议的统一作业流 |
 | [配置方法模板](../99_Templates/配置方法模板.md) | 新增 APN / ECC / CarrierConfig / NV / 运营商名等配置文档时的统一骨架 |
 | [[NV参数配置]] | NV 参数配置、NVTool、展锐 NV 参数、版本、生效、回退和验证清单 |
 | [[Modem NV参数映射]] | Modem/Operator NV 字段映射总入口；字段级大表已拆到 `References/NV` |
