@@ -46,24 +46,25 @@ PowerShell -ExecutionPolicy Bypass -File F:\Codex\Knowledge\Telephony-KB\70_Tool
 | 文档 | 用途 |
 |---|---|
 | [[配置与客户定制]] | 配置类总览和旧链接兼容入口 |
-| [配置方法模板](../99_Templates/配置方法模板.md) | 新增配置文档时的统一骨架 |
-| [[NV参数配置]] | NV 参数配置、NVTool、展锐 NV 参数、生效与回退 |
-| [[Modem NV参数映射]] | Modem/Operator NV 字段映射总入口 |
-| [[APN配置方法]] | APN 配置字段、路径、验证和历史迁入资料 |
-| [[CarrierConfig配置方法]] | CarrierConfig 来源、匹配、覆盖和验证 |
-| [[CarrierConfig参数映射]] | CarrierConfig key 总入口 |
-| [[UNISOC-CarrierService启动与CarrierConfig加载流程]] | UNISOC `CarrierService` 和 `CarrierConfigLoader` 链路 |
-| [[IMS配置方法]] | IMS 注册、SBP/CXP、VoWiFi IKE、SIP 403 |
-| [[ECC配置方法]] | 紧急号码来源、分类和通话路径 |
-| [[SMS配置方法]] | SMSC、FDN、短码、Voicemail |
-| [[补充业务配置方法]] | Call Forwarding、Call Barring、USSD、XCAP |
-| [[SIMLock配置方法]] | 锁网、白名单、解锁次数、产物同步 |
-| [[User-Agent配置方法]] | IMS / MMS / Streaming User-Agent |
-| [[网络制式图标配置方法]] | 4G/5G/NR 图标和 MobileMappings |
-| [[卫星通信配置]] | Satellite Telephony feature flag、CarrierConfig 门控、区域限制 |
-| [[运营商名称配置方法]] | EONS、PNN/OPL/SPN、运营商名称加载 |
-| [[小区广播配置方法]] | Cell Broadcast / CBS / Mainline 限制 |
-| [[运营商应答资料索引]] | 运营商资料入口，只保留来源 |
+| [[运营商需求表配置作业流]] | 从运营商需求表输出 CarrierConfig / Modem NV 配置建议的统一作业流 |
+| [配置方法模板](../99_Templates/配置方法模板.md) | 新增 APN / ECC / CarrierConfig / NV / 运营商名等配置文档时的统一骨架 |
+| [[NV参数配置]] | NV 参数配置、NVTool、展锐 NV 参数、版本、生效、回退和验证清单 |
+| [[Modem NV参数映射]] | Modem/Operator NV 字段映射总入口；字段级大表已拆到 `References/NV` |
+| [[APN配置方法]] | APN 配置字段、MTK/UNISOC 路径和迁入资料 |
+| [[CarrierConfig配置方法]] | CarrierConfig / CarrierSettings 配置和架构资料 |
+| [[CarrierConfig参数映射]] | CarrierConfig key 总入口；字段级大表已按 Group 拆到 `References/CarrierConfig` |
+| [[UNISOC-CarrierService启动与CarrierConfig加载流程]] | UNISOC `CarrierService` 绑定、`CarrierConfigLoader` 短连接加载、carrier app 长连接边界 |
+| [[IMS配置方法]] | IMS 注册、MTK SBP/DSBP/CXP、VoWiFi IKE、SIP 403 配置与证据口径 |
+| [[ECC配置方法]] | MTK / UNISOC EccList、紧急号码来源和参数资料 |
+| [[SMS配置方法]] | SMSC、FDN、短码、Voicemail 号码来源和配置边界 |
+| [[补充业务配置方法]] | Call Forwarding、Call Barring、USSD、XCAP/UT 域选与配置边界 |
+| [[SIMLock配置方法]] | MTK / UNISOC SIMLock、锁网白名单、解锁次数、产物和 AP UI 同步 |
+| [[User-Agent配置方法]] | IMS / SIP、MMS、Video Streaming User-Agent 客制化 |
+| [[网络制式图标配置方法]] | 4G/5G/NR 图标显示、CarrierConfig 和 MobileMappings 入口 |
+| [[卫星通信配置]] | Satellite Telephony feature flag 和相关配置 |
+| [[运营商名称配置方法]] | EONS、PNN/OPL/SPN、运营商名称加载流程 |
+| [[小区广播配置方法]] | Cell Broadcast / CBS 信道、Mainline 限制、紧急广播过滤边界 |
+| [[运营商应答资料索引]] | AMX、Orange、Technical、DTR 等运营商资料入口 |
 
 ## 配置分类
 
