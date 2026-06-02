@@ -4,3 +4,5 @@
 .obsidian/cache/
 .trash/
 attachments/raw-logs/
+__pycache__/
+*.pyc

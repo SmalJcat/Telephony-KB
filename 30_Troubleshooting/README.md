@@ -24,6 +24,7 @@ search_tier: main_entry
 | [[证据缺口补证总览]] | 缺 log / 缺对比证据时，按问题域准备下次复现最小证据包 |
 | [[注册失败排障流程]] | LTE/NR 注册失败第一轮分诊、最小证据包和结论边界 |
 | [[数据业务失败排障流程]] | default / IMS / MMS / XCAP 等数据链路失败分诊 |
+| [[MTK-5G注册与PDU排障入口]] | MTK 5GMM reject、N1 mode、T3346/T3502、PDU Session、DNN/S-NSSAI、URSP 第一轮排查 |
 | [[通话失败排障流程]] | CS、VoLTE、ECC、USSD/SS、掉话的第一轮判断 |
 | [[补充业务失败排障流程]] | Call Forwarding、Call Barring、USSD、UT/XCAP 失败或回落分诊 |
 | [[SIM与运营商名排障流程]] | SIM 不识别、EF 读取和运营商名称显示异常分诊 |

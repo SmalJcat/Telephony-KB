@@ -75,18 +75,19 @@ source: 运营商配置参考.xlsx; CarrierConfigManager.java
 | 项目 | 结论 |
 |---|---|
 | 来源 | 早期运营商配置参考表；当前已按目标分支 `CarrierConfigManager.java` 过滤和补充。 |
-| 默认值基准 | `/home/wx/Project/Common/SPRDROID16_SYS_MAIN_W25.22.4/alps/frameworks/base/telephony/java/android/telephony/CarrierConfigManager.java` 中的 key 和 `sDefaults`；跨平台使用前必须切到目标平台源码复核。 |
+| 默认值基准 | 字段级映射表的 `Default` 列作为日常配置的默认值缓存；来源快照为 `/home/wx/Project/Common/SPRDROID16_SYS_MAIN_W25.22.4/alps/frameworks/base/telephony/java/android/telephony/CarrierConfigManager.java` 中的 key 和 `sDefaults`。缓存缺失、冲突、目标平台大版本不同或准备落地前，再切到目标平台源码复核。 |
 | 当前覆盖 | 平台列按 UNISOC、MTK、Qualcomm(qssi) 三份 `CarrierConfigManager.java` 计算；三平台均存在记为 `common`，否则记录实际支持平台。厂商自定义 key 不放入 common 映射。 |
 | 使用边界 | 本表是字段含义和默认值索引，不等于可直接配置清单；实际配置仍需确认 MCC/MNC、carrier id、specific carrier id、GID/SPN/IMSI 匹配条件和运行时覆盖顺序。 |
 
 ## CarrierConfig配置原则
 
-1. 先以目标分支 `frameworks/base/telephony/java/android/telephony/CarrierConfigManager.java` 作为最终 key 和默认值基准。
-2. 运营商 XML 只配置 `CarrierConfigManager.java` 中存在的 key；如果查不到常量或默认值，先标记为 `Needs study`。
-3. 需求值与 `CarrierConfigManager` 默认值一致时不配置，避免冗余覆盖；只有需要改变默认行为时才写入 carrier XML。
-4. 其他运营商 XML、厂商文档和历史知识库只用于辅助理解，不替代当前分支源码判断。
-5. `平台` 列为 `common` 表示 UNISOC、MTK、Qualcomm(qssi) 三平台均存在；如果不是三平台都有，则写实际支持平台，例如 `UNISOC/MTK`。
-6. 本文件不再维护原生标记列；厂商自定义 key 若后续确有代码消费者，应另建厂商扩展映射并标明读取点。
+1. 日常解析需求表时，先以字段级映射表的 `Default` 列作为默认值缓存，不要每个 key 都重复回源码查 `sDefaults`。
+2. 运营商 XML 只配置映射表或目标 `CarrierConfigManager.java` 中能证明存在的 key；如果查不到常量或默认值，先标记为 `Needs study`。
+3. 需求值与默认值缓存一致时通常不配置，避免冗余覆盖；只有需要改变默认行为时才写入 carrier XML。
+4. 缓存缺失、含义冲突、平台大版本不同、目标平台疑似私有修改或准备给出直接可应用补丁时，再回目标分支 `CarrierConfigManager.java` 复核 key 和 `sDefaults`。
+5. 其他运营商 XML、厂商文档和历史知识库只用于辅助理解，不替代当前分支源码判断。
+6. `平台` 列为 `common` 表示 UNISOC、MTK、Qualcomm(qssi) 三平台均存在；如果不是三平台都有，则写实际支持平台，例如 `UNISOC/MTK`。
+7. 本文件不再维护原生标记列；厂商自定义 key 若后续确有代码消费者，应另建厂商扩展映射并标明读取点。
 
 ## 分组统计
 
@@ -109,7 +110,7 @@ source: 运营商配置参考.xlsx; CarrierConfigManager.java
 ## 使用规则
 
 1. 先用需求术语匹配 `Group` 和 `Description`，不要只凭英文描述改值。
-2. 再到目标平台搜索 `Name`，确认加载路径、覆盖顺序、匹配条件和默认值。
+2. 使用 `Default` 作为默认值缓存进行初筛；只有缓存缺失、冲突或落地前复核时，再到目标平台搜索 `Name`。
 3. 如果需求值等于 `Default`，通常不要写入运营商 XML；如果仍需显式覆盖，必须说明原因。
 4. 修改前记录匹配条件、旧值、目标文件；修改后用 `adb shell dumpsys carrier_config` 或相关日志验证运行时值。
 

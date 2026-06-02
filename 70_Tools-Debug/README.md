@@ -21,6 +21,7 @@ quality: curated
 |---|---|
 | [常用命令](Commands/常用命令.md) | adb、logcat、dumpsys、telephony / phone / ims / carrier_config 状态 |
 | [场测Log抓取SOP](Log-Capture/场测Log抓取SOP.md) | AP、modem、bugreport 抓取规范 |
+| [MTK网络通信问题抓Log与提交模板](Log-Capture/MTK-网络通信问题抓Log与提交模板.md) | MTK 注册、IMS/WFC、Data、MMS/CB、Call、RRC、SIM/AT 等问题的 log 包和 eService 描述模板 |
 | [Log分析方法](Log-Analysis/Log分析方法.md) | Android AP 侧 log 和 modem trace 通用分析方法 |
 | [LTE注册-平台Log速查](Log-Analysis/LTE注册-平台Log速查.md) | LTE 注册平台 log 字段和关键模块 |
 | [Catch Log补充](Log-Capture/Catch-Log补充.md) | MTK/UNISOC/Qualcomm/Wi-Fi sniffer 抓取资料 |

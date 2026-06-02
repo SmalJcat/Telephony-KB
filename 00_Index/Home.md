@@ -24,6 +24,7 @@ quality: curated
 | 查配置和客制化 | [Configuration](../60_Configuration/README.md) |
 | 新增配置文档 | [配置方法模板](../99_Templates/配置方法模板.md) |
 | 查工具和调试方法 | [Tools Debug](../70_Tools-Debug/README.md) |
+| 查看 MTK Online 导入内容 | [MTK Online导入评估](MTK-Online导入评估.md) |
 | 判断内容该放哪里 | [内容归属规则](内容归属规则.md) |
 | 新增或维护文档 | [[使用说明]] |
 

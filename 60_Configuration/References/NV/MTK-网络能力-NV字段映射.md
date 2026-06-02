@@ -22,6 +22,12 @@ search_tier: reference_only
 <!-- REFERENCE_ONLY_BOUNDARY_END -->
 
 
+## 阅读入口
+
+- 本文从 [MTK-Modem-NV字段映射](MTK-Modem-NV字段映射.md) 拆出，只作为网络选择、UE capability、RAT 能力和 RF 能力相关 NV 字段定位表。
+- 优先用 `PLMN`、`UE capability`、`LTE`、`NAS`、`C2K`、`UMTS`、`RF`、`band` 等关键词搜索，不按全文顺序阅读。
+- 表内字段只能作为候选映射；最终配置要回到目标分支源码、默认 NV、生成产物和设备端 running NV 交叉确认。
+
 用于把 LTE/UE capability、NAS、PLMN/network selection、C2K、UMTS/TD、RF capability 等运营商需求映射到 MTK modem NV 字段。
 
 | 业务域 | NV/LID | 字段路径 | 参数作用 | 取值/单位/枚举 | 来源 |

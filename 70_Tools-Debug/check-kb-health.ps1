@@ -93,16 +93,16 @@ foreach ($file in $mdFiles) {
   }
   foreach ($field in $requiredDocFields) {
     if (-not (Test-FrontmatterField -Frontmatter $frontmatter -Field $field)) {
-      $failures.Add("document missing frontmatter field `${field}`: $relative")
+      $failures.Add("document missing frontmatter field ${field}: $relative")
     }
   }
   $quality = Get-FrontmatterValue -Frontmatter $frontmatter -Field 'quality'
   if ($quality -and $allowedQualities -notcontains $quality) {
-    $failures.Add("invalid document quality `${quality}`: $relative")
+    $failures.Add("invalid document quality ${quality}: $relative")
   }
   $searchTier = Get-FrontmatterValue -Frontmatter $frontmatter -Field 'search_tier'
   if ($searchTier -and $allowedSearchTiers -notcontains $searchTier) {
-    $failures.Add("invalid search_tier `${searchTier}`: $relative")
+    $failures.Add("invalid search_tier ${searchTier}: $relative")
   }
 }
 

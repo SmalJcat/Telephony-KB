@@ -23,23 +23,11 @@ quality: curated
 F:\Codex\Knowledge\Telephony-KB
 ```
 
-## 入口
+## 使用入口
 
-| 目标 | 入口 |
-|---|---|
-| 根目录首页 | [Home](Home.md) |
-| 总首页 | [Home](00_Index/Home.md) |
-| 业务域导航 | [业务知识地图](00_Index/业务知识地图.md) |
-| 常用速查 | [速查](00_Index/速查.md) |
-| 内容归属规则 | [内容归属规则](00_Index/内容归属规则.md) |
-| Case 横向索引 | [Case横向索引](40_Case-Library/Case横向索引.md) |
-| 证据缺口补证总览 | [证据缺口补证总览](30_Troubleshooting/证据缺口补证总览.md) |
-| Telephony函数级入口速查 | [Telephony函数级入口速查](50_Platform-Code/Cross-Platform/Telephony函数级入口速查.md) |
-| 配置方法模板 | [配置方法模板](99_Templates/配置方法模板.md) |
-| Case 精修清单 | [案例精修清单](00_Index/案例精修清单.md) |
-| 写作和维护规则 | [使用说明](00_Index/使用说明.md) |
-| Case 模板 | [Case模板](99_Templates/Case模板.md) |
-| 时间线模板 | [时间线模板](99_Templates/时间线模板.md) |
+正式首页统一维护在 [00_Index/Home.md](00_Index/Home.md)。根目录 [Home.md](Home.md) 只做跳转，避免入口表重复维护。
+
+写作规则、内容归属、模板和健康检查入口都从正式首页继续进入。
 
 ## 目录分层
 

@@ -22,6 +22,12 @@ search_tier: reference_only
 <!-- REFERENCE_ONLY_BOUNDARY_END -->
 
 
+## 阅读入口
+
+- 本文从 [MTK-Modem-NV字段映射](MTK-Modem-NV字段映射.md) 拆出，只作为 IMS / VoLTE / VoWiFi 相关 NV 字段定位表。
+- 优先用运营商需求关键词、`NVRAM_EF_*_LID`、字段路径或源码文件名搜索，不按全文顺序阅读。
+- 表内字段只能作为候选映射；最终配置要回到目标分支源码、默认 NV、生成产物和设备端 running NV 交叉确认。
+
 用于把 IMS、VoLTE、VoWiFi、IMS emergency、codec、SIP/SDP、IPSec、roaming 等运营商需求映射到 MTK modem NV 字段。
 
 | 业务域 | NV/LID | 字段路径 | 参数作用 | 取值/单位/枚举 | 来源 |
