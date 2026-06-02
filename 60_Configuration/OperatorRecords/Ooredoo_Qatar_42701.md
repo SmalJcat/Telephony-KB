@@ -3,26 +3,27 @@ doc_type: reference
 domain: Configuration
 quality: imported_reference
 search_tier: reference_only
+record_format: operator_requirement_v1
 operator: Ooredoo Qatar
 mccmnc: "42701"
 country: Qatar
 source: F:\Codex\Knowledge\运营商参数\Ooredoo Qatar VoLTE Details--20241017.xlsx
 status: requirements_backup
-last_updated: 2026-06-01
+last_updated: 2026-06-02
 ---
 
 # Ooredoo Qatar 42701
 
-## 阅读入口
+## 记录说明
 
-- 本页只作为运营商需求表备份，用于按运营商、MCCMNC、业务域和原表位置回查要求。
-- 不直接作为平台配置方案；需要落地配置时，回到 `60_Configuration` 下对应配置方法和目标平台代码/产物确认。
-- 表内空值、N/A、默认值和未确认项按原资料保留，不主动推断。
+- 只记录运营商需求和原表证据，作为后续配置参考。
+- 不写平台配置项、补丁、默认值判断或落地结论。
+- 空白、N/A、默认值和未确认项按原资料保留，不主动推断。
 
 
-## 基本信息
+## 索引信息
 
-| 字段           | 值                                            |
+| 字段           | 内容                                         |
 | ------------ | -------------------------------------------- |
 | Operator     | Ooredoo Qatar                                |
 | Country      | Qatar                                        |
@@ -30,10 +31,10 @@ last_updated: 2026-06-01
 | MCC / MNC 证据 | Sheet1 R13/R14 `MCC MNC = 427 01`            |
 | 资料来源         | `Ooredoo Qatar VoLTE Details--20241017.xlsx` |
 
-## 需求参数表
+## 参数需求
 
-| 业务域                   | 参数 / 问题                                     | 运营商要求 / 取值                                                                            | 来源      | 备注                         |
-| --------------------- | ------------------------------------------- | ------------------------------------------------------------------------------------- | ------- | -------------------------- |
+| 业务域 | 需求项 | 要求/取值 | 来源位置 | 备注 |
+|---|---|---|---|---|
 | APN                   | Non-IMS APN                                 | Data APN                                                                              | R2      | 非 IMS 应用                   |
 | APN                   | Non-IMS APN IP type                         | IPv4                                                                                  | R3      | 数据 APN IP 类型               |
 | APN                   | IMS APN                                     | IMS                                                                                   | R4      | IMS services               |

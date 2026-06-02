@@ -3,6 +3,7 @@ doc_type: reference
 domain: Configuration
 quality: imported_reference
 search_tier: reference_only
+record_format: operator_requirement_v1
 operator: Telekom Slovenije
 mccmnc: "29341"
 country: Slovenia
@@ -13,99 +14,66 @@ last_updated: 2026-06-02
 
 # Telekom Slovenije 29341
 
-## 阅读入口
+## 记录说明
 
-- 本页只作为运营商需求表备份，用于按运营商、MCCMNC、业务域和原表位置回查要求。
-- 不直接作为平台配置方案；需要落地配置时，回到 `60_Configuration` 下对应配置方法和目标平台代码/产物确认。
-- 表内空值、N/A、默认值和未确认项按原资料保留，不主动推断。
+- 只记录运营商需求和原表证据，作为后续配置参考。
+- 不写平台配置项、补丁、默认值判断或落地结论。
+- 空白、N/A、默认值和未确认项按原资料保留，不主动推断。
 
+## 索引信息
 
-## 基本信息
-
-| 字段 | 值 |
+| 字段 | 内容 |
 |---|---|
-| Operator | Telekom Slovenije |
-| Country | Slovenia |
+| 运营商 | Telekom Slovenije |
+| 国家 | Slovenia |
 | MCC | 293 |
 | MNC | 41 |
 | MCCMNC | 29341 |
-| 资料来源 | `Technical requirements for mobile terminals_10.2.2025.xlsx` |
-| 备注 | APN section includes `MCC: 293` and `MNC:41`; VoLTE/VoWiFi rows explicitly mention Telekom Slovenie |
+| MCCMNC 证据 | APN section includes `MCC: 293` and `MNC:41`; VoLTE/VoWiFi rows explicitly mention Telekom Slovenie |
+| 来源文件 | `Technical requirements for mobile terminals_10.2.2025.xlsx` |
 
-## 需求参数表
+## 参数需求
 
-| Requirement | Response / status |
-| --- | --- |
-| Technical requirements for mobile terminals |  |
-| Requirements for device: |  |
-| Radio: | Confirmed |
-| IMEI of device presents device to be tested (required) | Fully compliant |
-| NR frequency bands: n7 FDD (20 or 35), n28 FDD/DSS, n78 TDD (required) | Fully compliant |
-| NR frequency bands: n75 SDL, n258 TDD (optional) | Not compliant |
-| NR CA band combination: n7/n78, n28/n78, n78/n78 (required) | Part compliant |
-| NR CA band combination: n7/n258, n28/n258, n78/n258, n78/n78/n258, n7/n78/n78/n258, n28/n78/n78/n258 and combinations with n75 (optional) | Not compliant |
-| NR technology: NSA (required), SA (optional) | Fully compliant |
-| ENDC anchor support: B20, B3 for all combinations (required) | Not compliant |
-| ENDC anchor support: B7, B8, B1 ( optional ) | Fully compliant |
-| ENDC supporting CA as specified in line 20/21 (required CA band combinations - required) | Part compliant |
-| DSS support for B28/N28 (required) | Not compliant |
-| LTE frequency bands: 1, 3, 7, 8, 20,28 (required), | Fully compliant |
-| distinguish between XX1234567 tel. numbers ( required ) | Fully compliant |
-| CA band combination: 3/1, 3/7, 3/8, 3/20, 3/28, 3/1/20, 3/7/20, 3/1/7 , 3/1/28, 3/1/20/28, 3/1/8/28, 1/3/7/20/28, 1/3/7/8/20 ( required if CA is supported ) | Part compliant |
-| CA band combination: 8/20, 3/38, 7/38, 7/7, 3/7/7, 1/3/7/7, 1/7/38, 1/3/7/38, 3/7/38, 3/7/7/38, 7/8, 7/20, 8/20, 1/3, 1/7, 1/3/7,1/8, 1/20, 1/38 ( optional ) | Part compliant |
-| If device supports 4X4 MIMO bands 1,3,7 should be supported (required) | Fully compliant |
-| LTE Category 4 or higher ( required ) | Fully compliant |
-| VoLTE (mandatory if HW supports it) | Fully compliant |
-| VoLTE turned On by default (required, if VoLTE was approved by Telekom Slovenie) | Fully compliant |
-| VoLTE switch removed (required, if VoLTE was approved by Telekom Slovenie) | Fully compliant |
-| VoLTE 3gpp RAN assisted codec rate adaption (preferred) | Fully compliant |
-| VoWiFi (mandatory if HW supports it) | Fully compliant |
-| VoWiFi turned On by default (required, if VoWiFi was approved by Telekom Slovenie) | Fully compliant |
-| If device supports VoWiFi, LTE preferred must be set as default option (required, if VoWiFi was approved by Telekom Slovenie) | Fully compliant |
-| When VoWiFi is switched ON, VoLTE must be switched ON automaticaly (required, if VoWiFi was approved by Telekom Slovenie) | Fully compliant |
-| ViLTE (optional if HW supports it) | Fully compliant |
-| ViLTE turned On by default (required, if ViLTE was approved by Telekom Slovenie) | Fully compliant |
-| EVS (required if HW supports it) | Fully compliant |
-| LTE ICIC ( optional ) | Not compliant |
-| LTE CoMP ( optional ) | Not compliant |
-| Inter-RAT ANR for GERAN periodical measurement, reportStrongestCellsForSON (required) | Fully compliant |
-| WB-AMR GSM ( preferred ) | Fully compliant |
-| GSMA HD Voice logo (preferred if WB-AMR is supported) | Fully compliant |
-| VAMOS ( preferred ) | Fully compliant |
-| A5/3 ( required ) | Fully compliant |
-| GSM DualTransferMode ( preferred ) | Not compliant |
-| GSM EnhancedDTM ( optional ) | Not compliant |
-| Network Assisted Cell Change ( NACC ) ( preferred ) | Fully compliant |
-| PDP type IPv4/IPv6 ( preferred ) | Fully compliant |
-| WiFi 802.11ac ( optional ) | Fully compliant |
-| GCF planned (preferred) |  |
-| MMS Max Message size must be set at 3 MB ( required for smartphones) | Fully compliant |
-| Cell Broadcast EU-ALERT compatible (required) (default setting: On) | Fully compliant |
-| Distinguish between XX1234567 tel. numbers ( required ) | Fully compliant |
-| IMEI uniquely represents the UE under the test ( required ) | Fully compliant |
-| The Device is required to perform (including all the Capabilities and Functionalities) at least on the level as when it was approved for Sale ( required ) | Fully compliant |
-| Network mode selection must have only 2 options: Auto ((5G)/4G/3G/2G) and 2G (all other options must be removed) | Fully compliant |
-| GPRS and MMS settings: | Confirmed |
-| Name: Mobilni Internet | Fully compliant |
-| APN: internet | Fully compliant |
-| Proxy: [Not set] | Fully compliant |
-| Port: [Not set] | Fully compliant |
-| Username: mobitel | Fully compliant |
-| Password: internet | Fully compliant |
-| Server: [Not set] | Fully compliant |
-| MMSC: http://mms.telekom.si | Fully compliant |
-| MMS proxy: [Not set] | Fully compliant |
-| MMS port: [Not set] | Fully compliant |
-| MMS protocol: WAP 2.0 | Fully compliant |
-| MCC: 293 | Fully compliant |
-| MNC:41 | Fully compliant |
-| Authentication type: [none] | Fully compliant |
-| APN type: default, hipri, dun, supl, mms | Fully compliant |
-| APN protocol: IPv4 or IPv4/IPv6 | Fully compliant |
-| APN roaming protocol: IPv4 or IPv4/IPv6 | Fully compliant |
-| APN enable/disable: APN enabled | Fully compliant |
+| 业务域 | 需求项 | 要求/取值 | 来源位置 | 备注 |
+|---|---|---|---|---|
+| Device identity | IMEI represents tested device | Fully compliant | Requirement table | 终端测试身份 |
+| NR band | Required NR bands | n7 FDD, n28 FDD/DSS, n78 TDD: Fully compliant | Requirement table | n75 SDL and n258 TDD are optional and marked Not compliant |
+| NR CA | Required NR CA combinations | Part compliant | Requirement table | n7/n78, n28/n78, n78/n78 |
+| NR technology | NSA / SA | NSA required and SA optional: Fully compliant | Requirement table | 原表按 required/optional 表达 |
+| ENDC | ENDC anchor support | B20/B3 Not compliant; B7/B8/B1 Fully compliant | Requirement table | 运营商列出 required/optional anchor |
+| DSS | B28/N28 DSS | Not compliant | Requirement table | 原表 required |
+| LTE band | Required LTE bands | B1/B3/B7/B8/B20/B28: Fully compliant | Requirement table | LTE frequency bands |
+| LTE CA | Required and optional CA combinations | Part compliant | Requirement table | 原表列出多组 CA combination |
+| LTE MIMO | 4x4 MIMO | Bands 1/3/7 supported: Fully compliant | Requirement table | If device supports 4x4 MIMO |
+| LTE category | LTE Category | Category 4 or higher: Fully compliant | Requirement table | LTE capability |
+| VoLTE | VoLTE support | Mandatory if HW supports it: Fully compliant | Requirement table | Telekom approval condition |
+| VoLTE UI | VoLTE default and switch | Default ON; user switch removed: Fully compliant | Requirement table | Required if VoLTE approved by Telekom Slovenie |
+| VoLTE codec | RAN assisted codec rate adaptation | Fully compliant | Requirement table | VoLTE preferred item |
+| VoWiFi | VoWiFi support | Mandatory if HW supports it: Fully compliant | Requirement table | Telekom approval condition |
+| VoWiFi UI | VoWiFi default | Default ON: Fully compliant | Requirement table | Required if VoWiFi approved |
+| VoWiFi access preference | LTE preferred default | Fully compliant | Requirement table | If VoWiFi supported |
+| VoWiFi dependency | VoWiFi ON implies VoLTE ON | Fully compliant | Requirement table | When VoWiFi is switched ON |
+| ViLTE | ViLTE support/default | Supported and default ON: Fully compliant | Requirement table | Optional if HW supports it |
+| EVS | EVS support | Required if HW supports it: Fully compliant | Requirement table | EVS capability |
+| GSM / CS | Inter-RAT ANR, WB-AMR GSM, VAMOS, A5/3, NACC | Fully compliant | Requirement table | GSM/CS capability items |
+| GSM / CS | GSM DualTransferMode / EnhancedDTM | Not compliant | Requirement table | 原表标注 preferred/optional |
+| Packet data | PDP type | IPv4/IPv6 preferred: Fully compliant | Requirement table | Packet data capability |
+| Wi-Fi | Wi-Fi 802.11ac | Fully compliant | Requirement table | Optional |
+| MMS | MMS max message size | 3 MB: Fully compliant | Requirement table | Required for smartphones |
+| Cell broadcast | EU-ALERT | Compatible and default setting ON: Fully compliant | Requirement table | Cell Broadcast requirement |
+| Network mode UI | Network mode options | Only Auto ((5G)/4G/3G/2G) and 2G; other options removed | Requirement table | Fully compliant |
+| APN | Internet APN profile | Name `Mobilni Internet`; APN `internet`; username `mobitel`; password `internet` | GPRS and MMS settings | APN profile is marked Fully compliant |
+| APN | APN type/protocol | `default, hipri, dun, supl, mms`; protocol IPv4 or IPv4/IPv6; roaming protocol IPv4 or IPv4/IPv6 | GPRS and MMS settings | APN enabled |
+| MMS | MMSC and MMS settings | MMSC `http://mms.telekom.si`; proxy/port not set; WAP 2.0 | GPRS and MMS settings | MMS APN fields |
 
-## 备注
+## 待确认项
 
-- 原资料以终端技术要求和 APN / VoLTE / VoWiFi 能力项为主，保留运营商要求与响应状态。
-- `MNC:41` 与 `MCC:293` 可确认 MCCMNC `29341`。
+| 项目 | 说明 |
+|---|---|
+| NR / LTE band-combination明细 | 原表列出较多组合，本文只保留需求摘要；配置前仍需回查原 xlsx 的完整组合列表。 |
+| APN 落地 | 本目录只做需求备份；APN 是否纳入后续配置范围由单独流程决定。 |
+
+## 维护备注
+
+- 这份资料是终端技术要求和 APN/VoLTE/VoWiFi 能力要求混合表，不等同于平台配置方案。
+- `MCC:293` 与 `MNC:41` 可确认 MCCMNC `29341`。

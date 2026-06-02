@@ -3,26 +3,27 @@ doc_type: reference
 domain: Configuration
 quality: imported_reference
 search_tier: reference_only
+record_format: operator_requirement_v1
 operator: Antel Uruguay
 mccmnc: "74801"
 country: Uruguay
 source: F:\Codex\Knowledge\运营商参数\Alcatel-TCL Formulario VOLTE_VOWIFI_9mayo22.xlsx
 status: requirements_backup
-last_updated: 2026-06-01
+last_updated: 2026-06-02
 ---
 
 # Antel Uruguay 74801
 
-## 阅读入口
+## 记录说明
 
-- 本页只作为运营商需求表备份，用于按运营商、MCCMNC、业务域和原表位置回查要求。
-- 不直接作为平台配置方案；需要落地配置时，回到 `60_Configuration` 下对应配置方法和目标平台代码/产物确认。
-- 表内空值、N/A、默认值和未确认项按原资料保留，不主动推断。
+- 只记录运营商需求和原表证据，作为后续配置参考。
+- 不写平台配置项、补丁、默认值判断或落地结论。
+- 空白、N/A、默认值和未确认项按原资料保留，不主动推断。
 
 
-## 基本信息
+## 索引信息
 
-| 字段 | 值 |
+| 字段 | 内容 |
 |---|---|
 | Operator | Antel |
 | Country | Uruguay |
@@ -30,9 +31,9 @@ last_updated: 2026-06-01
 | MCC / MNC 证据 | VoLTE sheet `MCC MNC list = 748, 01` |
 | 资料来源 | `Alcatel-TCL Formulario VOLTE_VOWIFI_9mayo22.xlsx` |
 
-## 需求参数表
+## 参数需求
 
-| 业务域 | 参数 / 问题 | 运营商要求 / 取值 | 来源 | 备注 |
+| 业务域 | 需求项 | 要求/取值 | 来源位置 | 备注 |
 |---|---|---|---|---|
 | SIM | Supported SIM type for VoLTE | `USIM, ISIM` | VoLTE R4 | 支持 USIM 和 ISIM |
 | APN | IMS APN name | `ims` | VoLTE R6 | IMS APN |
@@ -93,6 +94,8 @@ last_updated: 2026-06-01
 | Roaming | VoLTE roaming | `ON` | VoLTE R76 | 漫游 VoLTE 开 |
 | Emergency roaming | Emergency call support in roaming | `Yes` | VoLTE R77 | 漫游支持紧急呼叫 |
 
-## VoWiFi 表状态
+## 待确认项
 
-VoWIFI sheet 中有 Antel 列，但可见范围内多数运营商取值为空。空白项不从 default value 推断为 Antel 要求，后续需要运营商确认或补充表格。
+| 项目 | 说明 |
+|---|---|
+| VoWiFi sheet | VoWiFi sheet 中有 Antel 列，但可见范围内多数运营商取值为空。空白项不从 default value 推断为 Antel 要求，后续需要运营商确认或补充表格。 |

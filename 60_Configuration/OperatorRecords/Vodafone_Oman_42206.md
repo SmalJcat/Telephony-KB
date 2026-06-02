@@ -3,27 +3,28 @@ doc_type: reference
 domain: Configuration
 quality: imported_reference
 search_tier: reference_only
+record_format: operator_requirement_v1
 operator: Vodafone Oman
 mccmnc: "42206"
 country: Oman
 source: F:\Codex\Knowledge\运营商参数\Network Configuration-VFOM2026.xlsx
 related_source: F:\Codex\Knowledge\运营商参数\Handest Survey for Vodafone.xlsx
 status: requirements_backup
-last_updated: 2026-06-01
+last_updated: 2026-06-02
 ---
 
 # Vodafone Oman 42206
 
-## 阅读入口
+## 记录说明
 
-- 本页只作为运营商需求表备份，用于按运营商、MCCMNC、业务域和原表位置回查要求。
-- 不直接作为平台配置方案；需要落地配置时，回到 `60_Configuration` 下对应配置方法和目标平台代码/产物确认。
-- 表内空值、N/A、默认值和未确认项按原资料保留，不主动推断。
+- 只记录运营商需求和原表证据，作为后续配置参考。
+- 不写平台配置项、补丁、默认值判断或落地结论。
+- 空白、N/A、默认值和未确认项按原资料保留，不主动推断。
 
 
-## 基本信息
+## 索引信息
 
-| 字段 | 值 |
+| 字段 | 内容 |
 |---|---|
 | Operator | Vodafone / Vodafone Oman |
 | Country | Oman |
@@ -34,10 +35,10 @@ last_updated: 2026-06-01
 | 主资料 | `Network Configuration-VFOM2026.xlsx` |
 | 补充资料 | `Handest Survey for Vodafone.xlsx`，同为 Vodafone Oman / 42206，可作为补充核对 |
 
-## 需求参数表
+## 参数需求
 
-| 业务域                   | 参数 / 问题                                | 运营商要求 / 取值                                                 | 来源                        | 备注                                                    |
-| --------------------- | -------------------------------------- | ---------------------------------------------------------- | ------------------------- | ----------------------------------------------------- |
+| 业务域 | 需求项 | 要求/取值 | 来源位置 | 备注 |
+|---|---|---|---|---|
 | APN                   | Internet APN                           | `internet.vodafone.om`                                     | `新增` sheet；Handest Common | 数据业务 APN                                              |
 | APN                   | IMS APN                                | `ims.vodafone.om`                                          | Handest Common            | IMS services                                          |
 | APN                   | Attach APN                             | `internet.vodafone.om`                                     | Handest Common            | LTE attach APN                                        |
@@ -70,7 +71,7 @@ last_updated: 2026-06-01
 | EVS                   | EVS enable                             | Yes / enabled                                              | Sheet1 R88                | 需求表要求 EVS                                             |
 | EVS                   | EVS `ch-aw-recv`                       | `-1`                                                       | Sheet1 R96                | channel-aware mode receive value                      |
 
-## 空白或待确认
+## 待确认项
 
 | 项目                              | 说明                              |
 | ------------------------------- | ------------------------------- |
@@ -79,7 +80,7 @@ last_updated: 2026-06-01
 | GRUU                            | 表内写 Yes，作为需求保留                  |
 | SS CS fallback for every error  | 表内写 No，作为需求保留                   |
 
-## 备注
+## 维护备注
 
 - 这份文件只记录 Vodafone Oman 的运营商参数要求，不表示平台文件已修改。
 - `Network Configuration-VFOM2026.xlsx` 是主需求表；`Handest Survey for Vodafone.xlsx` 只作为同运营商补充资料。
