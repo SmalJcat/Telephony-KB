@@ -50,7 +50,7 @@ PowerShell -ExecutionPolicy Bypass -File F:\Codex\Knowledge\Telephony-KB\70_Tool
 | [配置方法模板](../99_Templates/配置方法模板.md) | 新增 APN / ECC / CarrierConfig / NV / 运营商名等配置文档时的统一骨架 |
 | [[NV参数配置]] | NV 参数配置、NVTool、展锐 NV 参数、版本、生效、回退和验证清单 |
 | [[Modem NV参数映射]] | Modem/Operator NV 字段映射总入口；字段级大表已拆到 `References/NV` |
-| [[APN配置方法]] | APN 配置字段、MTK/UNISOC 路径和迁入资料 |
+| [APN配置方法](APN配置方法_重构.md) | APN 配置字段、MTK/UNISOC/Qualcomm 路径和生效验证 |
 | [[CarrierConfig配置方法]] | CarrierConfig / CarrierSettings 配置和架构资料 |
 | [[CarrierConfig参数映射]] | CarrierConfig key 总入口；字段级大表已按 Group 拆到 `References/CarrierConfig` |
 | [[UNISOC-CarrierService启动与CarrierConfig加载流程]] | UNISOC `CarrierService` 绑定、`CarrierConfigLoader` 短连接加载、carrier app 长连接边界 |

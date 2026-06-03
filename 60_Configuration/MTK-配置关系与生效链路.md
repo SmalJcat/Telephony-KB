@@ -116,7 +116,6 @@ vendor/mediatek/proprietary/hardware/ril/fusion/mtk-ril/telcore/ims/config/
 
 - [CarrierConfig配置方法](CarrierConfig配置方法.md)
 - [IMS配置方法](IMS配置方法.md)
-- [APN配置方法](APN配置方法.md)
+- [APN配置方法](APN配置方法_重构.md)
 - [MTK-WFC-ePDG配置与排查索引](MTK-WFC-ePDG配置与排查索引.md)
 - [MTK-5G注册与PDU排障入口](../30_Troubleshooting/MTK-5G注册与PDU排障入口.md)
-

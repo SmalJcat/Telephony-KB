@@ -14,6 +14,12 @@ last_updated: 2026-06-02
 
 # AMX Colombia 732101
 
+## 阅读入口
+
+- 本文是运营商参数原表的参考备份，优先用于查证 MCCMNC、APN、紧急号码、运营商名称和客户定制字段来源。
+- 落地配置前先回到 `60_Configuration/README.md`、`配置与客户定制.md` 和具体平台配置方法文档确认生效链路。
+- `quality=imported_reference` 表示资料尚未收敛成最终工程结论，不直接作为配置值下发。
+
 ## 记录说明
 
 - 只记录运营商需求和原表证据，作为后续配置参考。
@@ -34,8 +40,8 @@ last_updated: 2026-06-02
 
 ## 参数需求
 
-| 业务域                   | 需求项                                                   | 要求/取值                                                      | 来源位置                   | 备注                                             |
-| --------------------- | ----------------------------------------------------- | ---------------------------------------------------------- | ---------------------- | ---------------------------------------------- |
+| 业务域 | 需求项 | 要求/取值 | 来源位置 | 备注 |
+|---|---|---|---|---|
 | IRAT                  | LTE to 3G                                             | Handover                                                   | Network R2             | 网络间切换方式                                        |
 | IRAT                  | 3G to LTE                                             | Redirection                                                | Network R3             | 网络间切换方式                                        |
 | IMS                   | IMS default configuration on UE                       | IMS ON, always                                             | Network R4             | IMS 默认开                                        |
@@ -120,6 +126,12 @@ last_updated: 2026-06-02
 | XCAP                  | XCAP FQDN / port                                      | `xcap.ims.mnc101.mcc732.pub.3gppnetwork.org` / 8090 HTTP   | XCAP R5-R6             | XCAP                                           |
 | BSF                   | BSF FQDN / port                                       | `bsf.mnc101.mcc732.pub.3gppnetwork.org` / 8080 HTTP        | XCAP R7-R9             | USIM/ISIM 有不同 BSF FQDN                         |
 | NAF                   | NAF FQDN                                              | XCAP domain resolves all requests                          | XCAP R10               | NAF                                            |
+
+## 待确认项
+
+| 项目 | 说明 |
+|---|---|
+| 平台默认值比对 | 暂无明确资料缺口；后续配置落地时，需要按目标平台默认值判断哪些需求真正需要客制化。 |
 
 ## 维护备注
 

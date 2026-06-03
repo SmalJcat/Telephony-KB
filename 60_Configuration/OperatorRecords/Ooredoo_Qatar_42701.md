@@ -14,6 +14,12 @@ last_updated: 2026-06-02
 
 # Ooredoo Qatar 42701
 
+## 阅读入口
+
+- 本文是运营商参数原表的参考备份，优先用于查证 MCCMNC、APN、紧急号码、运营商名称和客户定制字段来源。
+- 落地配置前先回到 `60_Configuration/README.md`、`配置与客户定制.md` 和具体平台配置方法文档确认生效链路。
+- `quality=imported_reference` 表示资料尚未收敛成最终工程结论，不直接作为配置值下发。
+
 ## 记录说明
 
 - 只记录运营商需求和原表证据，作为后续配置参考。
@@ -23,8 +29,8 @@ last_updated: 2026-06-02
 
 ## 索引信息
 
-| 字段           | 内容                                         |
-| ------------ | -------------------------------------------- |
+| 字段 | 内容 |
+|---|---|
 | Operator     | Ooredoo Qatar                                |
 | Country      | Qatar                                        |
 | MCCMNC       | 42701                                        |
@@ -109,3 +115,14 @@ last_updated: 2026-06-02
 | Carrier aggregation   | CA supported                                | No                                                                                    | R87     | CA 不支持                     |
 | Carrier aggregation   | CA + VoLTE                                  | Yes                                                                                   | R88     | CA 和 VoLTE 可同时 active      |
 | Entitlement           | Entitlement support                         | VoLTE                                                                                 | R89     | 仅 VoLTE                    |
+
+## 待确认项
+
+| 项目 | 说明 |
+|---|---|
+| 平台默认值比对 | 暂无明确资料缺口；后续配置落地时，需要按目标平台默认值判断哪些需求真正需要客制化。 |
+
+## 维护备注
+
+- 本文只保留 Ooredoo Qatar 需求备份，不表示 APN、CarrierConfig 或 NV 已经完成平台默认值比对。
+- 网络设备厂商、版本、频段等信息作为定位背景保留，不直接等同于终端配置动作。

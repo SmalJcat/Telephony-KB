@@ -214,7 +214,7 @@ function Update-ConfigDoc {
 
 $docs = @(
   @{
-    Name = 'APN配置方法.md'
+    Name = 'APN配置方法_重构.md'
     Block = (Join-Lines -Lines @(
       '## 模板化定位',
       '',

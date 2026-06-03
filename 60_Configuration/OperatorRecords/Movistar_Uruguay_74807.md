@@ -14,6 +14,12 @@ last_updated: 2026-06-02
 
 # Movistar Uruguay 74807
 
+## 阅读入口
+
+- 本文是运营商参数原表的参考备份，优先用于查证 MCCMNC、APN、紧急号码、运营商名称和客户定制字段来源。
+- 落地配置前先回到 `60_Configuration/README.md`、`配置与客户定制.md` 和具体平台配置方法文档确认生效链路。
+- `quality=imported_reference` 表示资料尚未收敛成最终工程结论，不直接作为配置值下发。
+
 ## 记录说明
 
 - 只记录运营商需求和原表证据，作为后续配置参考。
@@ -99,3 +105,8 @@ last_updated: 2026-06-02
 | Roaming PS voice preference | 表格保留字段但运营商未填 |
 | EVS initial partial redundancy offset | 表格保留字段但运营商未填 |
 | Voice media on QCI=5 bearer | 表格保留字段但运营商未填 |
+
+## 维护备注
+
+- 本文只保留 Movistar Uruguay 需求备份，不表示 APN、CarrierConfig 或 NV 已经完成平台默认值比对。
+- `空白` 字段按原表未填处理，不从默认值或相邻运营商列推断为 Movistar 要求。

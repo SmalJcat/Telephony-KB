@@ -14,6 +14,12 @@ last_updated: 2026-06-02
 
 # Antel Uruguay 74801
 
+## 阅读入口
+
+- 本文是运营商参数原表的参考备份，优先用于查证 MCCMNC、APN、紧急号码、运营商名称和客户定制字段来源。
+- 落地配置前先回到 `60_Configuration/README.md`、`配置与客户定制.md` 和具体平台配置方法文档确认生效链路。
+- `quality=imported_reference` 表示资料尚未收敛成最终工程结论，不直接作为配置值下发。
+
 ## 记录说明
 
 - 只记录运营商需求和原表证据，作为后续配置参考。
@@ -99,3 +105,8 @@ last_updated: 2026-06-02
 | 项目 | 说明 |
 |---|---|
 | VoWiFi sheet | VoWiFi sheet 中有 Antel 列，但可见范围内多数运营商取值为空。空白项不从 default value 推断为 Antel 要求，后续需要运营商确认或补充表格。 |
+
+## 维护备注
+
+- 本文只保留 Antel Uruguay 需求备份，不表示 APN、CarrierConfig 或 NV 已经完成平台默认值比对。
+- VoWiFi sheet 中的空白字段保持原表语义，后续如做 VoWiFi 配置需回查完整表格。
