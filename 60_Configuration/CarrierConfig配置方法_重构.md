@@ -1,7 +1,7 @@
 ---
 doc_type: config
 domain: Configuration
-status: draft
+status: active
 quality: curated
 ---
 

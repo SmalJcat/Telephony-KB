@@ -818,5 +818,5 @@ PDN type / PDP type
 - [配置目录 README](README.md)
 - [Data Cases](../40_Case-Library/Data/README.md)
 - [IMS配置方法](IMS配置方法.md)
-- [CarrierConfig配置方法](CarrierConfig配置方法.md)
+- [CarrierConfig配置方法_重构](CarrierConfig配置方法_重构.md)
 - [常用命令](../70_Tools-Debug/Commands/常用命令.md)

@@ -114,7 +114,7 @@ vendor/mediatek/proprietary/hardware/ril/fusion/mtk-ril/telcore/ims/config/
 
 ## 本地关联
 
-- [CarrierConfig配置方法](CarrierConfig配置方法.md)
+- [CarrierConfig配置方法_重构](CarrierConfig配置方法_重构.md)
 - [IMS配置方法](IMS配置方法.md)
 - [APN配置方法](APN配置方法_重构.md)
 - [MTK-WFC-ePDG配置与排查索引](MTK-WFC-ePDG配置与排查索引.md)

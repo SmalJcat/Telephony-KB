@@ -248,7 +248,7 @@ $docs = @(
     ))
   },
   @{
-    Name = 'CarrierConfig配置方法.md'
+    Name = 'CarrierConfig配置方法_重构.md'
     Block = (Join-Lines -Lines @(
       '## 模板化定位',
       '',
