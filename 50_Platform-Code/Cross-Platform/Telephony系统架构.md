@@ -4,6 +4,7 @@ doc_type: architecture
 domain: Platform
 layer: AP/RIL/IMS/Modem
 status: active
+search_tier: supplemental
 ---
 
 # Telephony系统架构

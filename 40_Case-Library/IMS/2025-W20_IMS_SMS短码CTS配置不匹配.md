@@ -12,6 +12,7 @@ source_log: "internal weekly technical case"
 first_bad_point: "`SmsUsageMonitorShortCodeTest#testSmsShortCodeDestination` 报 expected:<1> but was:<3>"
 confidence: medium
 status: summarized
+search_tier: case_summary
 ---
 
 # SMS短码CTS配置不匹配

@@ -760,6 +760,6 @@ onLoadConfig
 
 - [配置目录 README](README.md)
 - [CarrierConfig参数映射](CarrierConfig参数映射.md)
-- [UNISOC-CarrierService启动与CarrierConfig加载流程](UNISOC-CarrierService启动与CarrierConfig加载流程.md)
+- [UNISOC-CarrierService启动与CarrierConfig加载流程](../50_Platform-Code/UNISOC/UNISOC-CarrierService启动与CarrierConfig加载流程.md)
 - [APN配置方法](APN配置方法_重构.md)
 - [运营商需求表配置作业流](运营商需求表配置作业流.md)

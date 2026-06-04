@@ -3,6 +3,7 @@ doc_type: config
 domain: Configuration
 status: active
 quality: imported_reference
+search_tier: supplemental
 ---
 
 # NV参数配置
@@ -12,9 +13,17 @@ quality: imported_reference
 - 本文是迁入/补充资料，先按本节入口定位，再看正文和来源记录。
 - 可复用结论应沉淀到主流程/配置/排障/case；本文只保留溯源材料和操作细节。
 
-NV 问题的核心不是“配置文件里有没有写”，而是确认目标产物、刷入版本、运行时读取值三者一致。
+NV 问题的核心不是“配置文件里有没有写”，而是确认目标产物、刷入版本、运行时读取值三者一致。本文只回答“怎么配置、怎么生成/写入、怎么验证是否生效”；字段含义和需求项到 NV/LID/MCFG 字段的候选映射看 [Modem NV参数映射](Modem NV参数映射.md)。
 
 参数映射入口：[[Modem NV参数映射]]
+
+职责边界：
+
+| 本文负责 | 不在本文展开 |
+|---|---|
+| NVTool / Operator NV / RDNV / fixnv 的写入、生成、刷入、回读和风险控制 | 大量字段含义、默认值和需求项映射 |
+| 版本、VERNO、生成物、打包路径、running NV 和 modem log 验证 | `References/NV` 下的字段级大表 |
+| fixnv / NVRAM / RF calibration / IMEI 等高风险操作的证据边界 | 单个历史问题证据链，真实问题放 Case |
 
 
 <!-- CONFIG_TEMPLATE_BLOCK_START -->

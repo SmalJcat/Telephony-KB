@@ -3,6 +3,7 @@ doc_type: code_reference
 domain: Platform-Code
 status: active
 quality: imported_reference
+search_tier: supplemental
 ---
 
 # Android国内卡模拟运营商

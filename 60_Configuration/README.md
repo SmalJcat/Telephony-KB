@@ -53,12 +53,11 @@ PowerShell -ExecutionPolicy Bypass -File F:\Codex\Knowledge\Telephony-KB\70_Tool
 | [APN配置方法](APN配置方法_重构.md) | APN 配置字段、MTK/UNISOC/Qualcomm 路径和生效验证 |
 | [CarrierConfig配置方法_重构](CarrierConfig配置方法_重构.md) | CarrierConfig / CarrierSettings 配置和架构资料 |
 | [[CarrierConfig参数映射]] | CarrierConfig key 总入口；字段级大表已按 Group 拆到 `References/CarrierConfig` |
-| [[UNISOC-CarrierService启动与CarrierConfig加载流程]] | UNISOC `CarrierService` 绑定、`CarrierConfigLoader` 短连接加载、carrier app 长连接边界 |
+| [UNISOC-CarrierService启动与CarrierConfig加载流程](../50_Platform-Code/UNISOC/UNISOC-CarrierService启动与CarrierConfig加载流程.md) | UNISOC `CarrierService` 绑定、`CarrierConfigLoader` 短连接加载、carrier app 长连接边界 |
 | [[IMS配置方法]] | IMS 注册、MTK SBP/DSBP/CXP、VoWiFi IKE、SIP 403 配置与证据口径 |
 | [[MTK-配置关系与生效链路]] | MTK 支持能力、feature option、CarrierConfig、IMS Config、SBP/NVRAM、APN/RAT mode 的统一检查链 |
 | [[MTK-WFC-ePDG配置与排查索引]] | MTK VoWiFi / ePDG 的 FQDN、DNS、IKE/ESP、证书、DPD、roaming handover 参数链 |
 | [ECC配置方法_重构](ECC配置方法_重构.md) | UNISOC A15/A16 `uniecc` 配置入口、生成物和加载链路 |
-| [[ECC配置方法]] | 旧 Outline / CQ 导入资料，待拆分降权 |
 | [[SMS配置方法]] | SMSC、FDN、短码、Voicemail 号码来源和配置边界 |
 | [[补充业务配置方法]] | Call Forwarding、Call Barring、USSD、XCAP/UT 域选与配置边界 |
 | [[SIMLock配置方法]] | MTK / UNISOC SIMLock、锁网白名单、解锁次数、产物和 AP UI 同步 |

@@ -26,7 +26,7 @@ search_tier: supplemental
 ## 阅读重点
 
 - 这篇保留 3GPP 官网、协议编号、协议栈和目录阅读方法。
-- PLMN 选网策略看 [[PLMN自动选网流程]]；LTE 小区搜索和扫频看 [[LTE小区搜索与扫频]]。
+- PLMN 基础概念看 [[PLMN基础与术语]]；注册和搜网流程看 [[../20_Service-Flows/Network-Registration/LTE注册流程|LTE注册流程]] 和 [[../30_Troubleshooting/注册失败排障流程|注册失败排障流程]]。
 
 ## 从协议层面理解找网流程——PLMN选择
 

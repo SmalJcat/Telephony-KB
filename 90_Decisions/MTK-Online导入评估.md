@@ -1,12 +1,12 @@
 ---
 doc_type: guide
 domain: Meta
-status: active
+status: archived
 quality: imported_reference
 platform: MTK
 source: Notion MTK 网络通信模块知识库
 source_url: https://www.notion.so/35df72d579ba8119b35afddb83be1fa8
-search_tier: supplemental
+search_tier: archived_entry
 ---
 
 # MTK Online导入评估
@@ -66,4 +66,3 @@ search_tier: supplemental
 | Network Slice / Configured NSSAI / Allowed NSSAI / Rejected NSSAI | `10_Basics` 或 `30_Troubleshooting` | 当前只导入 PDU / URSP 第一轮排查 |
 | LTE/NR Band capability 与 RF/AS 搜网排查 | `30_Troubleshooting` | 需要结合 RRC / RF 专项资料继续沉淀 |
 | SMS/MMS/CB 应用层排查 | `30_Troubleshooting` + `70_Tools-Debug` | 当前只在抓 log 模板里保留证据要求 |
-

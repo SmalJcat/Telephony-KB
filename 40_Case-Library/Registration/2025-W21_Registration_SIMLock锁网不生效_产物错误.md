@@ -12,6 +12,7 @@ source_log: "internal weekly technical case"
 first_bad_point: "产物检查发现基础版本和市场软件 modem image 一致，本地替换单编 modem 后锁网生效"
 confidence: medium
 status: summarized
+search_tier: case_summary
 ---
 
 # SIMLock锁网不生效：产物错误

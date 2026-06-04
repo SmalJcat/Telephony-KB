@@ -3,6 +3,7 @@ doc_type: tool
 domain: Tools-Debug
 status: active
 quality: imported_reference
+search_tier: reference_only
 ---
 
 # Log工具使用补充资料

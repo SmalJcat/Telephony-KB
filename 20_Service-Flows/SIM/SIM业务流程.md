@@ -4,6 +4,7 @@ doc_type: flow
 domain: SIM
 layer: AP/UICC/Modem
 status: active
+search_tier: supplemental
 ---
 
 # SIM业务流程

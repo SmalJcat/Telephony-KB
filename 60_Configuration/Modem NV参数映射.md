@@ -3,6 +3,7 @@ doc_type: config
 domain: Configuration
 status: active
 quality: imported_reference
+search_tier: supplemental
 platform: Cross-Platform
 current_coverage: UNISOC, Qualcomm, MTK
 future_coverage: TBD
@@ -12,13 +13,22 @@ source: 运营商配置参考.xlsx; 105256__4G平台Modem运营商NV参数配置
 
 # Modem NV参数映射
 
-本文件是 Modem/Operator NV 参数映射总入口。当前已沉淀 UNISOC、Qualcomm MCFG/MBN 与 MTK NV 参数映射；不同平台不能直接套用字段名和默认值。
+本文件是 Modem/Operator NV 参数映射总入口，只做“字段映射和资料索引”。当前已沉淀 UNISOC、Qualcomm MCFG/MBN 与 MTK NV 参数映射；不同平台不能直接套用字段名和默认值。
 
 ## 阅读入口
 
 1. 本文件很大，后续处理运营商需求时不要全文顺序读取；先用章节索引、平台名、EFS路径、NV名、字段名或 id 定位。
 2. 字段级大表已拆到 `References/NV`；不要把运营商案例写进参数映射主表。
 3. 本文件和 `References/NV` 字段表同时作为候选映射索引和默认值缓存；日常解析需求表时先用缓存初筛，缓存缺失、冲突、版本敏感或准备落地前，再结合目标分支默认值、源码上下文、生成产物和设备运行值确认。
+4. 具体写入、生成、刷机、版本和 running NV 验证看 [NV参数配置](NV参数配置.md)。
+
+职责边界：
+
+| 本文负责 | 不在本文证明 |
+|---|---|
+| 字段候选、来源文档、默认表、平台差异和 `References/NV` 大表入口 | 某个字段已经在目标设备生效 |
+| UNISOC / MTK / Qualcomm 字段名、LID、EFS path、MCFG XML 的索引读法 | 工具写入、生成 bin/image、刷入和回读 |
+| 标注字段含义置信度和跨平台不可套用边界 | 项目级最终 patch 和实机结论 |
 
 <!-- CONFIG_TEMPLATE_BLOCK_START -->
 ## 模板化定位

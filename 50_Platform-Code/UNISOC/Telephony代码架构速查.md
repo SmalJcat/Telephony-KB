@@ -11,7 +11,7 @@ layer: AP/RIL/VendorRIL/Modem
 
 ## 阅读入口
 
-这篇只做 UNISOC 平台代码定位入口。函数级入口先看 [Telephony函数级入口速查](../Cross-Platform/Telephony函数级入口速查.md)，跨平台主线看 [平台代码与产物速查](../Cross-Platform/平台代码与产物速查.md)，CarrierConfig 加载细节看 [UNISOC CarrierService启动与CarrierConfig加载流程](../../60_Configuration/UNISOC-CarrierService启动与CarrierConfig加载流程.md)。
+这篇只做 UNISOC 平台代码定位入口。函数级入口先看 [Telephony函数级入口速查](../Cross-Platform/Telephony函数级入口速查.md)，跨平台主线看 [平台代码与产物速查](../Cross-Platform/平台代码与产物速查.md)，CarrierConfig 加载细节看 [UNISOC CarrierService启动与CarrierConfig加载流程](UNISOC-CarrierService启动与CarrierConfig加载流程.md)。
 
 ## 常用代码入口
 

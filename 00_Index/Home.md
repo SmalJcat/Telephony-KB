@@ -3,6 +3,7 @@ doc_type: index
 domain: Meta
 status: active
 quality: curated
+search_tier: main_entry
 ---
 
 # Telephony-KB Home
@@ -19,12 +20,10 @@ quality: curated
 | 准备补证据 | [证据缺口补证总览](../30_Troubleshooting/证据缺口补证总览.md) |
 | 找历史问题 | [Case Library](../40_Case-Library/README.md) |
 | 按平台/第一坏点找 Case | [Case横向索引](../40_Case-Library/Case横向索引.md) |
-| 安排 Case 精修优先级 | [案例精修清单](案例精修清单.md) |
 | 找平台代码位置 | [Platform Code](../50_Platform-Code/README.md) |
 | 查配置和客制化 | [Configuration](../60_Configuration/README.md) |
 | 新增配置文档 | [配置方法模板](../99_Templates/配置方法模板.md) |
 | 查工具和调试方法 | [Tools Debug](../70_Tools-Debug/README.md) |
-| 查看 MTK Online 导入内容 | [MTK Online导入评估](MTK-Online导入评估.md) |
 | 判断内容该放哪里 | [内容归属规则](内容归属规则.md) |
 | 新增或维护文档 | [[使用说明]] |
 

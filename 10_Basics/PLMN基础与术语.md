@@ -9,7 +9,7 @@ quality: curated
 
 ## 阅读入口
 
-这篇只解释 PLMN 选择相关基础概念。自动/手动选网和小区选择流程看 [PLMN自动选网流程](PLMN自动选网流程.md)，LTE 小区搜索和扫频看 [LTE小区搜索与扫频](LTE小区搜索与扫频.md)。
+这篇只解释 PLMN 选择相关基础概念。注册和搜网的完整流程看 [LTE注册流程](../20_Service-Flows/Network-Registration/LTE注册流程.md)，按现象排查看 [注册失败排障流程](../30_Troubleshooting/注册失败排障流程.md) 和 [无线信号与搜网失败排查](../30_Troubleshooting/无线信号与搜网失败排查.md)。
 
 ## 术语速查
 

@@ -24,6 +24,8 @@ search_tier: supplemental
 
 这篇用于 MTK 5G SA/NR 注册和 5G 数据承载的第一轮排查。适用现象包括：5G 注册失败、收到 5GMM reject、N1 mode 被禁用、过一段时间又尝试 SA、5G 已注册但数据不通、PDU session reject、DNN / S-NSSAI / URSP 相关异常。
 
+通用判断已经回填到 [注册失败排障流程](注册失败排障流程.md#MTK-5GMM-快速判断) 和 [数据业务失败排障流程](数据业务失败排障流程.md#MTK-5G-PDU--URSP-快速判断)。本页只保留 MTK 专项关键词、补充来源和最小证据包。
+
 ## 总体判断
 
 5G 问题先分两层：

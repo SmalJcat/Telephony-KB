@@ -3,6 +3,7 @@ doc_type: index
 domain: Meta
 status: active
 quality: curated
+search_tier: archived_entry
 ---
 
 # Telephony-KB
@@ -19,4 +20,3 @@ quality: curated
 | 查历史问题 | [Case Library](40_Case-Library/README.md) |
 | 查平台代码 | [Platform Code](50_Platform-Code/README.md) |
 | 查配置方法 | [Configuration](60_Configuration/README.md) |
-

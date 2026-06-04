@@ -12,6 +12,7 @@ source_log: "internal weekly technical case"
 first_bad_point: "VDM 在 IMS call retry 期间访问 call_id，错误取值 255 后触发 crash"
 confidence: medium
 status: summarized
+search_tier: case_summary
 ---
 
 # MTK Patch导致ModemEE

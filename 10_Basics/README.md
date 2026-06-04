@@ -21,8 +21,6 @@ quality: curated
 | [[CauseCode与缩写]] | EMM/ESM/5GMM/SIP/Q.850 cause、常用 log 标签、缩写、标签体系 |
 | [[PLMN基础与术语]] | HPLMN、RPLMN、EPLMN、FPLMN、VPLMN、RAT、suitable cell 等基础概念 |
 | [[3GPP协议阅读方法]] | 3GPP 官网、协议编号、协议栈和目录阅读方法 |
-| [[PLMN自动选网流程]] | RPLMN、自动选网顺序、RAT 确定、VPLMN 驻留 |
-| [[LTE小区搜索与扫频]] | LTE小区搜索概述、扫频场景、扫频流程 |
 | [[通信基础概念]] | FDN 等基础概念补充 |
 | [[SIM-USIM-EF文件速查]] | IMSI、ICCID、SPN、PNN/OPL、PLMNwACT、SMSP、ECC、FDN 等 SIM/USIM EF 文件速查 |
 

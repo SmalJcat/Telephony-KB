@@ -3,6 +3,7 @@ doc_type: flow
 domain: Call
 status: active
 quality: imported_reference
+search_tier: supplemental
 ---
 
 # CS-Call流程补充资料

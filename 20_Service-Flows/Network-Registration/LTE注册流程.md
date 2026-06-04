@@ -5,7 +5,8 @@ domain: Registration
 rat: LTE
 layer: AP/Modem/Network
 platform: Common
-status: draft
+status: active
+search_tier: main_entry
 ---
 
 # LTE注册流程

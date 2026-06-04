@@ -3,6 +3,7 @@ doc_type: flow
 domain: IMS
 status: active
 quality: imported_reference
+search_tier: supplemental
 ---
 
 # VoLTE-Call基础流程

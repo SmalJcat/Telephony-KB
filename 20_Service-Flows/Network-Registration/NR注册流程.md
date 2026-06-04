@@ -4,7 +4,8 @@ quality: imported_reference
 domain: Registration
 rat: NR
 layer: AP/Modem/Network
-status: draft
+status: active
+search_tier: supplemental
 ---
 
 # NR注册流程

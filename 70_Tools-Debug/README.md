@@ -3,6 +3,7 @@ doc_type: index
 domain: Meta
 status: active
 quality: curated
+search_tier: main_entry
 ---
 
 # 70_Tools-Debug
@@ -24,11 +25,18 @@ quality: curated
 | [MTK网络通信问题抓Log与提交模板](Log-Capture/MTK-网络通信问题抓Log与提交模板.md) | MTK 注册、IMS/WFC、Data、MMS/CB、Call、RRC、SIM/AT 等问题的 log 包和 eService 描述模板 |
 | [Log分析方法](Log-Analysis/Log分析方法.md) | Android AP 侧 log 和 modem trace 通用分析方法 |
 | [LTE注册-平台Log速查](Log-Analysis/LTE注册-平台Log速查.md) | LTE 注册平台 log 字段和关键模块 |
-| [Catch Log补充](Log-Capture/Catch-Log补充.md) | MTK/UNISOC/Qualcomm/Wi-Fi sniffer 抓取资料 |
 | [Log工具使用补充](Log-Analysis/Log工具使用补充.md) | ELT、Logel、Wireshark 使用方法补充 |
+| [[知识库维护工具]] | Case 横向索引、配置文档模板化、导入资料治理、Markdown 健康检查脚本和 HTML 同步导出 |
+
+## 参考资料
+
+以下为导入合集或低频资料，只在主 SOP 没覆盖时查阅：
+
+| 文档 | 用途 |
+|---|---|
+| [Catch Log补充](Log-Capture/Catch-Log补充.md) | MTK/UNISOC/Qualcomm/Wi-Fi sniffer 抓取资料 |
 | [通信工具使用补充](Tools/通信工具使用补充.md) | SpeechAnalyzer、GRSIMWrite、META、MCF 等工具资料 |
 | [调试技巧补充](Debug-Tips/调试技巧补充.md) | 锁小区、信号强度、IKE 解密、实时 modem log 等调试技巧 |
-| [[知识库维护工具]] | Case 横向索引、配置文档模板化、导入资料治理、Markdown 健康检查脚本和 HTML 同步导出 |
 
 ## 目录说明
 

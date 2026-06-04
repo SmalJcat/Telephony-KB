@@ -12,6 +12,7 @@ source_log: "internal technical case"
 first_bad_point: "IPv6-only APN 下 TCP SYN 访问由 proxy 派生的 NAT64 地址无响应，删除 proxy 后恢复"
 confidence: medium
 status: summarized
+search_tier: case_summary
 ---
 
 # APN IPv6代理不支持

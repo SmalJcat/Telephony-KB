@@ -30,6 +30,33 @@ TOP_LEVEL_LABELS = {
     "99_Templates": "模板 / Templates",
 }
 
+NAV_GROUPING_THRESHOLD = 18
+NAV_LANDING_FILENAMES = {"readme.md", "home.md", "index.md"}
+
+NAV_SUBGROUP_LABELS = {
+    "40_Case-Library": {
+        "ROOT": "总览 / Overview",
+        "Registration": "注册 / Registration",
+        "SIM": "SIM / Card",
+        "Call": "通话 / Call",
+        "Data": "数据 / Data",
+        "IMS": "IMS",
+        "SMS": "短信 / SMS",
+        "Signal": "信号 / Signal",
+        "Stability": "稳定性 / Stability",
+    },
+    "60_Configuration": {
+        "ROOT": "配置入口 / Core",
+        "References": "字段映射 / References",
+        "OperatorRecords": "运营商记录 / OperatorRecords",
+    },
+}
+
+NAV_SUBGROUP_ORDER = {
+    "40_Case-Library": ["ROOT", "Registration", "SIM", "Call", "Data", "IMS", "SMS", "Signal", "Stability"],
+    "60_Configuration": ["ROOT", "References", "OperatorRecords"],
+}
+
 SEARCH_METADATA_FIELDS = [
     "doc_type",
     "domain",
@@ -264,6 +291,12 @@ a:hover { text-decoration: underline; }
   background: rgb(255 255 255 / 0.058);
 }
 
+.nav-section.is-dense[open] {
+  background:
+    linear-gradient(180deg, rgb(197 142 72 / 0.055), transparent 120px),
+    rgb(255 255 255 / 0.052);
+}
+
 .nav-section summary {
   display: flex;
   align-items: center;
@@ -302,10 +335,93 @@ a:hover { text-decoration: underline; }
   font-weight: 700;
 }
 
+.nav-section-tools {
+  display: grid;
+  gap: 7px;
+  padding: 0 8px 8px;
+}
+
+.nav-section-filter {
+  width: 100%;
+  min-height: 31px;
+  padding: 7px 9px;
+  border: 1px solid #3b4547;
+  border-radius: 6px;
+  background: rgb(10 16 18 / 0.36);
+  color: #f3efe3;
+  font: inherit;
+  font-size: 12px;
+  outline: none;
+}
+
+.nav-section-filter:focus {
+  border-color: #c9924d;
+  background: rgb(255 255 255 / 0.095);
+}
+
+.nav-section-filter::placeholder { color: #97a4a1; }
+
+.nav-section-hint {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  color: #8e9c99;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
 .nav-links {
   display: grid;
   gap: 1px;
   padding: 0 6px 9px;
+}
+
+.nav-subsection {
+  margin: 0 0 5px;
+  border: 1px solid rgb(255 255 255 / 0.06);
+  border-radius: 6px;
+  background: rgb(0 0 0 / 0.105);
+  overflow: hidden;
+}
+
+.nav-subsection[open] {
+  background: rgb(255 255 255 / 0.035);
+}
+
+.nav-subsection > summary {
+  min-height: 31px;
+  padding: 6px 8px;
+  color: #d8c9aa;
+  font-size: 11px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.nav-subsection > summary::before {
+  width: 14px;
+  height: 14px;
+  border-color: #465255;
+  color: #d5a05d;
+  font-size: 10px;
+}
+
+.nav-subsection[open] > summary::before { content: "-"; }
+
+.nav-sub-count {
+  margin-left: auto;
+  color: #93a09d;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.nav-sub-links {
+  display: grid;
+  gap: 1px;
+  padding: 0 4px 5px;
+}
+
+.nav-sub-links .nav-link {
+  padding: 7px 8px;
 }
 
 .nav-link {
@@ -1421,31 +1537,51 @@ const navInput = document.querySelector("[data-search]");
 const navLinks = [...document.querySelectorAll("[data-nav-link]")];
 const navEmpty = document.querySelector("[data-nav-empty]");
 const navSections = [...document.querySelectorAll("[data-nav-section]")];
+const navSubsections = [...document.querySelectorAll("[data-nav-subsection]")];
+const sectionFilters = [...document.querySelectorAll("[data-section-filter]")];
 
 const applyNavSearch = () => {
-  if (!navInput) return;
-  const q = navInput.value.trim().toLowerCase();
+  const q = navInput ? navInput.value.trim().toLowerCase() : "";
+  const sectionQueries = new Map(
+    sectionFilters.map((input) => [input.dataset.group, input.value.trim().toLowerCase()])
+  );
   let visibleCount = 0;
   for (const link of navLinks) {
     const text = link.dataset.searchText || "";
-    const hidden = q.length > 0 && !text.includes(q);
+    const group = link.dataset.group || "";
+    const sectionQ = sectionQueries.get(group) || "";
+    const hidden = (q.length > 0 && !text.includes(q)) || (sectionQ.length > 0 && !text.includes(sectionQ));
     link.hidden = hidden;
     if (!hidden) visibleCount += 1;
   }
+  for (const subsection of navSubsections) {
+    const group = subsection.dataset.group || "";
+    const sectionQ = sectionQueries.get(group) || "";
+    const subsectionLinks = navLinks.filter((link) => link.closest("[data-nav-subsection]") === subsection);
+    const hidden = subsectionLinks.length > 0 && subsectionLinks.every((link) => link.hidden);
+    subsection.hidden = hidden;
+    if ((q || sectionQ) && !hidden) subsection.open = true;
+  }
   for (const section of navSections) {
     const group = section.dataset.group;
+    const sectionQ = sectionQueries.get(group) || "";
     const groupLinks = navLinks.filter((link) => link.dataset.group === group);
-    const hidden = groupLinks.every((link) => link.hidden);
+    const hidden = !sectionQ && groupLinks.every((link) => link.hidden);
     section.hidden = hidden;
-    if (q && !hidden) section.open = true;
+    if ((q || sectionQ) && !hidden) section.open = true;
   }
   if (navEmpty) navEmpty.hidden = q.length === 0 || visibleCount > 0;
 };
 
 if (navInput) {
   navInput.addEventListener("input", applyNavSearch);
-  applyNavSearch();
 }
+
+for (const input of sectionFilters) {
+  input.addEventListener("input", applyNavSearch);
+}
+
+applyNavSearch();
 
 const normalize = (value) => String(value ?? "").trim();
 const normalizeLower = (value) => normalize(value).toLowerCase();
@@ -2302,6 +2438,30 @@ def page_subtitle(page: Page) -> str:
     return "/".join(parts[1:-1]) or parts[0]
 
 
+def nav_subgroup_key(page: Page) -> str:
+    parts = page.rel_md.split("/")
+    if len(parts) <= 2:
+        return "ROOT"
+    return parts[1]
+
+
+def nav_subgroup_label(group: str, subgroup: str) -> str:
+    labels = NAV_SUBGROUP_LABELS.get(group, {})
+    return labels.get(subgroup, subgroup)
+
+
+def nav_subgroup_sort_key(group: str, subgroup: str) -> tuple[int, str]:
+    order = NAV_SUBGROUP_ORDER.get(group, [])
+    rank = order.index(subgroup) if subgroup in order else len(order) + 1
+    return rank, nav_subgroup_label(group, subgroup).lower()
+
+
+def nav_page_sort_key(page: Page) -> tuple[int, str]:
+    filename = page.rel_md.rsplit("/", 1)[-1].lower()
+    landing_rank = 0 if filename in NAV_LANDING_FILENAMES else 1
+    return landing_rank, page.rel_md.lower()
+
+
 def render_sidebar(pages: list[Page], active: str, current_rel_html: str) -> str:
     active_group = active.split("/", 1)[0] if active else "00_Index"
     chunks = [
@@ -2320,25 +2480,66 @@ def render_sidebar(pages: list[Page], active: str, current_rel_html: str) -> str
     for group in sorted(grouped.keys()):
         group_label = TOP_LEVEL_LABELS.get(group, group)
         group_id = re.sub(r"\W+", "-", group)
-        group_pages = sorted(grouped[group], key=lambda item: item.rel_md.lower())
+        group_pages = sorted(grouped[group], key=nav_page_sort_key)
         open_attr = " open" if group == active_group or (not active and group == "00_Index") else ""
-        chunks.append(f"<details class=\"nav-section\" data-nav-section data-group=\"{html.escape(group_id)}\"{open_attr}>")
+        is_dense = len(group_pages) >= NAV_GROUPING_THRESHOLD
+        section_class = "nav-section is-dense" if is_dense else "nav-section"
+        chunks.append(f"<details class=\"{section_class}\" data-nav-section data-group=\"{html.escape(group_id)}\"{open_attr}>")
         chunks.append(
             f"<summary><span>{html.escape(group_label)}</span><span class=\"nav-count\">{len(group_pages)}</span></summary>"
         )
         chunks.append("<div class=\"nav-links\">")
-        for page in group_pages:
+
+        def render_nav_link(page: Page, subgroup_key: str = "", subgroup_label: str = "") -> str:
             href = html.escape(relative_href(current_rel_html, page.rel_html))
             active_class = " active" if page.rel_html == active else ""
             aria_current = " aria-current=\"page\"" if active_class else ""
-            search_text = html.escape(f"{page.title} {page.rel_md}".lower())
-            chunks.append(
+            search_text = html.escape(f"{page.title} {page.rel_md} {page_subtitle(page)} {subgroup_label}".lower())
+            subgroup_attr = f" data-subgroup=\"{html.escape(subgroup_key)}\"" if subgroup_key else ""
+            return (
                 f"<a class=\"nav-link{active_class}\" data-nav-link data-group=\"{html.escape(group_id)}\" "
-                f"data-search-text=\"{search_text}\" href=\"{href}\"{aria_current}>"
+                f"data-search-text=\"{search_text}\"{subgroup_attr} href=\"{href}\"{aria_current}>"
                 f"<span class=\"nav-title\">{html.escape(page.title)}</span>"
                 f"<span class=\"nav-path\">{html.escape(page_subtitle(page))}</span>"
                 "</a>"
             )
+
+        if is_dense:
+            chunks.append(
+                "<div class=\"nav-section-tools\">"
+                f"<input class=\"nav-section-filter\" data-section-filter data-group=\"{html.escape(group_id)}\" "
+                f"type=\"search\" inputmode=\"search\" placeholder=\"在 {html.escape(group_label)} 内筛选\" "
+                f"aria-label=\"在 {html.escape(group_label)} 内筛选\" autocomplete=\"off\" spellcheck=\"false\">"
+                "<div class=\"nav-section-hint\"><span>按子目录分组</span><span>输入即过滤</span></div>"
+                "</div>"
+            )
+            subgrouped: dict[str, list[Page]] = {}
+            for page in group_pages:
+                subgrouped.setdefault(nav_subgroup_key(page), []).append(page)
+            subgroup_keys = sorted(
+                subgrouped.keys(),
+                key=lambda item: nav_subgroup_sort_key(group, item),
+            )
+            for subgroup in subgroup_keys:
+                subgroup_pages = sorted(subgrouped[subgroup], key=nav_page_sort_key)
+                subgroup_label = nav_subgroup_label(group, subgroup)
+                subgroup_id = re.sub(r"\W+", "-", f"{group_id}-{subgroup}")
+                active_subgroup = any(page.rel_html == active for page in subgroup_pages)
+                sub_open = " open" if active_subgroup else ""
+                chunks.append(
+                    f"<details class=\"nav-subsection\" data-nav-subsection data-group=\"{html.escape(group_id)}\" "
+                    f"data-subgroup=\"{html.escape(subgroup_id)}\"{sub_open}>"
+                )
+                chunks.append(
+                    f"<summary><span>{html.escape(subgroup_label)}</span><span class=\"nav-sub-count\">{len(subgroup_pages)}</span></summary>"
+                )
+                chunks.append("<div class=\"nav-sub-links\">")
+                for page in subgroup_pages:
+                    chunks.append(render_nav_link(page, subgroup_id, subgroup_label))
+                chunks.append("</div></details>")
+        else:
+            for page in group_pages:
+                chunks.append(render_nav_link(page))
         chunks.append("</div></details>")
     chunks.append("</nav>")
     chunks.append("</aside>")
@@ -2498,7 +2699,7 @@ def render_index(pages: list[Page], generated_at: str) -> str:
 
     for group in sorted(sections.keys()):
         label = TOP_LEVEL_LABELS.get(group, group)
-        group_pages = sorted(sections[group], key=lambda item: item.rel_md.lower())
+        group_pages = sorted(sections[group], key=nav_page_sort_key)
         body.append("<section class=\"index-section\">")
         body.append(f"<h2>{html.escape(label)} <span class=\"nav-count\">{len(group_pages)}</span></h2>")
         body.append("<ul>")

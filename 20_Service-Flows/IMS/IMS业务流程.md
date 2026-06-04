@@ -4,6 +4,7 @@ doc_type: flow
 domain: IMS
 layer: AP/IMSStack/Modem/Network
 status: active
+search_tier: supplemental
 ---
 
 # IMS业务流程

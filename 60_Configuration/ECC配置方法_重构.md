@@ -189,6 +189,7 @@ Qualcomm QCRIL 新增号码时先按场景选表：
 | Qualcomm AP 按 MNC 控制假紧急 routing | `normal_routing_mncs` | 只限制 `routing=NORMAL` 对哪些 MNC 生效，不是运营商专属号码过滤 |
 | 号码要按真紧急拨出 | `eccs.routing` 不配置或配置 `0/1` | radio log 典型下发 `ATD<number>@<category>,#` |
 | 号码要按假紧急 / 普通路由拨出 | `eccs.routing: 2` | radio log 典型下发 `ATD<number>`；不控制卡状态 |
+| 需求表要求紧急号码显示名称 | 平台显示名客制化资源 / Dialer 展示逻辑 | 不属于 emergency number source；先确认目标平台是否有显示名资源链路 |
 | 通话记录是否显示紧急号码 | CarrierConfig call-log 相关 key | 不属于号码库配置，只影响 call log 展示 |
 | 飞行模式下 ECC 是否受限开协议栈 | `KEY_CARRIER_RADIO_POWER_ON_FOR_ECALL` | `true` 常见 `AT+SFUN=4,1,1`；`false` 常见 `AT+SFUN=4` |
 | Android 12 前 VoWiFi ECC 策略 | VoWiFi ECC CarrierConfig key | Android 12 及之后展锐资料说明主要走 CP 侧方案，落地前要查目标分支 |
@@ -200,6 +201,22 @@ Qualcomm QCRIL 新增号码时先按场景选表：
 | Qualcomm 按运营商 MCC/MNC 精确配置 | `qcril_emergency_source_mcc_mnc_table` / `qcril_emergency_source_voice_mcc_mnc_table` | 代码先取 SIM MCC/MNC，命中后会优先投射 MCC/MNC 表号码 |
 | Qualcomm 按网络 MCC / 无卡场景配置 | `qcril_emergency_source_nw_table` / `qcril_emergency_source_hard_mcc_table` | 网络 MCC 或无卡 hardcoded 场景使用；需结合卡状态和 `custom_emergency_numbers_enabled_for_nw` |
 | Qualcomm ESCV 类型 | `qcril_emergency_source_escv_iin_table` / `qcril_emergency_source_escv_nw_table` | 只解决 ESCV 分类，不等同于新增普通 ECC 号码 |
+
+## 需求表读取规则
+
+旧 ECC 需求表通常会把号码、国家、运营商、显示名和拨打条件放在同一张表里。落地前先把它拆成不同控制点，不要直接把整行内容塞进号码库。
+
+| 需求字段 | 先转成什么问题 | 配置/验证口径 |
+|---|---|---|
+| `Country MCC` / 国家 | 号码按国家生效，还是按运营商生效 | AOSP / UNISOC `eccdata` 先转国家 ISO；MTK `ecc_list*.xml` 用 `MCC FFF/FF` 表示国家级；Qualcomm QCRIL 国家级优先看 MCC 表 |
+| `MCC/MNC` / 运营商 | 是否需要运营商级覆盖 | UNISOC 只写 `mnc` 且会覆盖国家通用列表；MTK 写 `MCC MNC`；Qualcomm QCRIL 写 MCC/MNC 表 |
+| `Number` | 新增/修改的 emergency number | 需要确认 source 是 `DATABASE`、`MODEM_CONFIG`、`SIM` 还是 `NETWORK_SIGNALING` |
+| `English display` / `Local Language Display` | 显示名称需求 | 多数平台不是号码库字段；要查显示名资源、Dialer/TeleService 显示逻辑和语言资源 |
+| `Without SIM Can Call = Yes` | 无卡也应按 ECC 识别/拨出 | UNISOC 看 `card_flag`；MTK 不要简单等同 `Condition=1`，还要看 no-sim 过滤和最终 `ril.ecclist` |
+| `Without SIM Can Call = No` | 仅插卡可用，或插卡时按 normal call | UNISOC 优先看 `card_flag=with_card`；MTK 原生 `Condition=2` 是 SIM ready normal routing、无卡 no-sim ECC，不完全等价于“无卡禁止” |
+| `Category` / `Type` | service category / SIP URN | 多类型 category 可能影响 `urn:service:sos.*`，需要结合 IMS/运营商要求确认是否改成 generic SOS |
+
+白卡只能覆盖显示名、UI 识别和部分本地列表场景，不能证明目标国家实网一定能拨通。涉及“国外能否接通”“网络是否接受”“无卡 emergency camping”等问题时，必须补现场 fail/pass 对比 log 或仪表环境复现证据。
 
 ## 紧急号码来源
 
@@ -464,6 +481,9 @@ Qualcomm 关键代码证据：
 | 确认最终号码池 | `adb shell dumpsys phone` 中查 `EmergencyNumberTracker` / `mEmergencyNumberList` | 最终列表包含预期号码、category、routing、source |
 | 确认拨号路径 | AP log / radio log 查拨号号码、emergency routing、RIL 下发 | UI 识别、AP 判定、RIL/Modem 下发一致 |
 | 区分真/假紧急 | radio log 查 `ATD<number>@<category>,#` 或 `ATD<number>` | 真紧急带 `@category,#`，假紧急按普通 ATD 拨出 |
+| 确认 CS emergency setup | CS 通话 log 查 `EMERGENCY_SETUP` | 证明已经走 CS emergency call setup，不是普通 CS call |
+| 确认 VoLTE ECC 网络能力 | Attach Accept / NAS / AS log 查 `ims_vops`、`emc_bs`、`isImsEmergencySupport` | 当前 LTE/IMS 环境具备 VoLTE emergency 条件，再继续看域选和 NV |
+| 确认 N3GPP / VoWiFi ECC 条件 | IMS / IKE / Wi-Fi / WFC log 查 N3GPP 注册、WFC 开关、白名单、Wi-Fi 链路 | 不要把 N3GPP 注册失败误判为 ECC 号码库问题 |
 | 网络下发号码 | radio log 查 `+CEN1/+CEN2`、`UNSOL_ECC_NETWORKLIST_CHANGED` | 证明号码来自网络，不应继续只改 `unieccdata` |
 | FDN 场景假紧急 | log 查 `AT+SPCALLSETTING=1,0` | 若 RIL 支持假紧急绕 FDN，会先下发 fake emergency 标志再普通拨号 |
 | MTK 确认 vendor XML 已入机 | `adb shell ls -l /vendor/etc/ecc_list* /system/vendor/etc/ecc_list*` | 目标 `ecc_list.xml` / `ecc_list_OPxx.xml` 存在 |
@@ -488,15 +508,38 @@ adb shell sqlite3 /data/vendor/radio/qcrilNr.db "select * from qcril_emergency_s
 
 如果只看到源码已修改，但没有运行时 `UniEmergencyNumberTracker` 加载、没有最终号码池 dump，不能认为 ECC 配置已经生效。
 
+### 配置不生效自查清单
+
+旧导入资料里多次出现“源文件已改但设备不生效”的问题。遇到这类现象时，先按下面顺序切，不要先猜是网络侧或 Dialer 问题。
+
+| 检查点 | 判断方法 |
+|---|---|
+| 改的是当前分支实际编译路径 | 同时搜索 AOSP `packages/services/Telephony/ecc`、UNISOC `apps/UniTelephony/uniecc`、`services/Telephony/uniecc`、MTK `external/EccList`、Qualcomm QCRIL SQL，确认 Android.bp / makefile 实际打包哪一份 |
+| 生成物是否同步 | UNISOC 要有 `output/unieccdata`，AOSP / Qualcomm AP 要有 `ecc/output/eccdata`，Qualcomm QCRIL 要重新生成 `qcrilNr.db`，MTK 要确认 `/vendor/etc/ecc_list*.xml` |
+| 模块是否重新打包 | 只 push 单个 APK / DB / XML 时要确认设备端实际替换成功并重启；量产分支优先看整机构建产物 |
+| 字段是否被当前分支解析 | `card_flag`、`normal_routing_mncs`、MTK `Condition`、Qualcomm `SERVICE` 等字段要在目标分支代码里能找到解析链路 |
+| 国家/PLMN 是否匹配 | `iso_code`、MCC/MNC、MNC、OPTR、network MCC、SIM MCC/MNC 都可能是不同匹配维度 |
+| 运行时列表是否更新 | 看 `EmergencyNumberTracker` / `UniEmergencyNumberTracker` dump、RIL emergency list、PBM/QCRIL map、`ril.ecclist` 和拨号前最终判定 |
+
+结论模板：
+
+```text
+当前只能证明配置文件已修改/生成物已更新，不能证明运行时已加载。
+需要补充：设备端产物校验、EmergencyNumberTracker 最终号码列表、拨号前 AP 判定、RIL/Modem 下发命令和对应通话域证据。
+```
+
 ## 非号码库配置项
 
 下面这些配置会影响紧急呼叫行为，但不属于 AP emergency database（`eccdata` / `unieccdata`）或 vendor/RIL 号码表（MTK `ecc_list*.xml`、Qualcomm `qcrilNr.db`）本身，排查时不要混在一起改：
 
 | 场景 | 配置项 / 关键字 | 版本边界 | 说明 |
 |---|---|---|---|
+| 紧急号码显示名称 | MTK / 项目客制化显示名资源，例如 `ecc_config_list.xml` / `config.xml`、`strings.xml`、`values-xx/strings.xml` | 路径强依赖项目客制化，必须以目标分支代码为准 | 只影响 UI 显示文案，不证明号码是否是 ECC，也不影响网络是否接通 |
 | 通话记录显示紧急号码 | `allow_emergency_numbers_in_call_log_bool` | Android 12+ 可随卡配置 | CarrierConfig 随卡开关 |
 | 通话记录显示紧急号码 | `allow_emergency_numbers_in_call_log` | Android 10/11 主要随版本，Android 12+ 也可随版本 | 任一开关满足时可显示 emergency call log |
 | VoWiFi 下拨 ECC | `support_vowifi_ecall`、`ecall_on_vowifi_first`、`dial_ecall_vowifi_when_airplane_mode`、`retry_ecall_vowifi`、`retry_ecall_cellualr_network`、`deregister_vowifi_before_ecall`、`deregister_vowifi_when_cellular_preffered` | Android 12 之前 AP 侧方案相关 | Android 12 及之后展锐资料说明使用 CP 侧方案，不再走这些 Telephony key；其中 `cellualr`、`preffered` 按资料原文记录，落地前必须在目标分支搜索确认 key 名 |
+| N3GPP / VoWiFi ECC 域选 | `OPERATOR_NV_MN\mn_vowifi_ecc\vowifi_ecc\vowifi_ecc[0]`、N3GPP 注册、WFC 白名单、Wi-Fi 链路 | CP / NV / IMS 方案相关 | 先证明 N3GPP 注册和 VoWiFi 能力成立，再判断 ECC 域选；这不是号码库新增/删除问题 |
+| VoLTE ECC 域选 | `OPERATOR_NV_MN\mn_ecc_cs_only\ecc_cs_only\ecc_cs_only[0]`、`OPERATOR_NV_MN\mn_emc_need_csfb_when_roaming\emc_need_csfb_when_roaming\emc_need_csfb_when_roaming[0]`、`ims_vops`、`emc_bs`、`isImsEmergencySupport` | NV 随当前驻留 PLMN 或 SIM PLMN 生效，需按平台确认 | 控制是否允许 ECC over LTE/IMS 或漫游时是否回 CS；不要和号码是否存在混在一起 |
 | 普通通话中拨 ECC | `allow_hold_call_during_emergency_bool` | `false` 全分支生效；`true` 只在部分 Android 11 分支生效 | `false` 先挂断普通电话再拨 ECC；`true` 保持普通电话同时拨 ECC |
 | FDN 开启时拨假紧急 | `AT+SPCALLSETTING=1,0` | RIL 行为相关 | RIL 若加限制，只能拨 FDN 列表和真紧急；RIL 无限制时假紧急也可拨 |
 | 飞行模式拨 ECC | `KEY_CARRIER_RADIO_POWER_ON_FOR_ECALL` | CarrierConfig 随 SIM 卡配置 | `true` 受限开协议栈，典型 `AT+SFUN=4,1,1`；`false` 正常开协议栈，典型 `AT+SFUN=4` |
@@ -508,9 +551,11 @@ adb shell sqlite3 /data/vendor/radio/qcrilNr.db "select * from qcril_emergency_s
 | 现象 | 优先检查 | 判断 |
 |---|---|---|
 | 修改后不生效 | A15/A16 路径是否改错、`output/unieccdata` 是否同步生成、APK 是否重编 | 第一坏点常在路径/生成物/打包 |
+| 白卡验证通过但现场失败 | 白卡只验证 UI/本地列表，不能证明实网接通 | 国外紧急号码接通、无卡驻留、网络接受/拒绝必须靠现场或仪表证据 |
 | 国家通用号码丢失 | 是否新增了当前 MNC 条目 | MNC 命中后会优先用 MNC 列表，需补齐该 MNC 下仍需保留的号码 |
 | 无卡/有卡行为不符合预期 | `card_flag` 是否配置，SIM 状态是否真是 `ABSENT` | `with_card` 是非 absent，不只 SIM READY；PIN locked 也可能按有卡处理 |
 | 把 `routing: 2` 当成无卡禁止 | routing 语义 | `routing: 2` 是 normal routing/假紧急，控制真/假紧急路由，不控制卡状态 |
+| 把需求表显示名当号码配置 | 显示名资源和号码库是否分离 | UI 文案、通话记录、号码 source 是三条链路，必须分别验证 |
 | 插卡拨 `110/120/119` 无法进入人工台 | source 优先级、真假紧急、category、对比机配置 | 优先确认是否应配置成假紧急或调整 category，而不是只判断号码是否存在 |
 | SIM EF_ECC 号码未入池 | SIM 读取日志、EF_ECC category、source 是否为 `SIM` | 展锐资料提到 category `0xff` 也可能是合法 SIM 类别；若号码被过滤，优先确认合并逻辑是否排除了 `0xff` |
 | MTK 改 `ecc_list.xml` 后不生效 | 是否打入 `/vendor/etc`、`persist.vendor.operator.optr` 是否选中了 OP 文件、PLMN 是否命中、是否触发 sync | 旧 XML 源码改了不等于运行时生效；先看 `AP ECC` / `MD ECC` log 和 `ril.ecclist` |
@@ -541,6 +586,7 @@ adb shell sqlite3 /data/vendor/radio/qcrilNr.db "select * from qcril_emergency_s
 ## 来源记录
 
 - `F:\展锐\102154__紧急呼叫配置及常见问题说明V1.3.pdf`：展锐紧急呼叫配置官方说明，文档版本 V1.3，发布日期 2025-05-20。当前仅记录本机来源路径，未作为可迁移附件入库；若后续需要共享知识库，应确认资料权限后再归档到附件目录。
+- 旧 `ECC配置方法.md`：Outline / CQ 导入资料；已删除旧文件。本页已抽取需求表读法、显示名边界、配置不生效自查、域选证据和测试边界，未整段搬运旧图片/教程。
 - `/home/wx/Project/MP6/alps-release-b0.mp1.rc-tb-default/alps/vendor/mediatek/proprietary/external/EccList/ecc_list.xml`：MTK MP6 vendor RIL 侧 ECC List 配置入口。
 - `/home/wx/Project/MP6/alps-release-b0.mp1.rc-tb-default/alps/vendor/mediatek/proprietary/hardware/ril/fusion/mtk-ril/telcore_mipc/cc/`：MTK ECC List 解析、合并、sync modem 和 Framework 回报代码来源。
 - `/home/wx/Project/QCOM/qcom4490/S1E4ProPlus/qssi/packages/services/Telephony/ecc/input/eccdata.txt`：Qualcomm AP / AOSP emergency database 配置入口。
@@ -559,6 +605,6 @@ adb shell sqlite3 /data/vendor/radio/qcrilNr.db "select * from qcril_emergency_s
 
 ## 维护要求
 
-- UNISOC / MTK / Qualcomm 配置方法以后优先维护本文；旧 `ECC配置方法.md` 作为导入资料待降权或拆分。
+- UNISOC / MTK / Qualcomm 配置方法以后优先维护本文；旧 `ECC配置方法.md` 已删除，不再作为入口维护。
 - 每次补配置值时同时写清：输入文件、生成物、编译目标、运行时 dump/log 证据。
 - 没有代码证据或实机证据的行为只写“待确认”，不要写成配置结论。

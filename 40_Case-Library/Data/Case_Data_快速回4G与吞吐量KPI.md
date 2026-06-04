@@ -12,6 +12,7 @@ source_log: "internal project summary"
 first_bad_point: "2/3G 场景下无 LTE 邻区或无回 LTE 触发；吞吐量场景下 DUT/REF 小区、能力、测试手法未统一"
 confidence: medium
 status: summarized
+search_tier: case_summary
 ---
 
 # 快速回4G与吞吐量KPI

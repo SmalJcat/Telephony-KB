@@ -1,6 +1,6 @@
 ---
-doc_type: config
-domain: Configuration
+doc_type: architecture
+domain: Platform
 status: active
 quality: curated
 platform: UNISOC
@@ -62,10 +62,10 @@ SIM state / carrier id / package event
 
 | 入口 | 用途 |
 |---|---|
-| [配置目录 README](README.md) | 回到配置分类和放置规则 |
-| [Case横向索引](../40_Case-Library/Case横向索引.md) | 查历史同类问题和第一坏点 |
-| [平台代码入口](../50_Platform-Code/README.md) | 查厂商代码读取位置 |
-| [常用命令](../70_Tools-Debug/Commands/常用命令.md) | 查 dumpsys、logcat 和 adb 命令 |
+| [配置目录 README](../../60_Configuration/README.md) | 回到配置分类和放置规则 |
+| [Case横向索引](../../40_Case-Library/Case横向索引.md) | 查历史同类问题和第一坏点 |
+| [平台代码入口](../README.md) | 查厂商代码读取位置 |
+| [常用命令](../../70_Tools-Debug/Commands/常用命令.md) | 查 dumpsys、logcat 和 adb 命令 |
 
 ### 常见失败模式
 

@@ -1,11 +1,20 @@
 ---
 doc_type: tool
 domain: Tools-Debug
-status: active
+status: reference
 quality: imported_reference
+search_tier: reference_only
 ---
 
 # Catch Log补充资料
+
+<!-- REFERENCE_BOUNDARY_START -->
+## 使用边界
+
+- 本页是抓 log 导入资料合集，只作为低频参考和历史资料回溯。
+- 日常现场抓 log 优先使用 [场测Log抓取SOP](场测Log抓取SOP.md) 和 [MTK网络通信问题抓Log与提交模板](MTK-网络通信问题抓Log与提交模板.md)。
+- 后续稳定步骤应拆到具体 SOP，本页不再作为主入口扩写。
+<!-- REFERENCE_BOUNDARY_END -->
 
 ## 使用入口
 

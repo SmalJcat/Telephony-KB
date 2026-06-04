@@ -440,40 +440,6 @@ $docs = @(
     ))
   },
   @{
-    Name = 'UNISOC-CarrierService启动与CarrierConfig加载流程.md'
-    Block = (Join-Lines -Lines @(
-      '## 模板化定位',
-      '',
-      '### 配置来源',
-      '',
-      '| 来源 | 本文落点 | 运行时验证 |',
-      '|---|---|---|',
-      '| Framework 加载器 | `CarrierConfigLoader` 启动、刷新、绑定 | `dumpsys carrier_config`、Telephony log |',
-      '| 默认 CarrierService | `DefaultCarrierConfigService.onLoadConfig` | 默认 XML 命中情况 |',
-      '| UNISOC overlay / carrier 包 | `vendor/sprd/carriers/*/overlays` | 产物和 overlay 是否打入 |',
-      '| 外部读取方 | Telephony/Data/IMS/UI 模块 | 对应业务 log 和最终行为 |',
-      '',
-      '### 生效链路',
-      '',
-      '```text',
-      'SIM state / carrier id / package event',
-      '-> CarrierConfigLoader.updateConfigForPhoneId',
-      '-> bindToConfigPackage',
-      '-> CarrierService.onLoadConfig',
-      '-> PersistableBundle',
-      '-> 业务模块读取',
-      '```',
-      '',
-      '### 常见失败模式',
-      '',
-      '| 现象 | 优先检查 | 第一坏点判断 |',
-      '|---|---|---|',
-      '| 配置未刷新 | SIM 状态、phoneId/subId、package callback | 触发链路问题 |',
-      '| 配置包未绑定 | 权限、包名、默认服务、用户解锁状态 | CarrierService bind/fetch 问题 |',
-      '| 配置已加载但业务不变 | 业务模块是否读取该 key | 消费方或私有配置优先级问题 |'
-    ))
-  },
-  @{
     Name = 'IMS配置方法.md'
     Block = (Join-Lines -Lines @(
       '## 模板化定位',

@@ -4,6 +4,7 @@ doc_type: flow
 domain: Data
 layer: AP/RIL/Modem/Network
 status: active
+search_tier: supplemental
 ---
 
 # Data业务流程

@@ -12,6 +12,7 @@ source_log: "internal project summary"
 first_bad_point: "拔卡瞬间 modem 挂住，无后续 modem log 输出"
 confidence: low
 status: summarized
+search_tier: case_summary
 ---
 
 # UNISOC Modem Blocked现场
