@@ -17,6 +17,7 @@ modem_version: "4G_MODEM_22B_W24.47.2|sc9863A_modem"
 source_log: "F:\\Log\\NOSIM\\ylog; F:\\Log\\NOSIM\\OK\\ylog"
 first_bad_point: "10:05:47 插卡后 CARDSTATE_PRESENT 但 ATR/ICCID 为空，AT+SPATR? 返回空，约 1 秒后回落到 ABSENT/ERROR"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags: "SIM, No ATR, hotplug, EIC, contact, card socket, Dahlia, singlesim, UNISOC"
 ---

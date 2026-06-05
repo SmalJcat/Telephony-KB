@@ -13,6 +13,7 @@ chipset: "UMS9230"
 source_log: "CQWeb SPCSS01287405"
 first_bad_point: "ro.boot.product.hardware.sku=singlesim，但 NV 卡槽配置仍按旧接反项目处理"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

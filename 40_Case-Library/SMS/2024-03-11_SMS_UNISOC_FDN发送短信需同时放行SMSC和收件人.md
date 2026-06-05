@@ -13,6 +13,7 @@ chipset: "UMS9230"
 source_log: "CQWeb SPCSS01310994"
 first_bad_point: "SMS FDN check 中 SMSC 未加入 FDN list"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

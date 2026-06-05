@@ -18,7 +18,7 @@ tags:
   - modem-assert
   - rfic
   - hardware
-search_tier: case_summary
+search_tier: supplemental
 ---
 
 # GH66B2Astech售后反馈不识卡

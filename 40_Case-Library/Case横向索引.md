@@ -4,6 +4,7 @@ domain: Meta
 status: active
 quality: generated
 generated: true
+search_tier: main_entry
 ---
 
 # Case横向索引
@@ -14,7 +15,7 @@ generated: true
 
 | 维度 | 值 | 数量 |
 |---|---|---:|
-| Domain | Call | 17 |
+| Domain | Call | 16 |
 | Domain | Data | 12 |
 | Domain | IMS | 8 |
 | Domain | Registration | 23 |
@@ -22,12 +23,13 @@ generated: true
 | Domain | SIM | 24 |
 | Domain | SMS | 4 |
 | Domain | Stability | 20 |
+| Domain | Supplementary-Service | 2 |
 | Platform | Android | 1 |
 | Platform | Mixed | 29 |
 | Platform | MTK | 17 |
 | Platform | MTK/UNISOC | 1 |
-| Platform | UNISOC | 63 |
-| 第一坏点分类 | Call / SS / ECC | 18 |
+| Platform | UNISOC | 64 |
+| 第一坏点分类 | Call / SS / ECC | 19 |
 | 第一坏点分类 | Data / APN / ESM | 16 |
 | 第一坏点分类 | EMM / PLMN / Registration | 18 |
 | 第一坏点分类 | IMS / SIP | 8 |
@@ -36,8 +38,11 @@ generated: true
 | 第一坏点分类 | SMS / CB / FDN | 4 |
 | 第一坏点分类 | Stability / NV / Modem | 20 |
 | Status | closed | 4 |
-| Status | summarized | 95 |
+| Status | summarized | 96 |
 | Status | summarized_with_log_gap | 12 |
+| SearchTier | case_summary | 68 |
+| SearchTier | reference_only | 9 |
+| SearchTier | supplemental | 35 |
 
 ## 全量索引
 
@@ -51,13 +56,12 @@ generated: true
 | [SRVCC Claro切换掉话](Call/2025-W22_Call_SRVCC_Claro切换掉话.md) | Call | MTK | Call / SS / ECC | IMS/Modem/Network | medium | summarized_with_log_gap | internal weekly technical case | 证据缺口在 SRVCC 切换阶段：需要先确认能力协商是否匹配，再看 mobility / CS 承接 / release cause |
 | [urn:service:sos.police问题](Call/Imported_Call_01_urnservicesos.police问题.md) | Call | MTK | Call / SS / ECC | 'Network/Modem' | high | summarized | 'Old Outline knowledge base; split from 通话问题案例补充.md' | 'RIL 上报 network ECC category:31 后，SIP emergency URN 映射成 urn:service:sos.police' |
 | [无卡紧急呼叫回退超时](Call/2025-07-30_ECC_无卡紧急呼叫回退超时.md) | Call | MTK | Call / SS / ECC | AP/Modem/IMS/CS | medium | summarized | internal weekly technical case | IMS emergency 失败后进入 CS domain，EMM_T_CSFB 内未找到可用 CS PLMN |
-| [CF 执行 XCAP 失败后 CSFB：`ss_XcapAuid` 误配](Call/2025-09-09_Call_UNISOC_CF_XCAP_AUID误配导致HTTP400后CSFB.md) | Call | UNISOC | Call / SS / ECC | Modem SS / XCAP / Operator NV | high | summarized | CQWeb index SPCSS01552839 and imported supplementary-service notes | OPERATOR_NV_IMS ims_ss_param ss_XcapAuid 被手动配置为 simserv.ngn.etsi.org |
 | [ECC `routing=2` 不等于无卡禁止](Call/2022-07-30_ECC_UNISOC_routing不控制无卡禁止_card_flag.md) | Call | UNISOC | Call / SS / ECC | Framework/Telephony/EmergencyNumberTracker | high | summarized | CQWeb SPCSS01017433 | 把 routing=2 误理解为 Without SIM 不能拨打 |
 | [ECC csfb cs后重回LTE时间过长问题](Call/Imported_Call_02_ECC_csfb_cs后重回LTE时间过长问题.md) | Call | UNISOC | Call / SS / ECC | 'Network/Modem' | high | summarized | 'Old Outline knowledge base; split from 通话问题案例补充.md' | 'MSG_ID_MNM_PHONE_ECC_STATUS_SET 后 forbidden_rat_list 包含 LTE，随后 LTE RAT TO 3G RAT 是选网进入而不是 CSFB' |
 | [PIN未解锁时 EF_ECC 与无卡 ECC 分类](Call/2021-06-04_ECC_UNISOC_PIN未解锁EF_ECC与无卡ECC分类.md) | Call | UNISOC | Call / SS / ECC | Modem/L4/MMI/ECC | high | summarized | CQWeb SPCSS00841322 | MMIAPIPHONE_GetSimExistedStatusEx 将 PIN 未解锁状态判为无卡，后续 MMIAPICC_IsEccByLocalConfig 走 Without SIM ECC |
 | [PUK 锁卡紧急呼叫误走 PS 域无声](Call/2024-05-27_ECC_UNISOC_PUK锁卡紧急呼叫误走PS域无声.md) | Call | UNISOC | Call / SS / ECC | RTOS MMI / MN_CALL / ATC | medium | summarized | CQWeb SPCSS01344396 | MSG_ID_MN_CALL_VOICE_CALL_SETUP_REQ 后 mncall_volte 显示 MO call domain 走失败域，而对比机同场景走 CS 域 |
-| [USSD 域选：运营商只支持 CS 时不要强走 IMS/USSI](Call/2024-07-19_Call_UNISOC_USSD域选需按运营商走CS.md) | Call | UNISOC | Call / SS / ECC | Modem SS / IMS USSI / CS CISS | medium | summarized | Imported supplementary-service notes and CQWeb xcap/USSD index | USSD domain selection 配置与运营商支持域不一致 |
 | [会议通话无法合并](Call/Imported_Call_06_会议通话无法合并.md) | Call | UNISOC | Call / SS / ECC | 'IMS/SIP/NV/Network' | medium | summarized | 'Old Outline knowledge base; split from 通话问题案例补充.md' | 'SIP REFER 后是否收到 202 Accepted；若收到 486 Busy Here 或无 202，再分支查网络/订阅/NV' |
+| [喀麦隆 113 缺少 `routing:2` 导致误走 `EMERGENCY_SETUP`](Call/2026-06-05_ECC_UNISOC_喀麦隆113缺少routing2误走EMERGENCY_SETUP.md) | Call | UNISOC | Call / SS / ECC | UNISOC ECC config / Modem Call Control / CS domain selection | high | summarized | F:\\Log\\ECC\\20260602 Ylog\\md_20260602-100945_armlog\\md_20260602-100945.logel | 失败版本 113 缺少 routing:2，拨号链路按真紧急建立，MNCALL 下发 emergency call 并发送 EMERGENCY_SETUP |
 | [双卡紧急号码共享](Call/2025-06-23_ECC_双卡紧急号码共享.md) | Call | UNISOC | Call / SS / ECC | AP/Framework/RIL | high | summarized | internal weekly technical case | 号码识别阶段命中 mEmergencyNumberList |
 | [无卡紧急呼叫选到 eSIM 卡槽失败](Call/2025-12-10_ECC_UNISOC_无卡紧急呼叫选到eSIM卡槽失败.md) | Call | UNISOC | Call / SS / ECC | AP Telephony / UnisocCallManager / RIL / Modem ATC | high | summarized | CQWeb SPCSS01593707 | Modem 侧看到无卡紧急呼叫 ATD112/ATD911 被下发到 sim:1，AP 侧 getProperPhoneForEcc 需要区分实体 SIM 与 eUICC |
 | [APN IPv6代理不支持](Data/Case_Data_APN_IPV6代理不支持.md) | Data | MTK | Data / APN / ESM | AP/Modem/Network | medium | summarized | internal technical case | IPv6-only APN 下 TCP SYN 访问由 proxy 派生的 NAT64 地址无响应，删除 proxy 后恢复 |
@@ -154,10 +158,12 @@ generated: true
 | [RFIC 读取失败导致 modem 起不来](Stability/2024-01-25_Stability_UNISOC_RFIC读取失败Modem不起.md) | Stability | UNISOC | Stability / NV / Modem | MODEM_CTRL / RF driver / hardware | high | summarized | CQWeb SPCSS01290608 | Modem assert in drv_rf_iram.c when Get RFIC type, g_rfic_type=-1 |
 | [UNISOC Modem Blocked现场](Stability/2025-08-01_Stability_UNISOC_ModemBlocked.md) | Stability | UNISOC | Stability / NV / Modem | Modem/HW/AP | low | summarized | internal project summary | 拔卡瞬间 modem 挂住，无后续 modem log 输出 |
 | [售后 IMEI 丢失与 WSRCH 校准 NV 损坏](Stability/2024-08-05_Stability_UNISOC_售后IMEI丢失WSRCH校准NV损坏.md) | Stability | UNISOC | Stability / NV / Modem | Modem/RF/NV | medium | summarized | CQWeb SPCSS01379783 | Modem Assert WSRCH Task in drv_rf_nv_comanche_calibration_wcdma_iram.c while read rssi |
+| [CF 执行 XCAP 失败后 CSFB：`ss_XcapAuid` 误配](Supplementary-Service/2025-09-09_SS_UNISOC_CF_XCAP_AUID误配导致HTTP400后CSFB.md) | Supplementary-Service | UNISOC | Call / SS / ECC | Modem SS / XCAP / Operator NV | high | summarized | CQWeb index SPCSS01552839 and imported supplementary-service notes | OPERATOR_NV_IMS ims_ss_param ss_XcapAuid 被手动配置为 simserv.ngn.etsi.org |
+| [USSD 域选：运营商只支持 CS 时不要强走 IMS/USSI](Supplementary-Service/2024-07-19_SS_UNISOC_USSD域选需按运营商走CS.md) | Supplementary-Service | UNISOC | Call / SS / ECC | Modem SS / IMS USSI / CS CISS | medium | summarized | Imported supplementary-service notes and CQWeb xcap/USSD index | USSD domain selection 配置与运营商支持域不一致 |
 
 ## 使用建议
 
 - 按现象先看 `30_Troubleshooting`，再用本索引按平台、第一坏点分类和 source 反查历史 case。
 - 如果一个 CQ ID 或 log 结论只出现在配置/流程文档中，没有独立 case，说明它更适合做规则沉淀，不一定需要 case 化。
-- 新 case 应补齐 `domain`、`platform`、`layer`、`first_bad_point`、`confidence`、`status`，否则横向索引的检索价值会下降。
+- 新 case 应补齐 `domain`、`platform`、`layer`、`first_bad_point`、`confidence`、`status`、`search_tier`，否则横向索引和 HTML 搜索价值会下降。
 

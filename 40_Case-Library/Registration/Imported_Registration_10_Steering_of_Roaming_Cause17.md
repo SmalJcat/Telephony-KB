@@ -19,7 +19,7 @@ tags:
   - nwsel
   - sbp
   - reject-cause-17
-search_tier: case_summary
+search_tier: supplemental
 ---
 
 # Steering of Roaming Cause17

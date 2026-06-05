@@ -14,6 +14,7 @@ chipset: "UMS9117"
 source_log: "CQWeb SPCSS00841322"
 first_bad_point: "MMIAPIPHONE_GetSimExistedStatusEx 将 PIN 未解锁状态判为无卡，后续 MMIAPICC_IsEccByLocalConfig 走 Without SIM ECC"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

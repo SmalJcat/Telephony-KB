@@ -1,6 +1,7 @@
----
+﻿---
 doc_type: tool
 quality: curated
+search_tier: supplemental
 domain: LogAnalysis
 layer: AP/Modem/RIL
 rat: LTE

@@ -14,6 +14,7 @@ chipset: "UMS9230"
 source_log: "CQWeb SPCSS01345931"
 first_bad_point: "UniOperatorNameHandler 取 PNN record 时未按当前注册 RAT 区分 EFOPL/EFOPL5G"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

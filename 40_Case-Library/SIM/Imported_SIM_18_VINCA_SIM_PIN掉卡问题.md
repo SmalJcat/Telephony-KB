@@ -18,7 +18,7 @@ tags:
   - regulator
   - vsim
   - pin
-search_tier: case_summary
+search_tier: supplemental
 ---
 
 # VINCA SIM PIN掉卡问题

@@ -13,6 +13,7 @@ chipset: "SC9863A1"
 source_log: "CQWeb SPCSS01440031"
 first_bad_point: "getSimOns() 返回空值后未做 TextUtils.isEmpty 判断，导致高优先级名称链路异常返回"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

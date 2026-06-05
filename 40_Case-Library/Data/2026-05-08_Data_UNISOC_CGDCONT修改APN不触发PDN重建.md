@@ -13,6 +13,7 @@ chipset: "UWS6121EG"
 source_log: "CQWeb SPCSS01656937"
 first_bad_point: "直接 AT+CGDCONT 后期望 modem 自动重建已有 PDN，流程假设不符合 AT/PDN 标准拆分"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

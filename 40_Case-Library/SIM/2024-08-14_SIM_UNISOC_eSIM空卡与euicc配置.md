@@ -14,6 +14,7 @@ chipset: "UMS9621S"
 source_log: "CQWeb SPCSS01386630"
 first_bad_point: "USIMDRV[1] 收到 ATR，但 EF/应用读取为空；AP GET_SIM_STATUS 显示 APPTYPE_UNKNOWN、ICCID/EID 为空"
 confidence: medium
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

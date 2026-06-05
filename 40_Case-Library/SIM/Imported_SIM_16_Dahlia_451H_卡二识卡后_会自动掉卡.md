@@ -18,7 +18,7 @@ tags:
   - sim-power
   - nfc-uicc
   - sim2
-search_tier: case_summary
+search_tier: supplemental
 ---
 
 # Dahlia 451H，卡二识卡后，会自动掉卡

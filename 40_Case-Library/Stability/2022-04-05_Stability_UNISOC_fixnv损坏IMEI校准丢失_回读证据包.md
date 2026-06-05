@@ -13,6 +13,7 @@ chipset: "SC7731E"
 source_log: "CQWeb SPCSS00977064"
 first_bad_point: "IMEI 回到展锐原始值、工模校准参数丢失，但缺少 fixnv 分区回读证据"
 confidence: medium
+search_tier: supplemental
 status: summarized_with_log_gap
 tags:
   - cqweb

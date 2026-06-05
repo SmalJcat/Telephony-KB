@@ -18,7 +18,7 @@ tags:
   - attach-reject
   - illegal-me
   - imei
-search_tier: case_summary
+search_tier: supplemental
 ---
 
 # MTN Uganda售后反馈，无法注册网络

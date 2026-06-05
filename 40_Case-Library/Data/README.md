@@ -3,7 +3,7 @@ doc_type: index
 domain: Meta
 status: active
 quality: curated
-search_tier: case_summary
+search_tier: main_entry
 ---
 
 # Data Cases

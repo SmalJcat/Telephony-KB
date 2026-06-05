@@ -19,6 +19,7 @@ source_log:
   - 'F:\Log\流程Log\MTKLte注册流程\debuglogger'
 first_bad_point: none
 confidence: high
+search_tier: case_summary
 status: closed
 tags:
   - registration

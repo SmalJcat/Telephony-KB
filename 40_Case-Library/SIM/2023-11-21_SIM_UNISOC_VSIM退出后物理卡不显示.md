@@ -13,6 +13,7 @@ chipset: "SC9863A1"
 source_log: "CQWeb SPCSS01257378 search summary"
 first_bad_point: "ATCI_VSIM: vsim_set_nv 返回 CME ERROR，随后物理卡未显示"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

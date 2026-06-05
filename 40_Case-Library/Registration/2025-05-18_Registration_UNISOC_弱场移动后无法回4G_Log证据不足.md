@@ -14,6 +14,7 @@ chipset: "UMS9117S"
 source_log: "CQWeb SPCSS01497276"
 first_bad_point: "目标 LTE 频点测量值极弱，后续卡在 2G 后未及时回 LTE；但 DSP 与 ARM 时间点未完全对齐"
 confidence: medium
+search_tier: supplemental
 status: summarized_with_log_gap
 tags:
   - cqweb

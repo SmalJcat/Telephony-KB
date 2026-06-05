@@ -18,7 +18,7 @@ tags:
   - vowifi
   - ecc
   - ims-deferred
-search_tier: case_summary
+search_tier: reference_only
 ---
 
 # vowifi 无法拨打电话

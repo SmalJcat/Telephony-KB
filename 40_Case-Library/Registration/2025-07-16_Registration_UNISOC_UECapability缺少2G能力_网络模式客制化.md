@@ -11,6 +11,7 @@ cause: "运营商配置 key_oem_pref_network_mode 触发 AP 下发网络模式�
 source_log: "Old Outline knowledge base; split from IMS问题案例补充.md and CQWeb SPCSS01532727"
 first_bad_point: "CarrierConfig 客制化网络模式触发 updateOemAllowedNetworkMode -> setPreferredNetworkType -> AT+SPTESTMODEM=24,6"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - imported

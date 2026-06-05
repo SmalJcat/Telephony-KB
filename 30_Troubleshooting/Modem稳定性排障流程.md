@@ -1,8 +1,9 @@
----
+﻿---
 doc_type: triage
 domain: Troubleshooting
 status: active
 quality: curated
+search_tier: main_entry
 ---
 
 # Modem稳定性排障流程

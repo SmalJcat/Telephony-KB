@@ -15,6 +15,7 @@ source_log: "CQWeb, see related Registration case"
 related_case: "../Registration/2026-03-06_Registration_UNISOC_Kenya_Safaricom_LTE拒绝后3G建链失败.md"
 first_bad_point: "WRRC_MM_SIGNALLING_ESTABLISH_CNF est_success=0，WPHY 显示 TX_RACH_Preamble 多次发送且功率达到网络/硬件上限"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

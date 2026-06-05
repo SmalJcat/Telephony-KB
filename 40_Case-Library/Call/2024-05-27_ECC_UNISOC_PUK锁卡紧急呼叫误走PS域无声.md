@@ -13,6 +13,7 @@ chipset: "UMS9117S"
 source_log: "CQWeb SPCSS01344396"
 first_bad_point: "MSG_ID_MN_CALL_VOICE_CALL_SETUP_REQ 后 mncall_volte 显示 MO call domain 走失败域，而对比机同场景走 CS 域"
 confidence: medium
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

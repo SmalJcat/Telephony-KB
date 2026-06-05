@@ -14,6 +14,7 @@ chipset: "SC7731E"
 source_log: "CQWeb SPCSS01017433"
 first_bad_point: "把 routing=2 误理解为 Without SIM 不能拨打"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

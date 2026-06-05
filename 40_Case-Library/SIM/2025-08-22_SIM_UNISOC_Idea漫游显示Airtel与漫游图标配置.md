@@ -14,6 +14,7 @@ chipset: "UMS9230"
 source_log: "CQWeb SPCSS01545940"
 first_bad_point: "updateSpnDisplay 中 simNumeric=405799、operatorNumeric=40492，rawPlmn 从 XML 命中 Airtel，showPlmn=true、showSpn=false"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

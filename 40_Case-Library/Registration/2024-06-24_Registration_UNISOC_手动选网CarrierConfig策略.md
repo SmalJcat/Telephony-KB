@@ -14,6 +14,7 @@ chipset: "UMS9230"
 source_log: "CQWeb SPCSS01362804"
 first_bad_point: "NetworkSelectSettings.java EVENT_SET_NETWORK_SELECTION_MANUALLY_DONE 分支决定 UI 返回值和网络选择模式"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

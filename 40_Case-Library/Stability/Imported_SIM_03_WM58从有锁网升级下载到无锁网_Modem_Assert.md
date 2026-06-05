@@ -18,7 +18,7 @@ tags:
   - nvram
   - sml
   - modem-assert
-search_tier: case_summary
+search_tier: supplemental
 ---
 
 # WM58从有锁网升级下载到无锁网，Modem Assert

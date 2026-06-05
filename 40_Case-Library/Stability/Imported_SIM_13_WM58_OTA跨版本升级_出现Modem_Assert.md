@@ -18,7 +18,7 @@ tags:
   - rf-parameter
   - ota
   - modem-assert
-search_tier: case_summary
+search_tier: supplemental
 ---
 
 # WM58 OTA跨版本升级，出现Modem Assert

@@ -13,6 +13,7 @@ chipset: "UMS9621S"
 source_log: "CQWeb SPCSS01593707"
 first_bad_point: "Modem 侧看到无卡紧急呼叫 ATD112/ATD911 被下发到 sim:1，AP 侧 getProperPhoneForEcc 需要区分实体 SIM 与 eUICC"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

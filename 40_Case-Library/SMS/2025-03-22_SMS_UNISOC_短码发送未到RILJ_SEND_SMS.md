@@ -13,6 +13,7 @@ chipset: "UMS9230E"
 source_log: "CQWeb SPCSS01484963"
 first_bad_point: "SMSDispatcher premium short code 分支处理对象类型错误，导致发送流程在 AP 侧中断"
 confidence: medium
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

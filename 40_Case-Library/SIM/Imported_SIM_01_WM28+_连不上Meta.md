@@ -18,7 +18,7 @@ tags:
   - modem-assert
   - rf-tas
   - meta
-search_tier: case_summary
+search_tier: supplemental
 ---
 
 # WM28+ 连不上Meta

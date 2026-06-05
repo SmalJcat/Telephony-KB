@@ -18,7 +18,7 @@ tags:
   - ims
   - vowifi
   - rtt
-search_tier: case_summary
+search_tier: supplemental
 ---
 
 # RTT 通话

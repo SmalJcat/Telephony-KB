@@ -13,6 +13,7 @@ chipset: "SC9863A1"
 source_log: "CQWeb SPCSS01379846"
 first_bad_point: "MODEM_CTRL: NV_READ calc_checksum fail，both org and bak partition are damaged"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

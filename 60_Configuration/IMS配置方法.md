@@ -1,8 +1,9 @@
----
+﻿---
 doc_type: config
 domain: Configuration
 status: active
 quality: curated
+search_tier: supplemental
 ---
 
 # IMS配置方法

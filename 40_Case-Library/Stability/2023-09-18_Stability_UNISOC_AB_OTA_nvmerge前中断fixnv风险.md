@@ -13,6 +13,7 @@ chipset: "SC9863A1"
 source_log: "CQWeb SPCSS01234705"
 first_bad_point: "update_engine 写入 l_fixnv1/l_fixnv2 后，在 Running /postinstall/bin/nvmerge 之前被打断"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

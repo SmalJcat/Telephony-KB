@@ -13,6 +13,7 @@ chipset: "SC9863A1"
 source_log: "CQWeb SPCSS01379783"
 first_bad_point: "Modem Assert WSRCH Task in drv_rf_nv_comanche_calibration_wcdma_iram.c while read rssi"
 confidence: medium
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

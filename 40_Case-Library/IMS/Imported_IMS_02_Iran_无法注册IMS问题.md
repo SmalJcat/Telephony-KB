@@ -11,6 +11,7 @@ cause: "MTK IMC 注册条件检查时 Operator code / SBP ID 为 0，43211 未�
 source_log: "Old Outline knowledge base; split from IMS问题案例补充.md"
 first_bad_point: "IMC_REG condition check failed: IMC_REG_CHECK_MNCMCC_FAILED before IMS PDN connectivity request"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - imported

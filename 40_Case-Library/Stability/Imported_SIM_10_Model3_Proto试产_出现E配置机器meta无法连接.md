@@ -18,7 +18,7 @@ tags:
   - sml
   - meta
   - modem-assert
-search_tier: case_summary
+search_tier: reference_only
 ---
 
 # Model3 Proto试产，出现E配置机器meta无法连接

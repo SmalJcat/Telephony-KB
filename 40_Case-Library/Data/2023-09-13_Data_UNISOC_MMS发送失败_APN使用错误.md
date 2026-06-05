@@ -13,6 +13,7 @@ chipset: "UMS9117-L"
 source_log: "CQWeb SPCSS01232418"
 first_bad_point: "MMIAPIPDP_Active 使用的 APN 与目标 MCC/MNC 的 MMS APN 配置不匹配"
 confidence: medium
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

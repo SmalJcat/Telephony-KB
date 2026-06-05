@@ -14,6 +14,7 @@ chipset: "UMS9620"
 source_log: "CQWeb SPCSS01407737"
 first_bad_point: "热插拔时间点 modem log 未出现 SIM interrupt / plug-in 相关流程"
 confidence: medium
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

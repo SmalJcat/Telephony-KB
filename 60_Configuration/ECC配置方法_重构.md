@@ -1,8 +1,9 @@
----
+﻿---
 doc_type: config
 domain: Configuration
 status: active
 quality: curated
+search_tier: main_entry
 platform: UNISOC, MTK, Qualcomm
 ---
 
@@ -17,10 +18,12 @@ platform: UNISOC, MTK, Qualcomm
 - MTK MP6 主配置入口是 `vendor/mediatek/proprietary/external/EccList/ecc_list.xml`，OP 定制文件是同目录 `ecc_list_OPxx.xml`，最终复制到 `/vendor/etc/ecc_list*.xml`。
 - Qualcomm AP 侧本地数据库入口是 `qssi/packages/services/Telephony/ecc/input/eccdata.txt`，生成 `ecc/output/eccdata` 后作为 `TeleService` assets 加载。
 - Qualcomm QCRIL/RIL 侧入口是 `target/vendor/qcom/proprietary/qcril-nr/qcril-common/qcril_database/upgrade/other/*.sql`，生成 `qcrilNr.db` 后打包到 `/vendor/etc/qcril_database/qcrilNr.db`；开机 init 先拷贝到 `/data/vendor/radio/qcrilNr_prebuilt.db`，QCRIL 再检查/恢复运行时 active DB `/data/vendor/radio/qcrilNr.db`。
+- AOSP / Qualcomm AP OTA DB 路径是 `/data/misc/emergencynumberdb/emergency_number_db`；`EmergencyNumberTracker` 会加载 assets `eccdata`，再尝试加载 OTA DB，并按有效 `revision` 选择版本。
 - UNISOC 改完 `input/eccdata.txt` 后必须运行 `gen_eccdata.sh` 生成 `output/unieccdata`，只改 input 不能证明设备会加载新号码库。
 - UNISOC / Qualcomm AP `eccdata` 只能配置来源为 `DATABASE` 的紧急号码；MTK `ecc_list*.xml` 与 Qualcomm QCRIL `qcrilNr.db` 经 RIL/native 侧合并后以 `MODEM_CONFIG` 口径上报给 Framework。两条口径不要混用。
-- UNISOC 运行时不是直接读文本文件，而是 `UniEmergencyNumberTracker` 从 `com.android.phone` 的 assets 中打开 `unieccdata`，按国家 ISO、MNC 和卡状态过滤后合并到 emergency number list。
+- UNISOC A15/A16 运行时不是直接读文本文件，而是 `UniEmergencyNumberTracker` 从 `com.android.phone` 的 assets 中打开 `unieccdata`，按国家 ISO、MNC 和 `card_flag` 过滤；当 OTA DB 版本更高时，还会合并 OTA 与 asset DB。
 - 展锐 `mnc` 是可选运营商条件，但它不是简单追加：当前 MNC 命中已配置 MNC 时，会优先使用命中的 MNC 条目列表；当前 MNC 不命中任何已配置 MNC 时，才继续使用未带 `mnc` 的国家通用条目。
+- `ecc_fallback` 当前代码证据来自 proto 规则：每个国家必须配置 `112` 或 `911`，当 `EccInfo` 被 `ril.ecclist` 拒绝时可由 fallback 替代；当前 AOSP/Qualcomm/UNISOC Java 加载链路没有把它直接转换成 `EmergencyNumber`，不要把它当成强制拨号改号开关。
 
 ## 配置路径
 
@@ -70,16 +73,30 @@ countries {
 
 | 字段 | 含义 | 代码口径 / 风险 |
 |---|---|---|
-| `revision` | 数据版本 | AOSP / Qualcomm proto 注释说明该值用于标识内容问题，不用于在线更新版本比较；UNISOC OTA/asset 选择另见下节 |
+| `revision` | 数据版本 | proto 注释说明该值用于标识内容问题；但当前 AOSP / Qualcomm `EmergencyNumberTracker` 会在 asset DB 和 OTA DB 间比较 `revision`，使用有效且版本更高的一方。目标分支若启用 OTA DB，必须确认版本策略 |
 | `countries.iso_code` | 国家/地区 ISO 码，如 `CO` | 运行时按 country ISO 匹配，不是直接写 MCC |
 | `eccs.phone_number` | 紧急号码 | 每个 `eccs` 一个号码；同号码多 category 后续会合并 |
 | `eccs.types` | 紧急服务类别 | AOSP / Qualcomm proto 使用 `POLICE`、`AMBULANCE`、`FIRE`、`MARINE_GUARD`、`MOUNTAIN_RESCUE`、`MIEC`、`AIEC` |
 | `eccs.routing` | 呼叫路由 | proto 枚举：`UNKNOWN=0`、`EMERGENCY=1`、`NORMAL=2`。不配置默认为 `UNKNOWN`；`NORMAL` 是普通路由/假紧急，不等价于“无卡不能拨打” |
 | `eccs.normal_routing_mncs` | NORMAL routing 的 MNC 条件 | 仅当 `routing` 为 `NORMAL` 时生效；为空表示所有 MNC 都按 NORMAL routing；这不是运营商专属号码过滤 |
-| `ecc_fallback` | fallback 号码 | 每个国家应配置 `112` 或 `911`；已有国家通常保留原值，除非有明确需求和验证证据 |
+| `ecc_fallback` | fallback 号码 | proto 要求每个国家配置 `112` 或 `911`，注释口径是当 `EccInfo` 被 `ril.ecclist` 拒绝时可替代；当前 Java 加载链路没有直接消费该字段，已有国家通常保留原值，除非有明确需求和实机证据 |
 | `ignore_modem_config` | 是否忽略 modem config 来源号码 | `true` 表示该国家更信任 Android database，可能影响 `MODEM_CONFIG` 来源号码合并，落地前必须结合目标分支代码和 log 验证 |
 
 注意：AOSP / Qualcomm AP `eccdata.txt` 不支持 UNISOC 的 `eccs.mnc` 和 `eccs.card_flag` 字段。高通需要运营商级号码时，通常应看 QCRIL `qcril_emergency_source_mcc_mnc_table` / `voice_mcc_mnc_table`，不要把展锐字段直接写到高通 AP `eccdata.txt`。
+
+### AOSP / Qualcomm AP OTA DB 选择
+
+当前 S1E4ProPlus 代码中，`EmergencyNumberTracker` 的数据库选择链路如下：
+
+| 证据点 | 结论 |
+|---|---|
+| `EMERGENCY_NUMBER_DB_ASSETS_FILE = "eccdata"` | AP assets 数据库文件名是 `eccdata`，由 `TeleService` assets 提供 |
+| `EMERGENCY_NUMBER_DB_OTA_FILE_PATH = "misc/emergencynumberdb/emergency_number_db"` | OTA DB 运行时路径是 `/data/misc/emergencynumberdb/emergency_number_db` |
+| `cacheEmergencyDatabaseByCountry()` | 先读 assets DB，再调用 `cacheOtaEmergencyNumberDatabase()` |
+| `assetsDatabaseVersion > mCurrentOtaDatabaseVersion` | asset 版本更高时用 asset；否则保留 OTA DB 结果 |
+| `updateOtaEmergencyNumberListDatabaseAndNotify()` | 收到 OTA DB 更新事件后重新加载 OTA DB、更新列表并通知 |
+
+因此，高通 AP 侧如果只改 `qssi/packages/services/Telephony/ecc/input/eccdata.txt`，但设备上已有更高版本 OTA DB，最终 `DATABASE` source 可能仍来自 OTA DB。验证时要同时看 `getEmergencyNumberDbVersion()` / `getEmergencyNumberOtaDbVersion()`、`EmergencyNumberTracker` dump 和 `/data/misc/emergencynumberdb/emergency_number_db` 是否存在。
 
 ## UNISOC uniecc 扩展格式
 
@@ -105,12 +122,29 @@ countries {
 
 | 字段 | 含义 | 代码口径 / 风险 |
 |---|---|---|
-| `revision` | 数据版本 | `UniEmergencyNumberTracker` 会比较 asset DB 和 OTA DB 版本；有 OTA DB 或版本选择场景时需确认项目规范是否要求递增 |
+| `revision` | 数据版本 | `UniEmergencyNumberTracker` 会记录 asset `unieccdata` 的 revision，并调用 OTA DB 加载逻辑；asset 版本高时直接使用 asset，OTA 版本高时进入 asset/OTA 合并逻辑。需要配合目标分支 OTA 策略确认是否递增 |
 | `eccs.types` | 紧急服务类别 | UNISOC proto 使用 `POLICE`、`AMBULANCE`、`FIRE`、`MARINE`、`MOUNTAIN`、`MIEC`、`AIEC` |
 | `eccs.routing` | 呼叫路由 | UNISOC proto 是 `int32`：`0=unknown`、`1=emergency`、`2=normal`；`2` 只表示普通路由/假紧急，不控制卡状态 |
 | `eccs.mnc` | 针对运营商 MNC 配置 | 只写 MNC，不写 MCCMNC；运行时先取驻留网络 MNC，取不到再取 SIM MNC |
 | `eccs.card_flag` | 卡状态过滤 | 支持 `no_card` 和 `with_card`；不配置表示有卡/无卡都可用 |
-| `ecc_fallback` | fallback 号码 | 新增国家时按展锐资料要求配置 `112` 或 `911`；已有国家通常保留原值，除非有明确需求和验证证据 |
+| `ecc_fallback` | fallback 号码 | 新增国家时按展锐资料要求配置 `112` 或 `911`；A16 代码检索只在 proto 和输入数据中找到该字段，未在 `UniEmergencyNumberTracker` 中看到直接转换逻辑，已有国家通常保留原值 |
+
+### UNISOC 运行时加载证据
+
+当前 A16 代码中，`vendor/sprd/platform/frameworks/telephony-injection/uni-telephony-common/src/java/com/android/internal/telephony/emergency/UniEmergencyNumberTracker.java` 是关键运行时入口：
+
+| 代码点 | 结论 |
+|---|---|
+| `UNI_EMERGENCY_NUMBER_DB_ASSETS_FILE = "unieccdata"` | 运行时加载的是生成物 `unieccdata`，不是 `input/eccdata.txt` |
+| `createPackageContext("com.android.phone", ...)` + `remoteContext.getAssets().open(...)` | 从 `com.android.phone` 的 assets 打开 `unieccdata` |
+| `cacheEmergencyDatabaseByCountry(countryIso)` | 按 country ISO 过滤国家条目，生成 `mEmergencyNumberListFromAssetDatabase` |
+| `getMnc()` | 优先取驻留网络 numeric 的 MNC，取不到再取 SIM numeric 的 MNC |
+| `eccInfo.mnc` 分支 | 配置了 MNC 的条目只在当前 MNC 命中时进入 MNC 专属列表；有 MNC 专属列表时会替换国家通用列表 |
+| `isValidEccInfo()` | `card_flag` 为空表示有卡/无卡都可用；`no_card` 仅 SIM absent；`with_card` 表示 SIM 非 absent |
+| `mergeAssetAndOtaEmergencyNumberList()` | OTA DB 版本高于 asset 时，先保留 OTA 号码，同号合并 category/routing，再补充 OTA 不包含的 asset 号码 |
+| `needLoadDataBaseEccList()` | 无卡但其他 slot 有 active subscription 时，可能清空本 slot database list 并跳过加载 |
+
+这几个点决定了展锐 ECC 配置排查顺序：先看生成物是否进入 assets，再看 country ISO、MNC、`card_flag`、active subscription / phoneId，最后看 OTA DB 是否覆盖或合并。
 
 ## MTK EccList 配置格式
 
@@ -166,6 +200,20 @@ INSERT INTO qcril_emergency_source_escv_nw_table VALUES('450', NULL, '112', 1);
 ```
 
 `SERVICE` 常见值为空、`full`、`limited`。QCRIL 查询时会先查无 service 限制的行，再根据当前 voice/data service confidence 查 `full` 或 `limited` 行。因此新增号码时不能只看 MCC/MNC，还要确认需求是否只在 full service 或 limited service 场景生效。
+
+当前 S1E4ProPlus QCRIL 代码边界：
+
+| 代码点 | 结论 |
+|---|---|
+| `qcril_db.cpp` 的 `qcril_db_emergency_number_tables` | source enum 到 `qcril_emergency_source_*` 表名一一映射；MCC 表和 MCC/MNC 表的主键不同 |
+| `qcril_db_is_mcc_part_of_emergency_numbers_table()` | source 是 `MCC_MNC` / `VOICE_MCC_MNC` 且 MNC 有效时按 MCC+MNC 查，否则按 MCC 查 |
+| `qcril_db_is_mcc_part_of_emergency_numbers_table_with_service_state()` | service 参数生效时按 `SERVICE` 再过滤，MCC/MNC 表仍要求 MNC 有效 |
+| `qcril_check_mcc_part_of_emergency_numbers_table_with_service_state()` | NAS 先查无 service 限制，再按 full / limited service state 查 |
+| `qcril_qmi_nas_add_emergency_numbers()` | 先按 IMSI/SIM MCC 查 MCC / voice MCC，再按 MCC/MNC 命中关系投射 MCC_MNC / VOICE_MCC_MNC；网络 MCC 不同还会追加 NW MCC 号码 |
+| `RilPbmFillEccMap` / `PbmModule::handlePbmFillEccMap()` | NAS 查到号码后交给 PBM 填 ECC map，source 设置为 `MODEM_CONFIG` |
+| `qcril_pbm.cpp` | PBM 合并 PBM cache、RIL ECC map、network detected ECC 后发送 `RilUnsolEmergencyListIndMessage`，并兼容更新 `ril.ecclist` |
+| `qcril_database/Android.bp` | `qcril_config_database` 用 SQL 生成 `qcrilNr.db`，`qcrilNrDb_vendor` 打包到 `vendor/etc/qcril_database` |
+| `qcril_db_check_prebuilt_and_wait()` | 首次启动或 data DB 不存在时，从 `/data/vendor/radio/qcrilNr_prebuilt.db` 拷贝生成 `/data/vendor/radio/qcrilNr.db`；active DB 不更新时，源码 SQL 修改不会生效 |
 
 Qualcomm QCRIL 新增号码时先按场景选表：
 
@@ -579,9 +627,9 @@ adb shell sqlite3 /data/vendor/radio/qcrilNr.db "select * from qcril_emergency_s
 - A15/A16 实机验证：需要一份改号后 log，确认 `UniEmergencyNumberTracker` 加载、MNC/card_flag 匹配、最终 `mEmergencyNumberList`。
 - MTK 实机验证：需要一份改 `ecc_list.xml` 后的 AP/radio log，确认 `/vendor/etc/ecc_list*.xml`、OPTR 选择、`AP ECC` / `MD ECC`、`RFX_MSG_URC_EMERGENCY_NUMBER_LIST` 和最终 `EmergencyNumberTracker`。
 - Qualcomm 实机验证：需要一份改 `qcrilNr.db` 后的 AP/radio log，确认设备侧 DB 内容、NAS 查表、`RilPbmFillEccMap`、`RIL_UNSOL_EMERGENCY_NUMBERS_LIST/currentEmergencyNumberList` 和最终 `EmergencyNumberTracker`。
-- Qualcomm 官方配置文档：当前代码已能证明路径和加载链路，但各 `qcril_emergency_source_*` 表在具体运营商需求中的推荐使用边界仍建议后续用 Qualcomm 文档补强。
-- OTA DB 路径和版本策略：当前已确认 asset/OTA 会比较版本，但 OTA 文件来源和刷写方式需要后续单独补。
-- `ecc_fallback` 实际运行时使用点：配置规则已按展锐资料确认；运行时触发 fallback 的具体调用点仍需后续代码/案例证据再补。
+- Qualcomm 官方配置文档：当前代码已能证明路径、表结构和加载链路；各 `qcril_emergency_source_*` 表在具体运营商需求中的官方推荐边界仍可后续用 Qualcomm 文档补强。
+- OTA DB 刷写/触发来源：当前已确认 AOSP / Qualcomm AP 路径、版本选择和 UNISOC asset/OTA 合并逻辑；OTA 文件由谁下发、何时写入、项目是否启用仍需要目标项目证据。
+- `ecc_fallback` 实机触发场景：proto 规则已确认，但当前本地代码只证明字段约束，未证明具体拨号场景一定会触发替换；需要后续真实案例或专项 log 验证。
 
 ## 来源记录
 
@@ -589,8 +637,12 @@ adb shell sqlite3 /data/vendor/radio/qcrilNr.db "select * from qcril_emergency_s
 - 旧 `ECC配置方法.md`：Outline / CQ 导入资料；已删除旧文件。本页已抽取需求表读法、显示名边界、配置不生效自查、域选证据和测试边界，未整段搬运旧图片/教程。
 - `/home/wx/Project/MP6/alps-release-b0.mp1.rc-tb-default/alps/vendor/mediatek/proprietary/external/EccList/ecc_list.xml`：MTK MP6 vendor RIL 侧 ECC List 配置入口。
 - `/home/wx/Project/MP6/alps-release-b0.mp1.rc-tb-default/alps/vendor/mediatek/proprietary/hardware/ril/fusion/mtk-ril/telcore_mipc/cc/`：MTK ECC List 解析、合并、sync modem 和 Framework 回报代码来源。
+- `/home/wx/Project/Common/SPRDROID16_SYS_MAIN_W25.22.4/alps/vendor/sprd/platform/frameworks/telephony-injection/uni-telephony-common/src/java/com/android/internal/telephony/emergency/UniEmergencyNumberTracker.java`：UNISOC A16 runtime 加载 `unieccdata`、MNC/card_flag 过滤、asset/OTA 合并和 phoneId / subscription 边界来源。
+- `/home/wx/Project/Common/SPRDROID15_SYS_MAIN_W24.37.2_P1/alps/vendor/sprd/platform/frameworks/telephony-injection/uni-telephony-common/src/java/com/android/internal/telephony/emergency/UniEmergencyNumberTracker.java`：UNISOC A15 runtime 同名入口；路径已确认，细节按目标分支复查。
+- `/home/wx/Project/QCOM/qcom4490/S1E4ProPlus/qssi/frameworks/opt/telephony/src/java/com/android/internal/telephony/emergency/EmergencyNumberTracker.java`：AOSP / Qualcomm AP `eccdata` asset 加载、OTA DB 路径、版本选择和 Framework emergency list 合并来源。
 - `/home/wx/Project/QCOM/qcom4490/S1E4ProPlus/qssi/packages/services/Telephony/ecc/input/eccdata.txt`：Qualcomm AP / AOSP emergency database 配置入口。
 - `/home/wx/Project/QCOM/qcom4490/S1E4ProPlus/target/vendor/qcom/proprietary/qcril-nr/qcril-common/qcril_database/`：Qualcomm QCRIL database、ECC SQL、`qcrilNr.db` 生成和打包来源。
+- `/home/wx/Project/QCOM/qcom4490/S1E4ProPlus/target/vendor/qcom/proprietary/qcril-nr/qcril-common/qcril_database/src/qcril_db.cpp`：Qualcomm QCRIL ECC 表定义、source 到表名映射、MCC/MNC/service 查表和 prebuilt/active DB 恢复来源。
 - `/home/wx/Project/QCOM/qcom4490/S1E4ProPlus/target/vendor/qcom/proprietary/qcril-nr/modules/nas/src/qcril_qmi_nas.cpp`：Qualcomm NAS 查 ECC 表、按 MCC/MNC/service state 投射号码的代码来源。
 - `/home/wx/Project/QCOM/qcom4490/S1E4ProPlus/target/vendor/qcom/proprietary/qcril-nr/modules/pbm/src/`：Qualcomm PBM 合并 ECC map 并上报 RIL emergency list 的代码来源。
 

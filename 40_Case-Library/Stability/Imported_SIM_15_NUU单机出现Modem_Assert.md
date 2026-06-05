@@ -18,7 +18,7 @@ tags:
   - rf-band
   - hardware-variant
   - modem-assert
-search_tier: case_summary
+search_tier: supplemental
 ---
 
 # NUU单机出现Modem Assert

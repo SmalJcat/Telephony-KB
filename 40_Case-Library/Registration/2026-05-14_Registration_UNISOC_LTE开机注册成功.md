@@ -19,6 +19,7 @@ source_log:
   - 'F:\Log\流程Log\展锐Lte注册流程\ylog\ap\001-0514_091134--0514_091333_poweron'
 first_bad_point: none
 confidence: high
+search_tier: case_summary
 status: closed
 tags:
   - registration

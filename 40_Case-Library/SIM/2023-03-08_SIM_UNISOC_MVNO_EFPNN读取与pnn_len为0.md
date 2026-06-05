@@ -14,6 +14,7 @@ chipset: "UMS9117"
 source_log: "CQWeb SPCSS01132047"
 first_bad_point: "GetPNNIndexByOPL / SetPNNWithLac 与 GetNetworkNameString 中 pnn_len 不一致"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

@@ -39,6 +39,7 @@ NAV_SUBGROUP_LABELS = {
         "Registration": "注册 / Registration",
         "SIM": "SIM / Card",
         "Call": "通话 / Call",
+        "Supplementary-Service": "补充业务 / SS",
         "Data": "数据 / Data",
         "IMS": "IMS",
         "SMS": "短信 / SMS",
@@ -53,7 +54,7 @@ NAV_SUBGROUP_LABELS = {
 }
 
 NAV_SUBGROUP_ORDER = {
-    "40_Case-Library": ["ROOT", "Registration", "SIM", "Call", "Data", "IMS", "SMS", "Signal", "Stability"],
+    "40_Case-Library": ["ROOT", "Registration", "SIM", "Call", "Supplementary-Service", "Data", "IMS", "SMS", "Signal", "Stability"],
     "60_Configuration": ["ROOT", "References", "OperatorRecords"],
 }
 
@@ -1599,6 +1600,7 @@ const fieldLabels = {
   doc_type: "类型",
   quality: "质量",
   status: "状态",
+  search_tier: "搜索层级",
   platform: "平台",
   rat: "制式",
   layer: "层级",
@@ -1612,14 +1614,16 @@ const baseDocScore = (doc) => {
   const tier = normalizeLower(doc.search_tier);
   let score = 10;
   if (quality === "curated") score += 12;
-  if (quality === "imported_reference") score -= 2;
+  if (quality === "imported_reference") score -= 4;
   if (docType === "case") score += 7;
   if (normalize(doc.first_bad_point)) score += 4;
   if (tier === "main_entry") score += 8;
-  if (tier === "case_summary") score += 6;
-  if (tier === "supplemental") score -= 4;
-  if (tier === "reference_only" || docType === "reference") score -= 18;
-  if (tier === "archived_entry" || status === "archived") score -= 28;
+  if (tier === "case_summary") score += 8;
+  if (tier === "supplemental") score -= 8;
+  if (tier === "reference_only" || docType === "reference") score -= 30;
+  if (tier === "archived_entry" || status === "archived") score -= 40;
+  if (status === "summarized_with_log_gap") score -= 8;
+  if (normalizeLower(doc.confidence) === "low") score -= 10;
   return score;
 };
 
@@ -2667,6 +2671,9 @@ def render_index(pages: list[Page], generated_at: str) -> str:
         "</div>",
         "<div class=\"preset-row\" aria-label=\"快捷筛选\">",
         "<button class=\"preset-chip\" type=\"button\" data-preset=\"doc_type=case;group_label=案例库 / Cases\">只看 Case</button>",
+        "<button class=\"preset-chip\" type=\"button\" data-preset=\"doc_type=case;search_tier=case_summary\">强证据 Case</button>",
+        "<button class=\"preset-chip\" type=\"button\" data-preset=\"search_tier=supplemental\">补充参考</button>",
+        "<button class=\"preset-chip\" type=\"button\" data-preset=\"search_tier=reference_only\">仅回溯资料</button>",
         "<button class=\"preset-chip\" type=\"button\" data-preset=\"quality=curated\">只看精选</button>",
         "<button class=\"preset-chip\" type=\"button\" data-preset=\"quality=imported_reference\">导入资料</button>",
         "<button class=\"preset-chip\" type=\"button\" data-preset=\"domain=Registration\">注册问题</button>",
@@ -2681,6 +2688,7 @@ def render_index(pages: list[Page], generated_at: str) -> str:
         "<label class=\"filter-field\"><span>类型</span><select data-filter=\"doc_type\"></select></label>",
         "<label class=\"filter-field\"><span>质量</span><select data-filter=\"quality\"></select></label>",
         "<label class=\"filter-field\"><span>状态</span><select data-filter=\"status\"></select></label>",
+        "<label class=\"filter-field\"><span>搜索层级</span><select data-filter=\"search_tier\"></select></label>",
         "<label class=\"filter-field\"><span>平台</span><select data-filter=\"platform\"></select></label>",
         "<label class=\"filter-field\"><span>制式</span><select data-filter=\"rat\"></select></label>",
         "<label class=\"filter-field\"><span>层级</span><select data-filter=\"layer\"></select></label>",

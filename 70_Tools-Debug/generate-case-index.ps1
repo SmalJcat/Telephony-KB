@@ -139,6 +139,7 @@ foreach ($file in $caseFiles) {
     confidence = $fm['confidence']
     source_log = $fm['source_log']
     first_bad_point = $fm['first_bad_point']
+    search_tier = $fm['search_tier']
     feature = $fm['feature']
     symptom = $fm['symptom']
     cause = $fm['cause']
@@ -157,6 +158,7 @@ $linesOut.Add('domain: Meta')
 $linesOut.Add('status: active')
 $linesOut.Add('quality: generated')
 $linesOut.Add('generated: true')
+$linesOut.Add('search_tier: main_entry')
 $linesOut.Add('---')
 $linesOut.Add('')
 $linesOut.Add('# Case横向索引')
@@ -179,6 +181,9 @@ foreach ($g in ($casesSorted | Group-Object bad_point_class | Sort-Object Name))
 foreach ($g in ($casesSorted | Group-Object status | Sort-Object Name)) {
   $linesOut.Add("| Status | $(Escape-Cell $g.Name) | $($g.Count) |")
 }
+foreach ($g in ($casesSorted | Group-Object search_tier | Sort-Object Name)) {
+  $linesOut.Add("| SearchTier | $(Escape-Cell $g.Name) | $($g.Count) |")
+}
 
 $linesOut.Add('')
 $linesOut.Add('## 全量索引')
@@ -195,7 +200,7 @@ $linesOut.Add('## 使用建议')
 $linesOut.Add('')
 $linesOut.Add('- 按现象先看 `30_Troubleshooting`，再用本索引按平台、第一坏点分类和 source 反查历史 case。')
 $linesOut.Add('- 如果一个 CQ ID 或 log 结论只出现在配置/流程文档中，没有独立 case，说明它更适合做规则沉淀，不一定需要 case 化。')
-$linesOut.Add('- 新 case 应补齐 `domain`、`platform`、`layer`、`first_bad_point`、`confidence`、`status`，否则横向索引的检索价值会下降。')
+$linesOut.Add('- 新 case 应补齐 `domain`、`platform`、`layer`、`first_bad_point`、`confidence`、`status`、`search_tier`，否则横向索引和 HTML 搜索价值会下降。')
 $linesOut.Add('')
 
 New-Item -ItemType Directory -Force -Path (Split-Path -Parent $outputPath) | Out-Null

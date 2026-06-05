@@ -18,7 +18,7 @@ tags:
   - sim-pin
   - data-stall
   - modem-reset
-search_tier: case_summary
+search_tier: supplemental
 ---
 
 # GH6683 sunking sim pin issue report

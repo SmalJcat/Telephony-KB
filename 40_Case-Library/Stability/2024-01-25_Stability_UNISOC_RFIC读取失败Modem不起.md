@@ -13,6 +13,7 @@ chipset: "SC9863A1"
 source_log: "CQWeb SPCSS01290608"
 first_bad_point: "Modem assert in drv_rf_iram.c when Get RFIC type, g_rfic_type=-1"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

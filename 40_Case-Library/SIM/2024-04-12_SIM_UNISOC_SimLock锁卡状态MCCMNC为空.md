@@ -13,6 +13,7 @@ chipset: "UMS9230"
 source_log: "CQWeb SPCSS01329406"
 first_bad_point: "AP 在 NETWORK_LOCKED 状态下期望读取完整 SubInfo MCC/MNC"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

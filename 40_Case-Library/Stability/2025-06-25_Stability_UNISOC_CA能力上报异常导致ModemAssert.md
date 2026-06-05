@@ -13,6 +13,7 @@ chipset: "UMS9620"
 source_log: "CQWeb SPCSS01521496"
 first_bad_point: "LTE_DL_SCH0_TASK PHY CP assert in afc_aaal.c after unsupported CA configuration"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

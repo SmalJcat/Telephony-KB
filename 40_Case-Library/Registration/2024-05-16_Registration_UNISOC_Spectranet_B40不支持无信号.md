@@ -14,6 +14,7 @@ chipset: "SC9863A1"
 source_log: "CQWeb SPCSS01345057"
 first_bad_point: "LTE cell select 后 Attach Reject: EMM_CAUSE_NO_SUIT_CELLS_IN_TA，并进入 LIMITED_SERVICE"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

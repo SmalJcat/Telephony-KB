@@ -14,6 +14,7 @@ chipset: "SC9863A1"
 source_log: "CQWeb SPCSS01246382"
 first_bad_point: "ConnectivityService validation failed with redirect to safaricom.zerod.live；APN 配置成功/失败前后无差异"
 confidence: medium
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

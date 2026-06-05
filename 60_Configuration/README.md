@@ -1,8 +1,9 @@
----
+﻿---
 doc_type: index
 domain: Meta
 status: active
 quality: curated
+search_tier: main_entry
 ---
 
 # 60_Configuration

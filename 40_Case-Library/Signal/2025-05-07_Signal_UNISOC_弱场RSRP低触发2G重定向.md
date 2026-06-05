@@ -14,6 +14,7 @@ chipset: "UMS9230"
 source_log: "CQWeb SPCSS01502273"
 first_bad_point: "DUT 在 LTE 小区上报测量后收到 RRCConnectionRelease redirectedCarrierInfo=GERAN，同时同时间 RSRP 约 -123 dBm，明显差于对比机约 -114 dBm"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

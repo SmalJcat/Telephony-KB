@@ -1,5 +1,6 @@
----
+﻿---
 quality: curated
+search_tier: main_entry
 doc_type: tool
 domain: LogAnalysis
 layer: AP/Modem

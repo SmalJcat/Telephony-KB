@@ -14,6 +14,7 @@ chipset: "UWS6121EG"
 source_log: "CQWeb SPCSS01630213"
 first_bad_point: "需要先拆清 EF 文件、平台能力和当前 SIM 实际写入内容，避免把容量支持误解为当前卡内容或 UI 列表数量"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

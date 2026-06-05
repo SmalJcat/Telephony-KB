@@ -18,6 +18,7 @@ source_log:
   - 'F:\Codex\Knowledge\lte\5roo572r6zeu6aky5qgi5l6l'
 first_bad_point: mixed samples
 confidence: medium
+search_tier: reference_only
 status: reference
 tags:
   - registration

@@ -1,8 +1,9 @@
----
+﻿---
 doc_type: config
 domain: Configuration
 status: active
 quality: curated
+search_tier: supplemental
 layer: AP/Framework/CarrierConfig
 source: 运营商配置参考.xlsx; CarrierConfigManager.java
 ---

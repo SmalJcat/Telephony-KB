@@ -14,6 +14,7 @@ chipset: "UMS9230E"
 source_log: "CQWeb SPCSS01629027"
 first_bad_point: "LTE ATTACH_REJECT cause 15 后，3G WRRC/MM signalling establish 失败，重复 RRCConnectionRequest"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

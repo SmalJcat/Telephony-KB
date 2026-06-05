@@ -1,8 +1,9 @@
----
+﻿---
 doc_type: config
 domain: Configuration
 status: active
 quality: curated
+search_tier: supplemental
 feature: SIMLock
 layer: AP/Modem/Build/NV
 ---

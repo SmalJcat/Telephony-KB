@@ -1,8 +1,9 @@
----
+﻿---
 doc_type: config
 domain: Configuration
 status: draft
 quality: curated
+search_tier: main_entry
 ---
 
 # APN配置方法_重构

@@ -18,7 +18,7 @@ tags:
   - attach-reject
   - illegal-me
   - imei
-search_tier: case_summary
+search_tier: supplemental
 ---
 
 # GH67M1_OMEGA无法注册网络

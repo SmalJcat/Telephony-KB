@@ -14,6 +14,7 @@ chipset: "UMS9230"
 source_log: "CQWeb SPCSS01316717"
 first_bad_point: "WRRC_MM_PLMN_CAMPING_REQ 后全 Band 测量未获得可驻留小区，随后 WRRC_MM_NO_CELL_IN_PLMN_IND / PLMN_SEL_FAILURE"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

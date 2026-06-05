@@ -18,7 +18,7 @@ tags:
   - modem-assert
   - pwm
   - bsp
-search_tier: case_summary
+search_tier: supplemental
 ---
 
 # G100 通话过程中，出现Modem Assert

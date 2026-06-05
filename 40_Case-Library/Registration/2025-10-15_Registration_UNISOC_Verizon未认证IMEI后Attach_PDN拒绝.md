@@ -14,6 +14,7 @@ chipset: "UMS9117"
 source_log: "CQWeb SPCSS01550358 / SPCSS01607196"
 first_bad_point: "ATTACH_REQUEST 后收到 ATTACH_REJECT，同时 PDN_CONNECTIVITY_REJECT 携带 REQ_SERV_OPT_NOT_SUBSCRIBED"
 confidence: medium
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

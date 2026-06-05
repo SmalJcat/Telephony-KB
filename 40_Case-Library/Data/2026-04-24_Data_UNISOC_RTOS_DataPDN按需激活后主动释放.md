@@ -14,6 +14,7 @@ chipset: "UWS6121EG"
 source_log: "CQWeb SPCSS01652533"
 first_bad_point: "PDP Manager 收到 MMIAPIPDP_Deactive/app_handler 请求，传导到协议层 PDN disconnect"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

@@ -1,8 +1,9 @@
----
+﻿---
 doc_type: template
 domain: Template
 status: active
 quality: template
+search_tier: reference_only
 ---
 
 # ADR-XXX: 标题

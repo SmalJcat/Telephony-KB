@@ -18,7 +18,7 @@ tags:
   - modem-assert
   - esimtray
   - sim-tray
-search_tier: case_summary
+search_tier: supplemental
 ---
 
 # WM58卡托检查代码修改问题，导致Modem Assert

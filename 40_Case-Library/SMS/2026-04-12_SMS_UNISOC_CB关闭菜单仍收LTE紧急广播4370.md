@@ -13,6 +13,7 @@ chipset: "UMS9117S"
 source_log: "CQWeb SPCSS01634532"
 first_bad_point: "把普通 CB 菜单开关等同于底层紧急广播接收开关"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

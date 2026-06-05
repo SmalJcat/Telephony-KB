@@ -17,7 +17,7 @@ tags:
   - split_from_bucket
   - evidence-gap
   - nr-cell-selection
-search_tier: case_summary
+search_tier: reference_only
 ---
 
 # CM52没有切到吞吐量更高的小区

@@ -10,6 +10,7 @@ cause: consolidated
 source_log: Old Outline knowledge base
 first_bad_point: see linked curated case
 confidence: medium
+search_tier: reference_only
 status: reference
 ---
 

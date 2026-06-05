@@ -13,6 +13,7 @@ chipset: "SC9863A1"
 source_log: "CQWeb SPCSS01363092 search summary"
 first_bad_point: "MSG_ID_LTEAS_CELL_SELECT_CNF status=0x3 后上报 PLMN_SEL_FAILURE_IND"
 confidence: medium
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

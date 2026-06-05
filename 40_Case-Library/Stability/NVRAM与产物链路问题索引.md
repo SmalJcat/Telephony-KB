@@ -10,6 +10,7 @@ cause: NVRAM/SML LID、加密宏控、modem image、RF parameter 或硬件版本
 source_log: Old Outline SIM import consolidation
 first_bad_point: AP 侧 SIM/IMEI/META 表象之前，先出现 modem/NVRAM/产物链路不一致
 confidence: high
+search_tier: main_entry
 status: active
 quality: curated
 ---

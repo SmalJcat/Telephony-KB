@@ -1,8 +1,9 @@
----
+﻿---
 doc_type: triage
 domain: Troubleshooting
 status: active
 quality: curated
+search_tier: main_entry
 ---
 
 # SIM与运营商名排障流程

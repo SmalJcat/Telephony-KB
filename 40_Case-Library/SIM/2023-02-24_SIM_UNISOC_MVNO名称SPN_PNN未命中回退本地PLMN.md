@@ -14,6 +14,7 @@ chipset: "UMS9117"
 source_log: "CQWeb SPCSS01124358"
 first_bad_point: "GetNetworkNameString 中 spn_len、pnn_len、ons_len、opn_len 均为 0"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

@@ -13,6 +13,7 @@ chipset: "UMS9230E"
 source_log: "CQWeb SPCSS01460052"
 first_bad_point: "APN editor/display 枚举标准 APN type 时无法匹配 wap"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

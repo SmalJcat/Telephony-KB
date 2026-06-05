@@ -13,6 +13,7 @@ chipset: "SC7731E / UMS9230"
 source_log: "CQWeb SPCSS00766912 / SPCSS00967511"
 first_bad_point: "fastboot flash fixnv 分区前未备份并合并原机 IMEI/校准 NV"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

@@ -18,7 +18,7 @@ tags:
   - cell-reselection
   - sinr
   - lrrc
-search_tier: case_summary
+search_tier: supplemental
 ---
 
 # GH6733B_Symphony反馈信号波动频繁

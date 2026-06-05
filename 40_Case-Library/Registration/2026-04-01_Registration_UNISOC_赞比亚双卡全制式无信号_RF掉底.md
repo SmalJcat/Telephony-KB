@@ -14,6 +14,7 @@ chipset: "UMS9230E"
 source_log: "CQWeb SPCSS01643005"
 first_bad_point: "ASM select cell 后 LTE/3G/GPRS 搜网均失败，RSSI 主辅通路持续异常低"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

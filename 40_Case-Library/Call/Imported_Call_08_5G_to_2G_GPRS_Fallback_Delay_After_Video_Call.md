@@ -18,7 +18,7 @@ tags:
   - csfb
   - redirection
   - plmn-mismatch
-search_tier: case_summary
+search_tier: supplemental
 ---
 
 # 5G to 2G (GPRS) Fallback Delay After Video Call

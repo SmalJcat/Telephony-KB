@@ -13,6 +13,7 @@ chipset: "UMS9230"
 source_log: "CQWeb SPCSS01052197 search summary"
 first_bad_point: "ApnSettings/ApnEditor 显示 APN type 前被 CarrierConfig 隐藏列表过滤"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

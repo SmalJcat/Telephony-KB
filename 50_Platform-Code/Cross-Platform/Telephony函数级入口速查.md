@@ -1,5 +1,6 @@
----
+﻿---
 quality: curated
+search_tier: main_entry
 doc_type: architecture
 domain: Platform
 layer: AP/RIL/VendorRIL/CarrierService/Modem

@@ -18,7 +18,7 @@ tags:
   - modem-assert
   - nvram
   - evidence-gap
-search_tier: case_summary
+search_tier: reference_only
 ---
 
 # WM58使用工厂工具刷机后，不识卡

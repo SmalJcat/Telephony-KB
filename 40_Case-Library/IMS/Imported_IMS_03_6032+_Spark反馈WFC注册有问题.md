@@ -11,6 +11,7 @@ cause: "VoWiFi handover 触发后 IKE 会话启动失败，配置的完整性算
 source_log: "Old Outline knowledge base; split from IMS问题案例补充.md"
 first_bad_point: "IKE_SessCheckAlgorithms unsupported integ algo:18，导致 IKE_ATTACH_FAILED"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - imported

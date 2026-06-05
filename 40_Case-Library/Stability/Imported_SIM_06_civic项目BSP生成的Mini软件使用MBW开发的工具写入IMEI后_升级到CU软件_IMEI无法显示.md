@@ -18,7 +18,7 @@ tags:
   - nvram
   - imei
   - cipher
-search_tier: case_summary
+search_tier: supplemental
 ---
 
 # civic项目BSP生成的Mini软件使用MBW开发的工具写入IMEI后，升级到CU软件，IMEI无法显示

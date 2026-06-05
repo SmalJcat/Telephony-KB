@@ -19,6 +19,7 @@ source_log:
   - 'F:\Log\流程Log\展锐飞行模式开关注册\ylog\modem\md_20260514-104312_armlog'
 first_bad_point: none
 confidence: high
+search_tier: case_summary
 status: closed
 tags:
   - registration

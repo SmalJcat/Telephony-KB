@@ -14,6 +14,7 @@ chipset: "UMS9230E"
 source_log: "CQWeb index SPCSS01575486; related NITZ config cases SPCSS01266529/SPCSS01638776"
 first_bad_point: "radio off / out of service 后 updateSpnDisplayLegacy 是否继续使用 s_nitzOperatorInfo 缓存未先确认"
 confidence: medium
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

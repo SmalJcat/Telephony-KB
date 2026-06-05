@@ -14,6 +14,7 @@ chipset: "SC9863A1"
 source_log: "CQWeb SPCSS01238438"
 first_bad_point: "NetworkMonitor PROBE_DNS 多域名 timeout；netlog 可见 DNS/TCP 流量但存在响应迟滞和重传"
 confidence: medium
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

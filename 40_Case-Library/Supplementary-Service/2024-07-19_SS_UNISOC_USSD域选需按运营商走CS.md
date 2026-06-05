@@ -1,7 +1,7 @@
 ---
 quality: curated
 doc_type: case
-domain: Call
+domain: Supplementary-Service
 rat: LTE/3G
 feature: USSD / domain selection / CSFB
 platform: UNISOC
@@ -12,9 +12,9 @@ source_log: "Imported supplementary-service notes and CQWeb xcap/USSD index"
 first_bad_point: "USSD domain selection 配置与运营商支持域不一致"
 confidence: medium
 status: summarized
+search_tier: case_summary
 tags:
   - cqweb
-  - call
   - ussd
   - supplementary-service
   - csfb

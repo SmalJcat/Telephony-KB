@@ -1,8 +1,9 @@
----
+﻿---
 doc_type: architecture
 domain: Platform
 status: active
 quality: curated
+search_tier: main_entry
 platform: MTK
 layer: AP/RIL/VendorRIL/Modem
 ---

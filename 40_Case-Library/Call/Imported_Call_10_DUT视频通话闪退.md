@@ -19,7 +19,7 @@ tags:
   - vilte
   - qci2
   - video-resolution
-search_tier: case_summary
+search_tier: reference_only
 ---
 
 # DUT视频通话闪退

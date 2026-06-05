@@ -13,6 +13,7 @@ chipset: "SC9863A"
 source_log: "CQWeb SPCSS00783213"
 first_bad_point: "sharkl3_pubcp_customer_nvitem.bin 与原始/基线 NV 工程差异过大"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

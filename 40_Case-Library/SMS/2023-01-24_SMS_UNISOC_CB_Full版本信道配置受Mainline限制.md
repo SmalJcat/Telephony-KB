@@ -13,6 +13,7 @@ chipset: "UMS9230"
 source_log: "CQWeb SPCSS01099451"
 first_bad_point: "把旧平台源码修改方案套到 full/Mainline CellBroadcastReceiver，并用 00101 白卡测试目标地区信道"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

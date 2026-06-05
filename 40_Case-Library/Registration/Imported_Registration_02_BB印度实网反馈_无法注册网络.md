@@ -17,7 +17,7 @@ tags:
   - split_from_bucket
   - attach-reject
   - illegal-me
-search_tier: case_summary
+search_tier: supplemental
 ---
 
 # BB印度实网反馈，无法注册网络

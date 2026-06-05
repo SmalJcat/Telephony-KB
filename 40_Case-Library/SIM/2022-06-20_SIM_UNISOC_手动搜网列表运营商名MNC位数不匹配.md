@@ -13,6 +13,7 @@ chipset: "SC9863A"
 source_log: "CQWeb SPCSS01007822"
 first_bad_point: "processNetworkName 拼出的 PLMN key 未命中 numeric_operator.xml"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

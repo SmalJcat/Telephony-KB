@@ -1,8 +1,9 @@
----
+﻿---
 doc_type: decision
 domain: Decision
 status: active
 quality: curated
+search_tier: archived_entry
 ---
 
 # ADR-002: 平台作为Case一等维度

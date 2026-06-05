@@ -1,7 +1,7 @@
 ---
 quality: curated
 doc_type: case
-domain: Call
+domain: Supplementary-Service
 rat: LTE/NR
 feature: Call Forwarding / XCAP / CSFB
 platform: UNISOC
@@ -15,9 +15,9 @@ source_log: "CQWeb index SPCSS01552839 and imported supplementary-service notes"
 first_bad_point: "OPERATOR_NV_IMS ims_ss_param ss_XcapAuid 被手动配置为 simserv.ngn.etsi.org"
 confidence: high
 status: summarized
+search_tier: case_summary
 tags:
   - cqweb
-  - call
   - supplementary-service
   - xcap
   - call-forwarding

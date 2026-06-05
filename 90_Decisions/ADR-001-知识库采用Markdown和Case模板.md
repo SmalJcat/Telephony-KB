@@ -1,8 +1,9 @@
----
+﻿---
 doc_type: decision
 domain: Decision
 status: active
 quality: curated
+search_tier: archived_entry
 ---
 
 # ADR-001: 知识库采用Markdown和Case模板

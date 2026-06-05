@@ -18,7 +18,7 @@ tags:
   - cs-call
   - voice-quality
   - weak-signal
-search_tier: case_summary
+search_tier: supplemental
 ---
 
 # CS通话杂音

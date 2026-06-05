@@ -18,7 +18,7 @@ tags:
   - nvram
   - sml
   - imei
-search_tier: case_summary
+search_tier: reference_only
 ---
 
 # civic项目，CU刷回Mini软件，IMEI显示unknown

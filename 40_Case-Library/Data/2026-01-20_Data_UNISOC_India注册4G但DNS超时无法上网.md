@@ -14,6 +14,7 @@ chipset: "UMS9230E"
 source_log: "CQWeb SPCSS01607450"
 first_bad_point: "NetworkMonitor PROBE_DNS 多域名 6s timeout，netlog 中 DNS query 发出后无响应"
 confidence: medium
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

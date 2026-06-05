@@ -11,6 +11,7 @@ cause: "IMS 注册、SDM 域选择、SMS over IP 白名单和 IMS profile 未形
 source_log: "internal technical case and imported SMS Outline notes"
 first_bad_point: "未同时满足 IMS 注册可用、SMS over IP allowed、SGs 不优先、IMS profile sms_support/sms_network_types 打开"
 confidence: medium
+search_tier: case_summary
 status: summarized
 tags:
   - sms

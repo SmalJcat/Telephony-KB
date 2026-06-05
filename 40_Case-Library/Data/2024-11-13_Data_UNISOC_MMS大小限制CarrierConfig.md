@@ -13,6 +13,7 @@ chipset: "UMS9230"
 source_log: "CQWeb SPCSS01427933 search summary"
 first_bad_point: "CarrierConfig 未按目标 MCC/MNC 覆盖 KEY_MMS_MAX_MESSAGE_SIZE_INT"
 confidence: high
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

@@ -1,6 +1,8 @@
----
+﻿---
 quality: template
-doc_type: case
+search_tier: reference_only
+doc_type: template
+target_doc_type: case
 domain: Template
 rat: TBD
 feature: TBD
@@ -17,7 +19,7 @@ modem_version: TBD
 source_log: TBD
 first_bad_point: TBD
 confidence: medium
-status: summarized
+status: active
 tags:
   -
 ---

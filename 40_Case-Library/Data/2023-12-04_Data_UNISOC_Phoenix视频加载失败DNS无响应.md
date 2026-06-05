@@ -14,6 +14,7 @@ chipset: "SC9863A1"
 source_log: "CQWeb SPCSS01265370"
 first_bad_point: "14:19~14:20 DNS 解析无响应，随后 CELLULAR validation failed"
 confidence: medium
+search_tier: case_summary
 status: summarized
 tags:
   - cqweb

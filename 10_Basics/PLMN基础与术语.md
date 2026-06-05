@@ -1,8 +1,9 @@
----
+﻿---
 doc_type: concept
 domain: Basics
 status: active
 quality: curated
+search_tier: supplemental
 ---
 
 # PLMN基础与术语
