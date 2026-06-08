@@ -22,7 +22,7 @@ search_tier: reference_only
 
 ## 阅读入口
 
-- 本文从 [CarrierConfig参数映射](../../CarrierConfig参数映射.md) 按 Group=APN 拆出，只作为 key、默认值和含义索引。
+- 本文从 [CarrierConfig参数映射](CarrierConfig参数映射.md) 按 Group=APN 拆出，只作为 key、默认值和含义索引。
 - 修改前必须回到目标分支 CarrierConfigManager.java、运营商 XML 匹配条件和运行时 dumpsys carrier_config 复核。
 
 ## 参数映射

@@ -9,6 +9,8 @@ $failures = New-Object System.Collections.Generic.List[string]
 $warnings = New-Object System.Collections.Generic.List[string]
 $passes = New-Object System.Collections.Generic.List[string]
 
+$readingEntryPattern = '(?m)^##\s*(速查结论|使用入口|使用方法|拆分说明|阅读入口|文档定位|定位口径|快速定位|阅读顺序|定位原则|一页摘要)\s*$'
+
 function Normalize-RelPath {
   param([string]$Path)
   return (($Path -replace '\\', '/') -replace '\.md$', '')
@@ -120,7 +122,7 @@ foreach ($file in $mdFiles) {
   if ($quality -ne 'imported_reference') { continue }
   $text = [System.IO.File]::ReadAllText($file.FullName, [System.Text.Encoding]::UTF8)
   $head = (($text -split '\r?\n') | Select-Object -First 80) -join "`n"
-  if ($head -notmatch '(?m)^##\s*(速查结论|使用入口|使用方法|拆分说明|阅读入口|文档定位|定位口径|快速定位|阅读顺序|定位原则)\s*$') {
+  if ($head -notmatch $readingEntryPattern) {
     $importedEntryMissing.Add($file.FullName.Substring($rootPath.Length + 1))
   }
 }
@@ -346,7 +348,7 @@ foreach ($file in $mdFiles) {
     $frontmatter = Get-FrontmatterLines $lines
     $quality = Get-FrontmatterValue -Frontmatter $frontmatter -Field 'quality'
     $head = (($text -split '\r?\n') | Select-Object -First 80) -join "`n"
-    if ($quality -ne 'generated' -and $head -notmatch '(?m)^##\s*(速查结论|使用入口|使用方法|拆分说明|阅读入口|文档定位|定位口径|快速定位|阅读顺序|定位原则)\s*$') {
+    if ($quality -ne 'generated' -and $head -notmatch $readingEntryPattern) {
       $failures.Add("large document missing reading entry ($lineCount lines): $relative")
     }
     $largeDocsChecked++

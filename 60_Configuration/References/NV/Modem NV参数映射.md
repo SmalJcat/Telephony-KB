@@ -18,9 +18,9 @@ source: 运营商配置参考.xlsx; 105256__4G平台Modem运营商NV参数配置
 ## 阅读入口
 
 1. 本文件很大，后续处理运营商需求时不要全文顺序读取；先用章节索引、平台名、EFS路径、NV名、字段名或 id 定位。
-2. 字段级大表已拆到 `References/NV`；不要把运营商案例写进参数映射主表。
-3. 本文件和 `References/NV` 字段表同时作为候选映射索引和默认值缓存；日常解析需求表时先用缓存初筛，缓存缺失、冲突、版本敏感或准备落地前，再结合目标分支默认值、源码上下文、生成产物和设备运行值确认。
-4. 具体写入、生成、刷机、版本和 running NV 验证看 [NV参数配置](NV参数配置.md)。
+2. 字段级大表已拆到本目录；不要把运营商案例写进参数映射主表。
+3. 本文件和同目录字段表同时作为候选映射索引和默认值缓存；日常解析需求表时先用缓存初筛，缓存缺失、冲突、版本敏感或准备落地前，再结合目标分支默认值、源码上下文、生成产物和设备运行值确认。
+4. 具体写入、生成、刷机、版本和 running NV 验证看 [NV参数配置](../../NV参数配置.md)。
 
 职责边界：
 
@@ -39,14 +39,14 @@ source: 运营商配置参考.xlsx; 105256__4G平台Modem运营商NV参数配置
 |---|---|---|
 | UNISOC Operator NV 文档 | 字段定义和分组说明 | NVTool / readback 对照 |
 | Qualcomm MCFG / NV 映射 | 字段级大表入口 | MCFG 产物和运行时 modem 行为 |
-| 拆分字段表 | `References/NV` 下的大表 | 主文档只做索引和读法，不承载全量字段 |
+| 拆分字段表 | 本目录下的大表 | 主文档只做索引和读法，不承载全量字段 |
 
 ### 使用链路
 
 ```text
 需求字段 / 历史问题关键词
 -> 本文找到 NV 分组
--> References/NV 查字段含义
+-> 同目录字段表查字段含义
 -> 回到 NV参数配置 确认写入和运行时验证
 ```
 
@@ -72,10 +72,10 @@ source: 运营商配置参考.xlsx; 105256__4G平台Modem运营商NV参数配置
 
 | 入口 | 用途 |
 |---|---|
-| [配置目录 README](README.md) | 回到配置分类和放置规则 |
-| [Case横向索引](../40_Case-Library/Case横向索引.md) | 查历史同类问题和第一坏点 |
-| [平台代码入口](../50_Platform-Code/README.md) | 查厂商代码读取位置 |
-| [常用命令](../70_Tools-Debug/Commands/常用命令.md) | 查 dumpsys、logcat 和 adb 命令 |
+| [配置目录 README](../../README.md) | 回到配置分类和放置规则 |
+| [Case横向索引](../../../40_Case-Library/Case横向索引.md) | 查历史同类问题和第一坏点 |
+| [平台代码入口](../../../50_Platform-Code/README.md) | 查厂商代码读取位置 |
+| [常用命令](../../../70_Tools-Debug/Commands/常用命令.md) | 查 dumpsys、logcat 和 adb 命令 |
 
 ### 常见失败模式
 
@@ -96,7 +96,7 @@ source: 运营商配置参考.xlsx; 105256__4G平台Modem运营商NV参数配置
 
 ## UNISOC Operator NV配置原则
 
-1. 日常解析需求表时，先用 `References/NV/*字段映射.md` 的默认值作为缓存基线，不要每个字段都重复回 `default.nv` 搜索。
+1. 日常解析需求表时，先用 `*字段映射.md` 的默认值作为缓存基线，不要每个字段都重复回 `default.nv` 搜索。
 2. 运营商 `.nv` 中只配置与默认值缓存不同的项；需求值等于默认值时不配置，避免冗余和后续维护误判。
 3. 除 `PLMN=` 这类运营商匹配入口外，待配置项必须能在字段映射表或同平台 `default.nv` 中找到同一路径；如果找不到，先标记为 `Needs study`，不要直接写入运营商 `.nv`。
 4. 缓存缺失、含义冲突、目标 modem 包版本不同、涉及私有/风险 NV 或准备给出直接可应用补丁时，再回目标 `OperatorNV/Operator_Cfg/default.nv` 复核路径和默认值。
@@ -154,7 +154,7 @@ source: 运营商配置参考.xlsx; 105256__4G平台Modem运营商NV参数配置
 |---|---|---|---|
 | UNISOC | 已沉淀 | 本文件的 UNISOC PDF 摘要、UNISOC Modem NV、UNISOC TS.32、UNISOC Default NV 章节 | 按 Operator NV / RDNV / NVTool / running NV 口径验证。 |
 | Qualcomm | 已沉淀常用 MCFG/MBN 字段级映射 | 本文件的 Qualcomm Modem NV / MCFG 字段级映射章节 | 不能套用 UNISOC 字段名；落地以 MCFG XML、MBN parse 结果、QUTS/NV Browser 字段定义和设备端运行值共同验证。 |
-| MTK | 已沉淀面向运营商需求配置的 NV 参数映射表 | `References/NV/MTK-Modem-NV字段映射.md` | 仅保留需求到 NV/LID/字段的映射；SBP/OTA/代码统计不放在映射表中。 |
+| MTK | 已沉淀面向运营商需求配置的 NV 参数映射表 | `MTK-Modem-NV字段映射.md` | 仅保留需求到 NV/LID/字段的映射；SBP/OTA/代码统计不放在映射表中。 |
 ## UNISOC代码侧学习（SPRDROID13 unisoc_bin）
 
 ### 学习范围
@@ -249,17 +249,17 @@ OPERATOR_NV_MN\mn_apn_info\apn_info_all\apn_info_all[0]\ims_APN_info\apn_name="i
 5. 涉及 fixnv、IMEI、RF 校准、工厂个体化参数时，不要用公共 base nvitem 直接覆盖现场机。
 ## 拆分说明
 
-本文件现在只作为 Modem / Operator NV 的总入口，保留配置原则、平台边界和阅读口径。字段级大表已拆到 References/NV，避免主文档变成不可阅读的大表。
+本文件现在只作为 Modem / Operator NV 的总入口，保留配置原则、平台边界和阅读口径。字段级大表已拆到本目录，避免主文档变成不可阅读的大表。
 
 ## 参数映射索引
 
 | 内容 | 入口 | 用途 |
 |---|---|---|
-| UNISOC Modem NV需求映射 | [UNISOC-Modem-NV需求映射](References/NV/UNISOC-Modem-NV需求映射.md) | 运营商需求到 Operator NV 字段的候选映射 |
-| UNISOC TS.32能力项映射 | [UNISOC-TS32能力项映射](References/NV/UNISOC-TS32能力项映射.md) | TS.32/能力项与 Operator NV 对应关系 |
-| UNISOC Default NV字段映射 | [UNISOC-Default-NV字段映射](References/NV/UNISOC-Default-NV字段映射.md) | default NV 字段、模块和默认值索引 |
-| Qualcomm MCFG字段映射 | [Qualcomm-MCFG字段映射](References/NV/Qualcomm-MCFG字段映射.md) | Qualcomm NvEfsItemData / Member 字段索引 |
-| MTK Modem NV字段映射 | [MTK-Modem-NV字段映射](References/NV/MTK-Modem-NV字段映射.md) | MTK NV 参数映射入口 |
-| MTK IMS NV字段映射 | [MTK-IMS-NV字段映射](References/NV/MTK-IMS-NV字段映射.md) | IMS/VoLTE/VoWiFi/SIP/SDP/codec/emergency 需求到 MTK NV 字段 |
-| MTK UT/XCAP NV字段映射 | [MTK-UT-XCAP-NV字段映射](References/NV/MTK-UT-XCAP-NV字段映射.md) | UT/XCAP/补充业务需求到 MTK NV 字段 |
-| MTK 网络与能力 NV字段映射 | [MTK-网络能力-NV字段映射](References/NV/MTK-网络能力-NV字段映射.md) | 网络选择、LTE能力、NAS、C2K、UMTS/RF 能力需求到 MTK NV 字段 |
+| UNISOC Modem NV需求映射 | [UNISOC-Modem-NV需求映射](UNISOC-Modem-NV需求映射.md) | 运营商需求到 Operator NV 字段的候选映射 |
+| UNISOC TS.32能力项映射 | [UNISOC-TS32能力项映射](UNISOC-TS32能力项映射.md) | TS.32/能力项与 Operator NV 对应关系 |
+| UNISOC Default NV字段映射 | [UNISOC-Default-NV字段映射](UNISOC-Default-NV字段映射.md) | default NV 字段、模块和默认值索引 |
+| Qualcomm MCFG字段映射 | [Qualcomm-MCFG字段映射](Qualcomm-MCFG字段映射.md) | Qualcomm NvEfsItemData / Member 字段索引 |
+| MTK Modem NV字段映射 | [MTK-Modem-NV字段映射](MTK-Modem-NV字段映射.md) | MTK NV 参数映射入口 |
+| MTK IMS NV字段映射 | [MTK-IMS-NV字段映射](MTK-IMS-NV字段映射.md) | IMS/VoLTE/VoWiFi/SIP/SDP/codec/emergency 需求到 MTK NV 字段 |
+| MTK UT/XCAP NV字段映射 | [MTK-UT-XCAP-NV字段映射](MTK-UT-XCAP-NV字段映射.md) | UT/XCAP/补充业务需求到 MTK NV 字段 |
+| MTK 网络与能力 NV字段映射 | [MTK-网络能力-NV字段映射](MTK-网络能力-NV字段映射.md) | 网络选择、LTE能力、NAS、C2K、UMTS/RF 能力需求到 MTK NV 字段 |

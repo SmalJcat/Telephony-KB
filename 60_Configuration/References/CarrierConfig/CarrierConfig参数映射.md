@@ -1,4 +1,4 @@
-﻿---
+---
 doc_type: config
 domain: Configuration
 status: active
@@ -13,7 +13,7 @@ source: 运营商配置参考.xlsx; CarrierConfigManager.java
 ## 阅读入口
 
 - 本文是 CarrierConfig key 的总入口，只保留配置原则、分组统计和参数索引。
-- 字段级大表已按 Group 拆到 References/CarrierConfig；查具体 key 时先用索引定位分组，再回目标平台 CarrierConfigManager.java 复核默认值和消费者。
+- 字段级大表已按 Group 拆到本目录；查具体 key 时先用索引定位分组，再回目标平台 CarrierConfigManager.java 复核默认值和消费者。
 
 
 
@@ -33,7 +33,7 @@ source: 运营商配置参考.xlsx; CarrierConfigManager.java
 ```text
 业务现象
 -> 本文定位 CarrierConfig key 分组
--> References/CarrierConfig 查字段
+-> 同目录分组表查字段
 -> 对应配置方法文档验证生效链路
 ```
 
@@ -59,10 +59,10 @@ source: 运营商配置参考.xlsx; CarrierConfigManager.java
 
 | 入口 | 用途 |
 |---|---|
-| [配置目录 README](README.md) | 回到配置分类和放置规则 |
-| [Case横向索引](../40_Case-Library/Case横向索引.md) | 查历史同类问题和第一坏点 |
-| [平台代码入口](../50_Platform-Code/README.md) | 查厂商代码读取位置 |
-| [常用命令](../70_Tools-Debug/Commands/常用命令.md) | 查 dumpsys、logcat 和 adb 命令 |
+| [配置目录 README](../../README.md) | 回到配置分类和放置规则 |
+| [Case横向索引](../../../40_Case-Library/Case横向索引.md) | 查历史同类问题和第一坏点 |
+| [平台代码入口](../../../50_Platform-Code/README.md) | 查厂商代码读取位置 |
+| [常用命令](../../../70_Tools-Debug/Commands/常用命令.md) | 查 dumpsys、logcat 和 adb 命令 |
 
 ### 常见失败模式
 
@@ -123,16 +123,16 @@ source: 运营商配置参考.xlsx; CarrierConfigManager.java
 
 | Group | 数量 | 入口 |
 |---|---:|---|
-| 5G | 7 | [References/CarrierConfig/5G.md](References/CarrierConfig/5G.md) |
-| APN | 7 | [References/CarrierConfig/APN.md](References/CarrierConfig/APN.md) |
-| Call | 50 | [References/CarrierConfig/Call.md](References/CarrierConfig/Call.md) |
-| DATA | 6 | [References/CarrierConfig/DATA.md](References/CarrierConfig/DATA.md) |
-| Dialer | 8 | [References/CarrierConfig/Dialer.md](References/CarrierConfig/Dialer.md) |
-| IMS | 30 | [References/CarrierConfig/IMS.md](References/CarrierConfig/IMS.md) |
-| MMS | 31 | [References/CarrierConfig/MMS.md](References/CarrierConfig/MMS.md) |
-| Network | 25 | [References/CarrierConfig/Network.md](References/CarrierConfig/Network.md) |
-| Other | 7 | [References/CarrierConfig/Other.md](References/CarrierConfig/Other.md) |
-| SIM | 4 | [References/CarrierConfig/SIM.md](References/CarrierConfig/SIM.md) |
-| Statusbar | 1 | [References/CarrierConfig/Statusbar.md](References/CarrierConfig/Statusbar.md) |
-| VVM | 6 | [References/CarrierConfig/VVM.md](References/CarrierConfig/VVM.md) |
-| WIFI | 1 | [References/CarrierConfig/WIFI.md](References/CarrierConfig/WIFI.md) |
+| 5G | 7 | [5G.md](5G.md) |
+| APN | 7 | [APN.md](APN.md) |
+| Call | 50 | [Call.md](Call.md) |
+| DATA | 6 | [DATA.md](DATA.md) |
+| Dialer | 8 | [Dialer.md](Dialer.md) |
+| IMS | 30 | [IMS.md](IMS.md) |
+| MMS | 31 | [MMS.md](MMS.md) |
+| Network | 25 | [Network.md](Network.md) |
+| Other | 7 | [Other.md](Other.md) |
+| SIM | 4 | [SIM.md](SIM.md) |
+| Statusbar | 1 | [Statusbar.md](Statusbar.md) |
+| VVM | 6 | [VVM.md](VVM.md) |
+| WIFI | 1 | [WIFI.md](WIFI.md) |

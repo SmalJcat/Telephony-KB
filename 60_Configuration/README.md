@@ -1,4 +1,4 @@
-﻿---
+---
 doc_type: index
 domain: Meta
 status: active
@@ -50,10 +50,10 @@ PowerShell -ExecutionPolicy Bypass -File F:\Codex\Knowledge\Telephony-KB\70_Tool
 | [[运营商需求表配置作业流]] | 从运营商需求表输出 CarrierConfig / Modem NV 配置建议的统一作业流 |
 | [配置方法模板](../99_Templates/配置方法模板.md) | 新增 APN / ECC / CarrierConfig / NV / 运营商名等配置文档时的统一骨架 |
 | [[NV参数配置]] | NV 参数配置、NVTool、展锐 NV 参数、版本、生效、回退和验证清单 |
-| [[Modem NV参数映射]] | Modem/Operator NV 字段映射总入口；字段级大表已拆到 `References/NV` |
+| [Modem NV参数映射](References/NV/Modem NV参数映射.md) | Modem/Operator NV 字段映射总入口；字段级大表已拆到 `References/NV` |
 | [APN配置方法](APN配置方法_重构.md) | APN 配置字段、MTK/UNISOC/Qualcomm 路径和生效验证 |
 | [CarrierConfig配置方法_重构](CarrierConfig配置方法_重构.md) | CarrierConfig / CarrierSettings 配置和架构资料 |
-| [[CarrierConfig参数映射]] | CarrierConfig key 总入口；字段级大表已按 Group 拆到 `References/CarrierConfig` |
+| [CarrierConfig参数映射](References/CarrierConfig/CarrierConfig参数映射.md) | CarrierConfig key 总入口；字段级大表已按 Group 拆到 `References/CarrierConfig` |
 | [UNISOC-CarrierService启动与CarrierConfig加载流程](../50_Platform-Code/UNISOC/UNISOC-CarrierService启动与CarrierConfig加载流程.md) | UNISOC `CarrierService` 绑定、`CarrierConfigLoader` 短连接加载、carrier app 长连接边界 |
 | [[IMS配置方法]] | IMS 注册、MTK SBP/DSBP/CXP、VoWiFi IKE、SIP 403 配置与证据口径 |
 | [[MTK-配置关系与生效链路]] | MTK 支持能力、feature option、CarrierConfig、IMS Config、SBP/NVRAM、APN/RAT mode 的统一检查链 |

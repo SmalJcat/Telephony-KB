@@ -1,4 +1,4 @@
-﻿---
+---
 doc_type: config
 domain: Configuration
 status: active
@@ -497,7 +497,7 @@ rg -n 'KEY_HIDE_IMS_APN_BOOL|hide_ims_apn_bool|key_oem_pref_network_mode' \
 日常默认值优先查：
 
 ```text
-60_Configuration/CarrierConfig参数映射.md
+60_Configuration/References/CarrierConfig/CarrierConfig参数映射.md
 60_Configuration/References/CarrierConfig/*.md
 ```
 
@@ -547,7 +547,7 @@ rg -n 'KEY_HIDE_IMS_APN_BOOL|hide_ims_apn_bool|key_oem_pref_network_mode' \
    - MTK 是否存在 `device/mediatek/system/common/overlay/CarrierConfig/.../vendor.xml` 资源覆盖
    - QCOM 是否启用 `TARGET_USES_RRO`，最终 `R.xml.vendor` 来自 RRO 还是传统 overlay
 4. 查 key 默认值和消费者：
-   - `CarrierConfig参数映射.md`
+   - `References/CarrierConfig/CarrierConfig参数映射.md`
    - `CarrierConfigManager.java`
    - 目标模块代码 / log
 5. 选择配置落点：
@@ -760,7 +760,7 @@ onLoadConfig
 ## 关联入口
 
 - [配置目录 README](README.md)
-- [CarrierConfig参数映射](CarrierConfig参数映射.md)
+- [CarrierConfig参数映射](References/CarrierConfig/CarrierConfig参数映射.md)
 - [UNISOC-CarrierService启动与CarrierConfig加载流程](../50_Platform-Code/UNISOC/UNISOC-CarrierService启动与CarrierConfig加载流程.md)
 - [APN配置方法](APN配置方法_重构.md)
 - [运营商需求表配置作业流](运营商需求表配置作业流.md)

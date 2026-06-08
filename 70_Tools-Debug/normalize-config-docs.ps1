@@ -129,6 +129,7 @@ function Get-ConfigHint {
 function Add-CommonTemplateSections {
   param(
     [string]$Name,
+    [string]$Path,
     [string]$Block
   )
 
@@ -137,6 +138,18 @@ function Add-CommonTemplateSections {
   }
 
   $hint = Get-ConfigHint -Name $Name
+  $configReadmeLink = 'README.md'
+  $caseIndexLink = '../40_Case-Library/Case横向索引.md'
+  $platformCodeLink = '../50_Platform-Code/README.md'
+  $toolsLink = '../70_Tools-Debug/Commands/常用命令.md'
+
+  if (-not [string]::IsNullOrWhiteSpace($Path) -and $Path -like '60_Configuration/References/*') {
+    $configReadmeLink = '../../README.md'
+    $caseIndexLink = '../../../40_Case-Library/Case横向索引.md'
+    $platformCodeLink = '../../../50_Platform-Code/README.md'
+    $toolsLink = '../../../70_Tools-Debug/Commands/常用命令.md'
+  }
+
   $extra = Join-Lines -Lines @(
     '### 平台差异',
     '',
@@ -160,10 +173,10 @@ function Add-CommonTemplateSections {
     '',
     '| 入口 | 用途 |',
     '|---|---|',
-    '| [配置目录 README](README.md) | 回到配置分类和放置规则 |',
-    '| [Case横向索引](../40_Case-Library/Case横向索引.md) | 查历史同类问题和第一坏点 |',
-    '| [平台代码入口](../50_Platform-Code/README.md) | 查厂商代码读取位置 |',
-    '| [常用命令](../70_Tools-Debug/Commands/常用命令.md) | 查 dumpsys、logcat 和 adb 命令 |'
+    "| [配置目录 README]($configReadmeLink) | 回到配置分类和放置规则 |",
+    "| [Case横向索引]($caseIndexLink) | 查历史同类问题和第一坏点 |",
+    "| [平台代码入口]($platformCodeLink) | 查厂商代码读取位置 |",
+    "| [常用命令]($toolsLink) | 查 dumpsys、logcat 和 adb 命令 |"
   )
 
   return $Block -replace '(?m)^### 常见失败模式', "$extra`n`n### 常见失败模式"
@@ -172,16 +185,21 @@ function Add-CommonTemplateSections {
 function Update-ConfigDoc {
   param(
     [string]$Name,
+    [string]$Path,
     [string]$Block
   )
 
-  $path = Join-Path $configDir $Name
+  if ([string]::IsNullOrWhiteSpace($Path)) {
+    $path = Join-Path $configDir $Name
+  } else {
+    $path = Join-Path $Root $Path
+  }
   if (-not (Test-Path -LiteralPath $path)) {
     throw "Config doc not found: $path"
   }
 
   $text = [System.IO.File]::ReadAllText($path, [System.Text.Encoding]::UTF8)
-  $Block = Add-CommonTemplateSections -Name $Name -Block $Block
+  $Block = Add-CommonTemplateSections -Name $Name -Path $Path -Block $Block
   $wrappedBlock = "`n$markerStart`n$Block`n$markerEnd`n"
 
   if ($text.Contains($markerStart)) {
@@ -281,7 +299,7 @@ $docs = @(
     ))
   },
   @{
-    Name = 'ECC配置方法.md'
+    Name = 'ECC配置方法_重构.md'
     Block = (Join-Lines -Lines @(
       '## 模板化定位',
       '',
@@ -381,6 +399,7 @@ $docs = @(
   },
   @{
     Name = 'Modem NV参数映射.md'
+    Path = '60_Configuration/References/NV/Modem NV参数映射.md'
     Block = (Join-Lines -Lines @(
       '## 模板化定位',
       '',
@@ -411,6 +430,7 @@ $docs = @(
   },
   @{
     Name = 'CarrierConfig参数映射.md'
+    Path = '60_Configuration/References/CarrierConfig/CarrierConfig参数映射.md'
     Block = (Join-Lines -Lines @(
       '## 模板化定位',
       '',
@@ -739,7 +759,7 @@ $docs = @(
 )
 
 foreach ($doc in $docs) {
-  Update-ConfigDoc -Name $doc.Name -Block $doc.Block
+  Update-ConfigDoc -Name $doc.Name -Path $doc.Path -Block $doc.Block
 }
 
 Write-Host "Configuration docs normalized: $($docs.Count)"

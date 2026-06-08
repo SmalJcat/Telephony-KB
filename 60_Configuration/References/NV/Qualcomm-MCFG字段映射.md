@@ -22,7 +22,7 @@ search_tier: reference_only
 
 ## 阅读入口
 
-- 本文从主入口 [Modem NV参数映射](../../Modem NV参数映射.md) 拆出，只作为字段定位索引。
+- 本文从主入口 [Modem NV参数映射](Modem NV参数映射.md) 拆出，只作为字段定位索引。
 - Qualcomm MCFG/MBN 中 NvEfsItemData 与 Member 字段索引。
 - 最终配置必须回到目标平台源码、默认 NV、生成产物和设备端 running NV 交叉确认。
 
